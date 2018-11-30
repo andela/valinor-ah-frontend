@@ -1,0 +1,16 @@
+{
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/*.js",
+    "mockdata/*.js"
+  ],
+  "setupFiles": [
+    "./tests/support/setupTestsConfig.js"
+  ],
+  "snapshotSerializers": [
+    "enzyme-to-json/serializer"
+  ],
+  "transform": {
+    ".*": "./node_modules/babel-jest"
+  }
+}
