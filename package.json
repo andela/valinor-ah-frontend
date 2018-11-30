@@ -4,7 +4,6 @@
   "description": "A social platform for the creative at heart",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --open",
     "test": "jest --config ./jest.config.json --updateSnapshot --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
@@ -34,14 +33,14 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.6.0",
+    "regenerator-runtime": "^0.13.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "jest": "^23.6.0",
     "node-sass": "^4.10.0",
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.6.2",
     "react-test-renderer": "^16.6.3",
-    "regenerator-runtime": "^0.13.1",
     "sass-loader": "^7.1.0",
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "^4.26.1",
@@ -51,6 +50,8 @@
   "dependencies": {
     "acorn": "^6.0.4",
     "autoprefixer": "^9.3.1",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-transform-object-rest-spread": "^7.0.0-beta.3",
     "bootstrap": "^4.1.3",
     "css-loader": "^1.0.1",
     "cssnano": "^4.1.7",
@@ -62,10 +63,16 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "popper.js": "^1.14.6",
     "precss": "^4.0.0",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "react-redux": "^5.1.1",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.7",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
     "style-loader": "^0.23.1"
   }
 }
