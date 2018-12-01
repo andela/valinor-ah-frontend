@@ -1,12 +1,9 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { shallow } from 'enzyme';
 
-import Login from '../../../../src/components/login/LoginPage';
+import LoginPage from '../../../../src/components/login/LoginPage';
 
 test('Login snapshot test', () => {
-  const component = renderer.create(<Router><Login /></Router>);
-  const tree = component.toJSON();
-  // eslint-disable-next-line no-undef
-  expect(tree).toMatchSnapshot();
+  const component = shallow(<LoginPage />);
+  expect(component).toMatchSnapshot();
 });

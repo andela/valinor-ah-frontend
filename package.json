@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack-dev-server --mode development --open",
-    "test": "jest --config ./jest.config.json --coverage",
+    "test": "jest --config ./jest.config.json --updateSnapshot --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "repository": {
