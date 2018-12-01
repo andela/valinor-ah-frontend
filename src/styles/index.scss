@@ -1,6 +1,7 @@
 $bluecolor: #b7daf72d;
-$nav_red: #ff0000;
-$nav_item_black: #3a3a3a;
+$nav-red: #ff0000;
+$nav-item-black: #3a3a3a;
+
 body {
   background: $bluecolor;
   margin: 0;
@@ -8,18 +9,17 @@ body {
 }
 
 header {
-  nav {
-    .nav-item {
-      color: $nav_item_black;
-      margin: 0 0.5em;
-      text-decoration: none;
 
-      &:hover {
-        color: $nav_red;
-      } // a:hover
-    } // a
-  } // nav
-} // div
+  nav .nav-item {
+    color: $nav-item-black;
+    margin: 0 0.5em;
+    text-decoration: none;
+  }
+
+  nav .nav-item:hover {
+    color: $nav-red;
+  }
+}
 
 h1 {
   text-align: center;

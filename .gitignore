@@ -15,3 +15,6 @@ dist
 
 # Coverage directory for coverage report
 coverage
+
+tests/__snapshots__
+tests/**/__snapshots__
