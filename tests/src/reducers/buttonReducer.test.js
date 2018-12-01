@@ -1,4 +1,4 @@
-import buttonReducer from '../buttonReducer';
+import buttonReducer from '../../../src/reducers/buttonReducer';
 
 describe('BUTTON REDUCER TEST', () => {
   test('button reducer should change the state with an on action', () => {
@@ -12,15 +12,15 @@ describe('BUTTON REDUCER TEST', () => {
         status: true
       }
     };
-    expect(
-      buttonReducer(initialState.button,
-        {
-          type: 'ON_BUTTON',
-          payload: {
-            status: true
-          }
-        })
-    )
+    expect(buttonReducer(
+      initialState.button,
+      {
+        type: 'ON_BUTTON',
+        payload: {
+          status: true
+        }
+      }
+    ))
       .toEqual(newState.button);
   });
   test(`button reducer should change the state button status to false
@@ -35,20 +35,19 @@ describe('BUTTON REDUCER TEST', () => {
         status: false
       }
     };
-    expect(
-      buttonReducer(initialState.button,
-        {
-          type: 'OFF_BUTTON',
-          payload: {
-            status: false
-          }
-        })
-    )
+    expect(buttonReducer(
+      initialState.button,
+      {
+        type: 'OFF_BUTTON',
+        payload: {
+          status: false
+        }
+      }
+    ))
       .toEqual(newState.button);
   });
 
-  test(`button reducer should change the state button status to false
-   with an off action`, () => {
+  test('state of store should not change if a fake action is fired', () => {
     const initialState = {
       button: {
         status: true
@@ -59,15 +58,15 @@ describe('BUTTON REDUCER TEST', () => {
         status: true
       }
     };
-    expect(
-      buttonReducer(initialState.button,
-        {
-          type: 'FAKE_ACTION',
-          payload: {
-            status: true
-          }
-        })
-    )
+    expect(buttonReducer(
+      initialState.button,
+      {
+        type: 'FAKE_ACTION',
+        payload: {
+          status: true
+        }
+      }
+    ))
       .toEqual(newState.button);
   });
 });

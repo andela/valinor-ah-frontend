@@ -1,7 +1,2 @@
-const ON_BUTTON = 'ON_BUTTON';
-const OFF_BUTTON = 'OFF_BUTTON';
-
-export {
-  ON_BUTTON,
-  OFF_BUTTON
-};
+export const ON_BUTTON = 'ON_BUTTON';
+export const OFF_BUTTON = 'OFF_BUTTON';

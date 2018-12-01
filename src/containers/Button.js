@@ -3,11 +3,12 @@ import Button from '../components/Button';
 
 import { toggleButtonOff, toggleButtonOn } from '../actions/buttonAction';
 
-const mapStateToProps = state => ({
+
+export const mapStateToProps = state => ({
   status: state.buttonReducer
 });
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   turnOn: () => {
     dispatch(toggleButtonOn(true));
   },
