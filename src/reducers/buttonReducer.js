@@ -1,10 +1,9 @@
-import initialState from './initialState';
-import * as types from '../actions/actionTypes';
+import initialState from '../store/initialState';
+import { ON_BUTTON, OFF_BUTTON } from '../actions/actionTypes';
 
 const { button } = initialState;
 const buttonReducer = (state = button, action) => {
   const { type } = action;
-  const { ON_BUTTON, OFF_BUTTON } = types;
   switch (type) {
     case ON_BUTTON:
       return {

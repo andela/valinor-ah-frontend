@@ -1,5 +1,4 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 /**
  * This class renders the button component based on the props passed in.
@@ -22,11 +21,11 @@ class Button extends React.Component {
    * @returns {void} - handles onlick event based on prop status
    */
   handleClick() {
-    const { status } = this.props.status;
-    if (!status) {
-      this.props.turnOn();
+    const { status, turnOff, turnOn } = this.props;
+    if (!status.status) {
+      turnOn();
     } else {
-      this.props.turnOff();
+      turnOff();
     }
   }
 
@@ -35,10 +34,15 @@ class Button extends React.Component {
    * @returns {object} - This method renders the button component
    */
   render() {
-    return (<button
-      onClick={this.handleClick}>
-      {`${this.props.status.status}`}
-    </button>
+    const { status } = this.props;
+    return (
+      <div>
+        <button
+          type="button"
+          onClick={this.handleClick}>
+          {`${status.status}`}
+        </button>
+      </div>
     );
   }
 }
@@ -46,7 +50,7 @@ class Button extends React.Component {
 Button.propTypes = {
   turnOn: PropTypes.func.isRequired,
   turnOff: PropTypes.func.isRequired,
-  status: PropTypes.object
+  status: PropTypes.object.isRequired
 };
 
 export default Button;

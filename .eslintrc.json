@@ -5,6 +5,7 @@
     "plugin:import/warnings",
     "airbnb"
   ],
+  "parser":"babel-eslint",
   "plugins": [
   "react"
   ],

@@ -1,4 +1,4 @@
-import { toggleButtonOn, toggleButtonOff } from '../buttonAction';
+import { toggleButtonOn, toggleButtonOff } from '../../../src/actions/buttonAction';
 
 describe('BUTTON ACTIONS TEST', () => {
   test('toggleButtonOn action should emit the on state with payload', () => {
