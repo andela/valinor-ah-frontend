@@ -1,10 +1,25 @@
 $bluecolor: #b7daf72d;
-
+$nav_red: #ff0000;
+$nav_item_black: #3a3a3a;
 body {
   background: $bluecolor;
   margin: 0;
   padding: 0;
 }
+
+header {
+  nav {
+    .nav-item {
+      color: $nav_item_black;
+      margin: 0 0.5em;
+      text-decoration: none;
+
+      &:hover {
+        color: $nav_red;
+      } // a:hover
+    } // a
+  } // nav
+} // div
 
 h1 {
   text-align: center;
