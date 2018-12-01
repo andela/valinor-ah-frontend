@@ -2,11 +2,11 @@ import React from 'react';
 
 import Header from '../common/Header';
 
-const Home = () => (
+const Login = () => (
   <div>
     <Header />
-    <h1>Home page here....</h1>
+    <h1>Log in page here....</h1>
   </div>
 );
 
-export default Home;
+export default Login;

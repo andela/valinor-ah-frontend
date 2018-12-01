@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login snapshot test 1`] = `
+<div>
+  <header>
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-light"
+    >
+      <a
+        className="navbar-brand logo"
+        href="/"
+      >
+        Author's Haven |
+      </a>
+      <a
+        aria-current="page"
+        className="nav-item nav-link active active"
+        href="/"
+        onClick={[Function]}
+        style={
+          Object {
+            "color": "red",
+          }
+        }
+      >
+        Home
+      </a>
+      <a
+        aria-current={null}
+        className="nav-item nav-link"
+        href="/login"
+        onClick={[Function]}
+      >
+        Login
+      </a>
+    </nav>
+  </header>
+  <h1>
+    Log in page here....
+  </h1>
+</div>
+`;
