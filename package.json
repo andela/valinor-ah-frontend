@@ -71,6 +71,7 @@
     "jquery": "^3.3.1",
     "mini-css-extract-plugin": "^0.4.5",
     "node-sass": "^4.10.0",
+    "identity-obj-proxy": "^3.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "popper.js": "^1.14.6",
     "postcss-loader": "^3.0.0",
