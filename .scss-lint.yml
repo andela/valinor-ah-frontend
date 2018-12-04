@@ -37,7 +37,8 @@ linters:
     present: true
 
   HexLength:
-    enabled: false
+    enabled: true
+    style: long
 
   HexNotation:
     enabled: true
@@ -45,6 +46,9 @@ linters:
 
   HexValidation:
     enabled: true
+  
+  IdSelector:
+   enabled: false
 
   IdSelector:
     enabled: false
