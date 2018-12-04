@@ -1,0 +1,315 @@
+%style-button {
+  border: 0;
+  font-size: 0.875em;
+  height: 3.5714em;
+}
+
+.login-form{
+  background-color: $color-secondary;
+  border-bottom-left-radius: 0.714em;
+  border-top-left-radius: 0.714em;
+  padding: 5.714em 2.5em;
+
+  h4{
+    color: $color-accent;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  h5{
+    color: $color-accent;
+    font-size: 1.125em;
+    font-weight: bold;
+    margin-top: 5.625em;
+  }
+}
+
+.login-form-border {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0.714em;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0.714em;
+}
+
+.signup{
+  background-color: $color-accent;
+  border-bottom-right-radius: 0.625em;
+  border-top-right-radius: 0.625em;
+  color: $white;
+  padding: 5em 2.5em;
+}
+
+.signup-border {
+  border-bottom-left-radius: 0.714em;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 0.714em;
+  border-top-right-radius: 0;
+}
+
+.signup-inputs {
+  margin-bottom: 1.2em;
+}
+
+.google-btn{
+  @extend %style-button;
+  background-color: $color-google;
+
+  &:hover {
+    background-color: $color-google;
+  }
+}
+
+.facebook-btn{
+  @extend %style-button;
+  background-color: $color-facebook;
+
+  &:hover {
+    background-color: $color-facebook;
+  }
+}
+
+.twitter-btn{
+  @extend %style-button;
+  background-color: $color-twitter;
+
+  &:hover {
+    background-color: $color-twitter;
+  }
+}
+
+
+.email-input {
+  @extend %input-style;
+  background-color: transparent;
+
+  &::placeholder {
+    color: $login-placeholder-color;
+  }
+
+  &:focus {
+    @extend %input-style;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+.far {
+  opacity: 0.25;
+}
+
+
+.email-addon{
+  @extend %input-style;
+  padding: 0;
+}
+
+.transparent{
+  background-color: transparent;
+}
+
+.login-btn{
+  border-radius: 1.5625em;
+  border-width: 0.0625em;
+  margin-top: 3rem;
+}
+
+.signup-btn{
+  border: 0.0625em solid $white;
+  border-radius: 1.5625em;
+  color: $white;
+
+  &:hover {
+    border-color: $white;
+  }
+}
+
+.login-banner{
+  margin-top: 7.82em;
+}
+
+.welcome-banner{
+  margin-top: 3rem;
+}
+
+.welcome-text {
+  font-size: 2.25em;
+  font-weight: bold;
+  -webkit-text-stroke: 0.03em $white;
+}
+
+
+.login-wrapper {
+  margin-top: 3rem;
+
+  h2, h5, h4{
+    font-family: 'Zilla Slab';
+  }
+
+}
+
+.account-question  {
+  font-family: 'Zilla Slab';
+  margin-top: 3em;
+}
+
+.account-question-login {
+  margin-top: 3.3em;
+}
+
+.welcome-body {
+  margin-top: 1.78em;
+}
+
+.social-button {
+  margin-top: 1.8em;
+}
+
+
+.login-form-section {
+  margin-top: 3rem;
+}
+
+#login-form {
+  margin-top: 4em;
+}
+
+.vertical-center {
+  align-items: center;
+  display: flex;
+  min-height: 85vh;
+}
+
+@media only screen and (max-width: 990px) {
+  .account-question-login {
+    margin-top: 6em;
+  }
+
+  .account-question {
+    margin-top: 5em;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .account-question {
+    margin-top: inherit;
+  }
+
+  .account-question-login {
+    margin-top: 2em;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .login-wrapper {
+    margin-top: 0;
+  }
+
+  .signup{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    opacity: 1;
+    padding: 1.875em 3.5em;
+  }
+
+  .login-form {
+    padding: 0.972em;
+  }
+
+  #login-form {
+    margin-top: 0;
+  }
+
+  .social-button {
+    margin: auto;
+    margin-top: 0.7em;
+    width: 12.63em;
+
+    button {
+      font-size: 0.7rem;
+   }
+
+  }
+
+  .login-btn {
+    border-width: 0.125em;
+    margin-top: 1em;
+    padding: 0.15em;
+  }
+
+  .login-banner {
+    margin-top: 0.5em;
+  }
+
+  .welcome-banner{
+    margin-top: 0.05em;
+  }
+
+
+  .account-question, .account-question-login {
+    font-size: 0.9em;
+    margin-top: 1em;
+  }
+
+
+  .welcome-text {
+    font-size: 1.7em;
+    font-weight: 700;
+    -webkit-text-stroke: $white;
+  }
+
+  .welcome-body {
+    font-size: 0.9em;
+    line-height: 1.6em;
+    margin-top: 1.9em;
+  }
+
+  .signup-btn {
+    border-width: 0.125em;
+    padding: 0.15em;
+  }
+
+  .login-form {
+    background-color: $white;
+
+    h4 {
+      font-size: 1.2em;
+    }
+
+    h5 {
+      font-size: 1em;
+      margin-top: 2em;
+    }
+  }
+
+  .login-form-section {
+    margin-bottom: 1em;
+    margin-top: 1em;
+    padding: 0 3em;
+  }
+
+  .email-input::placeholder {
+    font-size: 0.8em;
+  }
+
+  .email-addon {
+    img {
+      height: 1em;
+    }
+  }
+
+  .social-buttons-row {
+    padding: 0 2em;
+  }
+
+  .signup-border, .login-form-border {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .signup-inputs {
+    margin-bottom: 0.6em;
+  }
+
+}
