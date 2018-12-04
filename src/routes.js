@@ -10,8 +10,8 @@ const routes = [
   {
     path: '/login',
     component: Login,
-    exact: false
-  },
+    exact: true
+  }
 ];
 
 export default routes;
