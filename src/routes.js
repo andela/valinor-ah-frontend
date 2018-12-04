@@ -1,5 +1,6 @@
 import Home from './components/home/HomePage';
 import Login from './components/login/LoginPage';
+import AllArticles from './components/AllArticles';
 
 const routes = [
   {
@@ -11,6 +12,11 @@ const routes = [
     path: '/login',
     component: Login,
     exact: true
+  },
+  {
+    path: '/articles',
+    component: AllArticles,
+    exact: false
   }
 ];
 
