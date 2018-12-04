@@ -1,0 +1,57 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans|Zilla+Slab);
+
+@import '../../../public/assets/styles/signup';
+
+$bluecolor: #b7daf72d;
+$color-bg: #f4f1f4;
+$color-bg-light-blue:#007fff;
+$color-black: #000000;
+$color-blue: #1a1aff;
+$color-facebook: #3b5998;
+$color-twitter: #1da1f2;
+$nav-item-black: #3a3a3a;
+$nav-red: #ff0000;
+
+//color variables
+$color-bg: #f4f1f4;
+$color-bg-light-blue:#007fff;
+$color-black: #000000;
+$color-facebook: #3b5998;
+$color-google: rgba(255, 0, 0, 0.952);
+$color-input-bg: #f1f1f1;
+$color-twitter: #1da1f2;
+$color-white: #ffffff;
+
+// font variable
+$font-general: 'Open Sans', serif;
+$font-welcome: 'Zilla Slab', serif;
+
+//height variable
+$height-section: 650px;
+
+body {
+  background: $bluecolor;
+  font-family: $font-general;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+
+  nav .nav-item {
+    color: $nav-item-black;
+    margin: 0 0.5em;
+    text-decoration: none;
+  }
+
+  nav .nav-item:hover {
+    color: $nav-red;
+  }
+
+}
+
+h1 {
+  text-align: center;
+}
+

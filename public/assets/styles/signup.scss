@@ -1,0 +1,199 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans|Zilla+Slab);
+
+$bluecolor: #b7daf72d;
+$color-bg: #f4f1f4;
+$color-bg-light-blue:#007fff;
+$color-black: #000000;
+$color-blue: #1a1aff;
+$color-facebook: #3b5998;
+$color-twitter: #1da1f2;
+$nav-item-black: #3a3a3a;
+$nav-red: #ff0000;
+
+//color variables
+$color-bg: #f4f1f4;
+$color-bg-light-blue:#007fff;
+$color-black: #000000;
+$color-facebook: #3b5998;
+$color-google: rgba(255, 0, 0, 0.952);
+$color-input-bg: #f1f1f1;
+$color-twitter: #1da1f2;
+$color-white: #ffffff;
+
+// font variable
+$font-general: 'Open Sans', serif;
+$font-welcome: 'Zilla Slab', serif;
+
+//height variable
+$height-section: 650px;
+
+.section {
+    background-color: $color-bg;
+    border-radius: 10px;
+    color: $color-bg-light-blue;
+    height: $height-section;
+    margin-top: 100px;
+    text-align: center;
+  
+    #Welcome {
+      font-family: $font-welcome;
+      font-size: 35px;
+      font-weight: 900;
+    }
+  
+    .blue-section{
+      background-color: $color-bg-light-blue;
+      border-radius: 10px 0 0 10px;
+      color: $color-white;
+      height: $height-section;
+    }
+  
+    @mixin btn-rounded-basic(){
+      border-radius: 30px;
+      text-align: center;
+      width: 150px;
+    }
+  
+    .btn-rounded{
+      @include btn-rounded-basic();
+      border: 2px solid $color-white;
+      color: $color-white;
+    }
+    
+    .btn-rounded-blue{
+      @include btn-rounded-basic();
+      border: 2px solid $color-bg-light-blue;
+      color: $color-bg-light-blue;
+    }
+  
+    input[type='email'], input[type='text'] {
+      background: $color-input-bg;
+      border: 0;
+      color: $color-black;
+      display: inline-block;
+      padding: 15px;
+      width: 100%;
+    }
+    
+    input[type=text]:focus{
+      background-color: $color-bg;
+      border: 0;
+      outline: none;
+    }
+    
+    .icon {
+      background:$color-bg;
+      color: $color-black;
+      min-width: 50px;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    .input-container {
+      border-bottom: 1px solid gray;
+      display: -ms-flexbox;
+      display: flex;
+      margin-bottom: 15px;
+      width: 100%;
+    }
+  
+    .form-signup {
+      margin: auto;
+      max-width: 50%;
+    }
+  
+    .form-signup > h4 {
+      margin-bottom: 50px;
+    }
+  
+    @mixin btn-social-basic {
+      border-radius: 5px;
+      color: $color-white;
+      margin: 3px;
+      padding: 10px;
+      width: 200px;
+    }
+  
+    .btn-google {
+      @include btn-social-basic();
+      background-color: $color-google;
+    }
+  
+    .btn-facebook {
+      @include btn-social-basic();
+      background-color: $color-facebook;
+    }
+  
+    .btn-twitter {
+      @include btn-social-basic();
+      background-color: $color-twitter;
+    }
+  
+    .pale-section {
+      padding-top: 60px;
+    }
+  
+    .social-button-group {
+      margin-bottom: 120px;
+      margin-top:30px;
+    }
+    
+    .blue-section .body{
+      margin-top: 150px;
+    }
+  
+    .blue-section .header{
+      margin-top: 130px;
+    }
+  
+  }
+  
+  @media screen and (max-width: 767px) {
+    /* phones */
+    .section {
+      background-color: $color-bg;
+      color: $color-bg-light-blue;
+      height: auto;
+      margin-top: 0;
+      text-align: center;
+    }
+  
+    .section .blue-section {
+      background-color: $color-bg-light-blue;
+      border-radius: 0;
+      color: $color-white;
+      height: 21em;
+    }
+  
+    .section .blue-section .header {
+      margin-top: 1.5em;
+    }
+  
+    .pale-section h3{
+      font-size: 1em;
+    }
+  
+    .section .social-button-group {
+      margin-bottom: 0.8em;
+      margin-top: 0.8em;
+    }
+  
+    .section .form-signup > h4 {
+      font-size: 1em;
+      margin-bottom: 0;
+      margin-top: 1em;
+    }
+  
+    .section .form-signup {
+      margin: auto;
+      max-width: 80%;
+    }
+  
+    .section .blue-section .body {
+      margin-top: 50px;
+    }
+  
+    .section .pale-section {
+      padding-top: 20px;
+    }
+  }
