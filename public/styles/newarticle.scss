@@ -1,0 +1,282 @@
+@import url("https://fonts.googleapis.com/css?family=Zilla+Slab|Open+Sans");
+
+$color-primary: #007fff;
+$color-primary-light: #3A99FC;
+$color-primary-dark: #00448b;
+$color-accent: #ff722a;
+$color-background: rgb(242, 245, 251);
+$color-white: #ffffff;
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans';
+}
+
+#app {
+
+  .new-article-body {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 70%;
+
+    /* Styles for title and description inputs */
+    .input {
+      align-self: flex-start;
+      display: flex;
+      align-items: center;
+      margin-top: 0.5em;
+      width: 100%;
+
+      span {
+        font-size: 1em;
+        padding: 0.75em;
+        text-align: right; 
+        width: 150px;
+      }
+      
+      input {
+        border: 1px solid $color-background;
+        font-size: 1em;
+        padding: 0 0.4em;
+        width: 100%;
+        line-height: 2;
+      }
+    }
+
+    .input.title {
+      span,
+      input{
+        font-weight: 600;
+        font-size: 2em;
+      }
+    }
+
+    /* styles for editor */
+    .editor {
+      margin-top: 1em;
+      width: 100%;
+
+      .ck-content {
+        background: $color-background;
+        border: none;
+        height: 40em;
+        padding: 0.75em;
+      }
+    }
+
+    /* styles for category and tags*/
+    .category-tags {
+      span {
+        width: 6em;
+      }
+      .input.category {
+        div {
+          z-index: 1;
+        }
+      }
+    }
+
+    /* Styles for the tag input */
+    div.ReactTags__tags {
+        position: relative;
+    }
+    div.ReactTags__tagInput {
+        width: 12.5em;
+        border-radius: 1.25em;
+    }
+    div.ReactTags__tagInput input.ReactTags__tagInputField,
+    div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+        line-height: 2;
+        margin: 0;
+        font-size: 1em;
+        width: 12.5em;
+        border: 1px solid $color-background;
+        padding: 0 0.5em;
+    }
+
+    /* Styles for selected tags */
+    div.ReactTags__selected {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    div.ReactTags__selected span.ReactTags__tag {
+      border: 1px solid #ddd;
+      background: #eee;
+      font-size: 0.875em;
+      line-height: 0.6em;
+      width: auto;
+      margin-right: 0.6em;
+      cursor: move;
+      border-radius: 2px;
+    }
+    div.ReactTags__selected a.ReactTags__remove {
+      color: #aaa;
+      margin-left: 0.3em;
+      cursor: pointer;
+    }
+
+    /* Styles for suggestions */
+    div.ReactTags__suggestions {
+      position: absolute;
+    }
+    div.ReactTags__suggestions ul {
+      list-style-type: none;
+      box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+      background: white;
+      width: 12.5em;
+    }
+    div.ReactTags__suggestions li {
+      border-bottom: 1px solid #ddd;
+      padding: 0.3em 0.6em;
+      margin: 0;
+    }
+    div.ReactTags__suggestions li mark {
+      text-decoration: underline;
+      background: none;
+      font-weight: 600;
+    }
+    div.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
+      background: #b7cfe0;
+      cursor: pointer;
+    }
+
+    /* styles for save buttons */
+    .save-options {
+      align-self: flex-end;
+      flex-direction: row;
+      margin-right: 0;
+    }
+
+    button.secondary,
+    button.primary {
+      font-size: 1em;
+      position: relative;
+      line-height: 1.5;
+      padding: .5em 1.5em;
+      margin: 0.6em;
+      margin-right: 0;
+      border-radius: 0.25em;
+      box-shadow: 0 1px 2px 0 rgba(233, 224, 224, 0.2);
+      white-space: nowrap;
+
+      &:hover {
+        bottom: 1px;
+        box-shadow: 0 1px 2px 1px rgba(0,0,0,0.20);
+      }
+    }
+
+    .primary {
+      color: $color-white;
+      border: 0;
+      background-color: $color-primary;
+    }
+
+    .secondary {
+      background-color: $color-white;
+      border: 1px solid $color-primary;
+      color: $color-primary;
+    }
+
+  }
+
+  @media screen and (max-width: 768px) {
+
+    .new-article-body {
+      width: 92%;
+
+      /* Styles for title and description inputs */
+      .input.title,
+      .input.description {
+        span {
+          display: none;
+        }
+      }
+
+      /* styles for editor */
+      .editor {
+        margin-top: 1em;
+        width: 100%;
+
+        .ck-content {
+          background: $color-background;
+          border: none;
+          height: 40em;
+          padding: 0.75em;
+        }
+      }
+
+      /* styles for category and tags*/
+      .category-tags {
+        span {
+          font-size: 1em;
+          width: 6em;
+        }
+        .input.category {
+          div {
+            z-index: 1;
+          }
+        }
+      }
+
+      /* Styles for the tag input */
+      div.ReactTags__tagInput {
+          width: 12.5em;
+          border-radius: 1.25em;
+      }
+      div.ReactTags__tagInput input.ReactTags__tagInputField,
+      div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
+          line-height: 2;
+          margin: 0;
+          font-size: 1em;
+          width: 12.5em;
+          border: 1px solid $color-background;
+          padding: 0 0.5em;
+      }
+
+      /* Styles for selected tags */
+      div.ReactTags__selected {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      div.ReactTags__selected span.ReactTags__tag {
+        border: 1px solid #ddd;
+        background: #eee;
+        font-size: 0.875em;
+        line-height: 0.6em;
+        width: auto;
+        margin-right: 0.6em;
+        cursor: move;
+        border-radius: 2px;
+      }
+      div.ReactTags__selected a.ReactTags__remove {
+        color: #aaa;
+        margin-left: 0.3em;
+        cursor: pointer;
+      }
+
+      /* Styles for suggestions */
+      div.ReactTags__suggestions ul {
+        list-style-type: none;
+        box-shadow: .05em .01em .5em rgba(0,0,0,.2);
+        background: white;
+        width: 12.5em;
+      }
+      div.ReactTags__suggestions li {
+        padding: 0.3em 0.6em;
+        margin: 0;
+      }
+
+      /* styles for save buttons */
+      button.secondary,
+      button.primary {
+        font-size: 0.8em;
+      }
+
+    }
+  }
+}

@@ -1,9 +1,12 @@
-$bluecolor: #b7daf72d;
+@import './newarticle.scss';
+
+$color-background: #ffffff;
 $nav-red: #ff0000;
 $nav-item-black: #3a3a3a;
 
 body {
-  background: $bluecolor;
+  background: $color-background;
+  font-size: 16px;
   margin: 0;
   padding: 0;
 }
