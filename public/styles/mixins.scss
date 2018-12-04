@@ -49,3 +49,10 @@
   border-bottom: 0.0625em solid $line-color;
   border-radius: 0;
 }
+
+@mixin outer-box-shadow($v, $w, $x, $y, $z){
+  -moz-box-shadow: $v $w $x $y $z;
+  -webkit-box-shadow: $v $w $x $y $z;
+  -ms-box-shadow: $v $w $x $y $z;
+  box-shadow: $v $w $x $y $z;
+};

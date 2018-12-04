@@ -3,6 +3,7 @@ import Login from './components/login/LoginPage';
 import SignUp from './components/signup/SignUpPage';
 import ArticlePage from './components/ArticlePage';
 import AllArticlesPage from './components/allarticlespage/AllArticlesPage';
+import NewArticle from './components/NewArticle';
 
 const routes = [
   {
@@ -28,6 +29,11 @@ const routes = [
   {
     path: '/articles/category/:categoryname',
     component: AllArticlesPage,
+    exact: true
+  },
+  {
+    path: '/new-article',
+    component: NewArticle,
     exact: true
   }
 ];
