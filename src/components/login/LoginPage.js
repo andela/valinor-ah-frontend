@@ -2,11 +2,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import emailIcon from '../../../public/assets/icons/mail-icon.svg';
-import Header from '../common/Header';
 
 const LoginPage = () => (
   <div>
-    <Header />
     <div className="site-content vertical-center">
       <div className="container">
         <div className="row login-wrapper">

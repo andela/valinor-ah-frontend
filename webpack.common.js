@@ -20,8 +20,15 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        test: /\.png$/,
-        loader: 'url-loader?limit=100000'
+        test: /\.png$/i,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 8192
+            }
+          }
+        ]
       },
       {
         test: /\.jpg$/,
@@ -66,7 +73,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
-      filename: './index.html',
+      filename: 'index.html',
       inject: 'body'
     }),
     new CompressionPlugin(),
@@ -80,7 +87,7 @@ module.exports = {
     })
   ],
   resolve: {
-    extensions: ['.js', '.jsx', '.css', '.scss']
+    extensions: ['.js', '.jsx', '.css', '.scss', '.png']
   },
   optimization: {
     minimizer: [

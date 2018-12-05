@@ -1,0 +1,33 @@
+header{
+  background-color: $color-bg;
+  color: $nav-item-black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+
+  .navbar {
+    @include outer-box-shadow(0, 0, 1px, 0, $shadow);
+    text-transform: uppercase;
+
+    .navbar-brand {
+      img {
+        height: 1.8em;
+      }
+    }
+
+    .navbar-toggler {
+      background-image: none;
+      border-color: transparent;
+      font-size: 1em;
+    }
+
+    .navbar-toggler:focus {
+      font-weight: bold;
+      outline: none;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+}

@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../common/Header';
 import emailIcon from '../../../public/assets/icons/mail-icon.svg';
 import userIcon from '../../../public/assets/icons/user-icon.svg';
 
@@ -14,7 +13,6 @@ class SignUp extends React.Component {
   render() {
     return (
       <Fragment>
-        <Header />
         <div className="site-content vertical-center">
           <div className="container">
             <div className="row login-wrapper">

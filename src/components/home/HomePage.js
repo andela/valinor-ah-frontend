@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { CardList } from '../Card';
 import { formatDate } from '../../utils';
-import Header from '../common/Header';
+// import formatDate from '../../utils/dateUtils';
 import mockArticles from '../../../mockdata/articles';
 
 export const PopularPosts = (props) => {
@@ -39,7 +39,6 @@ export class HomePage extends Component {
     const { articles } = this.state;
     return (
       <Fragment>
-        <Header />
         <div className="site-content">
           <div className="site-intro">
             <h1>Authors Haven</h1>
