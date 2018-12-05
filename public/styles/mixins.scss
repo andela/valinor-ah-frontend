@@ -1,0 +1,5 @@
+@mixin outer-box-shadow($v, $w, $x, $y, $z) {
+  -moz-box-shadow: $v $w $x $y $z;
+  -webkit-box-shadow: $v $w $x $y $z;
+  box-shadow: $v $w $x $y $z;
+};

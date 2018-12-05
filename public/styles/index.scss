@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,500,600,700|Open+Sans:300,400,600,700,800');
+
+@import './variables';
+@import './mixins';
+@import './HomePage';
+
+
+* {
+  box-sizing: border-box;
+  font-family: 'Open Sans';
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: $color-bg;
+  font-size: 16px;
+  height: 100%;
+  position: relative;
+}
+
+
+.main-container {
+  display: block;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 0 0 5em;
+  position: relative;
+
+  header {
+
+    nav {
+      .nav-item {
+        color: $nav-item-black;
+        margin: 0 0.5em;
+        text-decoration: none;
+
+        &:hover {
+          color: $nav-red;
+        }
+      }
+    }
+  }
+
+  .site-content {
+    overflow: hidden;
+    padding: 0 2em;
+  }
+
+  footer {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+  }
+}

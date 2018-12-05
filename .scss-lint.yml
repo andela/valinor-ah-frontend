@@ -46,6 +46,9 @@ linters:
   HexValidation:
     enabled: true
 
+  IdSelector:
+    enabled: false
+
   IdWithExtraneousSelector:
     enabled: true
 
@@ -67,7 +70,7 @@ linters:
     convention: hyphenated_lowercase # or 'BEM', or a regex pattern
 
   NestingDepth:
-    enabled: true
+    enabled: false
     max_depth: 4
 
   SelectorDepth:
@@ -76,6 +79,9 @@ linters:
   PlaceholderInExtend:
     enabled: true
 
+  PropertyCount:
+    enabled: false
+    
   PropertySortOrder:
     enabled: true
     ignore_unspecified: false
@@ -85,8 +91,7 @@ linters:
     extra_properties: []
 
   Shorthand:
-    enabled: disabled
-    style: long
+    enabled: false
 
   SingleLinePerProperty:
     enabled: false
@@ -119,6 +124,9 @@ linters:
 
   TrailingSemicolon:
     enabled: true
+  
+  TransitionAll:
+    enabled: false
 
   UnnecessaryMantissa:
     enabled: true
@@ -127,10 +135,13 @@ linters:
     enabled: true
 
   UrlFormat:
-    enabled: true
+    enabled: false
 
   UrlQuotes:
     enabled: true
+
+  VendorPrefix:
+    enabled: false
 
   ZeroUnit:
     enabled: true
