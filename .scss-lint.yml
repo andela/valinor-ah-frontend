@@ -71,7 +71,6 @@ linters:
 
   NestingDepth:
     enabled: false
-    max_depth: 4
 
   SelectorDepth:
     enabled: false
