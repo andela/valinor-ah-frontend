@@ -1,10 +1,10 @@
-import Home from './components/home/HomePage';
+import { HomePage } from './components/home/HomePage';
 import Login from './components/login/LoginPage';
 
 const routes = [
   {
     path: '/',
-    component: Home,
+    component: HomePage,
     exact: true
   },
   {

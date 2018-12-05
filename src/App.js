@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import routes from './routes';
@@ -8,7 +8,7 @@ import NotFound from './components/404/NotFound';
 const App = () => (
   <Provider store={store}>
     <Router>
-      <div>
+      <Fragment>
         <Switch>
           {
             routes.map(route => (
@@ -22,7 +22,7 @@ const App = () => (
           }
           <Route component={NotFound} />
         </Switch>
-      </div>
+      </Fragment>
     </Router>
   </Provider>
 );
