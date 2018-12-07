@@ -16,7 +16,7 @@ linters:
     enabled: true
 
   DeclarationOrder:
-    enabled: false
+    enabled: true
 
   DuplicateProperty:
     enabled: false
@@ -81,9 +81,9 @@ linters:
 
   PropertyCount:
     enabled: false
-    
+
   PropertySortOrder:
-    enabled: false
+    enabled: true
     ignore_unspecified: false
 
   PropertySpelling:
