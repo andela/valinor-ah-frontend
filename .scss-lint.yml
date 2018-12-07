@@ -139,6 +139,9 @@ linters:
 
   UrlQuotes:
     enabled: true
+  
+  VendorPrefix:
+    enabled: false
 
   VendorPrefix:
     enabled: false
