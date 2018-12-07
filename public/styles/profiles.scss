@@ -1,0 +1,476 @@
+.clear {
+  clear: both;
+}
+
+.header-img {
+  background: url('../images/header-bg-img.jpg') no-repeat center;
+  background-attachment: fixed;
+  background-size: cover;
+  height: 25em;
+  width: 100%;
+}
+
+.bg-light-grey {
+  background-color: $profile-page-bg-color;
+}
+
+.white {
+  background-color: $color-white;
+}
+
+.user-info {
+  position: relative;
+
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .card{
+    border: 0;
+    border-radius: 0;
+
+    p{
+      margin: 0;
+    }
+  }
+
+  .user-bio {
+    .card-body {
+      padding-left: 2em;
+      padding-right: 2em;
+      padding-top: 2em;
+
+      .user-name{
+        font-size: 1.5em;
+        margin-bottom: 1em;
+      }
+
+      .bio-title {
+        font-size: 1.5em;
+      }
+
+      .about-me {
+        font-size: 0.7em;
+      }
+
+    }
+
+    .card-footer {
+      border-top: 0;
+      padding-left: 2em;
+      padding-right: 2em;
+
+      .user-email {
+        font-size: 0.8em;
+      }
+
+      .social-links {
+        img {
+          height: 2em;
+          margin-left: 1em;
+        }
+      }
+    }
+  }
+}
+
+.user-avatar-container {
+  background: $color-red;
+  border-radius: 50em;
+  height: 10em;
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translate(-50%, -50%);
+  width: 10em;
+}
+
+.user-avatar {
+  border-radius: 50em;
+  height: 10em;
+  width: 10em;
+}
+
+.author-card {
+  font-size: 0.8em;
+  margin: auto;
+  position: relative;
+
+  .card-body {
+    padding: 2em 0;
+
+    .ratings {
+      ul {
+        li {
+          color: $color-accent;
+          font-size: 0.8em;
+          margin-right: 0.6em;
+        }
+      }
+    }
+
+    .card-title {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+}
+
+.author-medal {
+  bottom: -3em;
+  height: 6em;
+  left: 6em;
+  position: absolute;
+}
+
+.settings {
+  font-size: 0.8em;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  display: inline-block;
+  height: 2.125em;
+  position: relative;
+  width: 3.750em;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  height: 0;
+  opacity: 0;
+  width: 0;
+}
+
+/* The slider */
+.slider {
+  background-color: $color-accent;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider::before {
+  background-color: $color-white;
+  bottom: 0.250em;
+  content: '';
+  height: 1.625em;
+  left: 0.154em;
+  position: absolute;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  width: 1.625em;
+}
+
+input:checked + .slider {
+  background-color: $color-bg-light-blue;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px $color-bg-light-blue;
+}
+
+input:checked + .slider::before {
+  -ms-transform: translateX(1.625em);
+  -webkit-transform: translateX(1.625em);
+  transform: translateX(1.625em);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 2.125em;
+}
+
+.slider.round::before {
+  border-radius: 50%;
+  line-height: 1em;
+}
+
+.profile-body {
+  margin-top: 2em;
+}
+
+.followers,
+.following {
+  .btn-primary {
+    font-size: 0.8em;
+  }
+}
+
+.follower-list,
+.following-list {
+  font-size: 0.8em;
+  // padding-left: 3em;
+}
+
+.follower-info {
+  margin-top: 1em;
+
+  .follower-avatar {
+    border-radius: 50em;
+    height: 4em;
+  }
+
+}
+
+.toggle {
+  line-height: 3em;
+
+  * {
+    line-height: 2em;
+  }
+
+  label{
+    margin: 0;
+  }
+}
+
+#nav-tab {
+  .nav-item {
+    border: 0;
+    border-radius: 0;
+    color: $text-grey;
+    margin-bottom: 0.2em;
+    transition: ease-in all 0.3s;
+
+    &:hover {
+      background-color: $color-accent;
+      border: 0;
+      border-radius: 0;
+      color: $color-white;
+    }
+
+    &.active {
+      border: 0;
+      border-radius: 0;
+      color: $text-black;
+      font-weight: bold;
+      margin-bottom: 0.2em;
+
+      &:hover {
+        color: $color-white;
+      }
+    }
+  }
+
+  .nav-item.profile-search {
+    img {
+      cursor: pointer;
+      height: 1.6em;
+      margin-bottom: 0.2em;
+    }
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      border: 0;
+      margin-bottom: 0.2em;
+    }
+  }
+}
+
+.user-article-heading {
+  color: $text-black;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-left: 2em;
+}
+
+.article-info {
+  font-size: 1em;
+
+  .article-title {
+    color: $nav-item-black;
+    font-weight: bold;
+  }
+
+  .article-desc {
+    color: $text-grey;
+  }
+
+  .btn-primary {
+    font-size: 0.6em;
+  }
+}
+
+.article-buttons {
+  line-height: 3em;
+
+  .ratings {
+    ul {
+      margin-bottom: 0;
+
+      li {
+        color: $color-accent;
+        font-size: 1.2em;
+        margin-right: 0.5em;
+      }
+    }
+  }
+
+  .controls {
+    margin-right: 2em;
+
+    .img-fluid {
+      margin-right: 1em;
+      width: 1.5em;
+    }
+  }
+}
+
+.article-image {
+  @include outer-box-shadow(0, 0, 3px, 0, $shadow-comment-box);
+  border-radius: 1em;
+  margin: 0 auto;
+  // max-height: 20em;
+}
+
+.profile-search-form {
+  font-size: 3em;
+  margin: 0 auto;
+  padding: 1em 0;
+  width: 60%;
+}
+
+@media (max-width: 576px) {
+  .user-info {
+    .user-bio {
+      .card-body {
+        font-size: 1em;
+        padding-left: 1em;
+        padding-right: 1em;
+        padding-top: 1em;
+
+        .bio-title {
+          font-size: 1em;
+        }
+      }
+
+      .card-footer {
+        padding: 1em;
+      }
+
+    }
+  }
+
+  .about-me {
+    font-size: 0.6em;
+  }
+
+  #nav-tab {
+    font-size: 0.8em;
+
+    .nav-link {
+      padding: 0.5em;
+    }
+  }
+
+  .tab-content {
+    font-size: 0.8em;
+  }
+
+  .btn-primary {
+    font-size: 0.6em;
+  }
+
+  .article-buttons {
+    .controls {
+      margin-right: 0;
+    }
+  }
+
+  .profile-search-form {
+    padding: 0.6em 0;
+    width: 80%;
+  }
+ }
+
+@media (max-width: 768px) {
+  .article-image {
+    margin-bottom: 2em;
+  }
+
+  .user-info {
+    .user-bio {
+      .card-body {
+        .user-name{
+          font-size: 1em;
+          margin-bottom: 0.5em;
+        }
+
+        .bio-title {
+          font-size: 1em;
+        }
+      }
+
+      .card-footer {
+        padding: 1em;
+      }
+
+    }
+  }
+
+  .user-avatar {
+    height: 5em;
+    width: 5em;
+  }
+
+  .user-avatar-container {
+    background: $color-red;
+    border-radius: 50em;
+    height: 5em;
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: translate(-50%, -50%);
+    width: 5em;
+  }
+
+  .header-img {
+    height: 10em;
+  }
+
+  .user-article-heading {
+    font-size: 1.5em;
+    margin-left: 1em;
+  }
+
+  .article-info {
+    .article-title {
+      font-size: 1em;
+    }
+  }
+
+  .profile-body {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1024px) {
+  .author-card {
+    .card-body {
+      padding: 3em 0;
+
+      .ratings {
+        font-size: 0.6em;
+      }
+    }
+  }
+
+  .user-article-heading {
+    margin-left: 1em;
+  }
+
+  .author-medal {
+    bottom: -3em;
+    height: 8em;
+    left: 8em;
+    position: absolute;
+  }
+}

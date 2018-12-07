@@ -6,6 +6,7 @@ import AllArticlesPage from './components/allarticlespage/AllArticlesPage';
 import NewArticle from './components/NewArticle';
 import SearchPage from './components/SearchPage/SearchPage';
 import WelcomePage from './components/welcome/WelcomePage';
+import Profile from './components/profile/ProfilePage';
 
 const routes = [
   {
@@ -41,6 +42,10 @@ const routes = [
   {
     path: '/search',
     component: SearchPage,
+  },
+  {
+    path: '/profile',
+    component: Profile,
     exact: true
   },
   {
