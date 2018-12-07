@@ -1,5 +1,50 @@
-@mixin outer-box-shadow($v, $w, $x, $y, $z) {
+@mixin btn-rounded-basic {
+  border-radius: 1.875em;
+  text-align: center;
+  width: 9em;
+}
+
+@mixin btn-social-basic {
+  border-radius: 0.3em;
+  color: $text-white;
+  margin: 0.2em;
+  padding: 0.7em;
+  width: 12.5em;
+  border: 0;
+}
+
+@mixin outer-box-shadow($v, $w, $x, $y, $z){
   -moz-box-shadow: $v $w $x $y $z;
   -webkit-box-shadow: $v $w $x $y $z;
   box-shadow: $v $w $x $y $z;
 };
+
+@mixin placeholder($color){
+
+  &::-webkit-input-placeholder{
+    color: $color;
+  }
+
+  &::-moz-placeholder{
+    color: $color;
+  }
+
+  &:-ms-input-placeholder{
+    color: $color;
+  }
+
+  &::-moz-placeholder{
+    color: $color;
+  }
+
+  &::placeholder{
+    color: $color;
+  }
+
+}
+
+%input-style {
+  border: 0;
+  border-bottom: 0.0625em solid $line-color;
+  border-radius: 0;
+}

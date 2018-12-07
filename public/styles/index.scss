@@ -3,6 +3,7 @@
 @import './variables';
 @import './mixins';
 @import './HomePage';
+@import './signup';
 
 
 * {
@@ -53,4 +54,14 @@ body {
     position: absolute;
     width: 100%;
   }
+}
+
+@media screen and (max-width: 850px) {
+  /* phones */
+  .main-container .site-content {
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+  }
+
 }

@@ -2,6 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
-import '../public/assets/styles/index.scss';
+import '../public/styles/index.scss';
 
 render(<App />, document.getElementById('app'));
