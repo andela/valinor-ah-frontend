@@ -1,4 +1,4 @@
-const formatDate = (date) => {
+export const formatDate = (date) => {
   const day = date.slice(8, 10);
   const monthNumber = date.slice(5, 7);
   let month;
@@ -14,4 +14,4 @@ const formatDate = (date) => {
   return newDate;
 };
 
-export default formatDate;
+export const formatReadTime = timeInMs => (`${Math.round(timeInMs / 60000)} min read`);

@@ -4,6 +4,7 @@
 @import './mixins';
 @import './HomePage';
 @import './signup';
+@import './articlepage';
 
 
 * {
@@ -46,7 +47,6 @@ body {
 
   .site-content {
     overflow: hidden;
-    padding: 0 2em;
   }
 
   footer {

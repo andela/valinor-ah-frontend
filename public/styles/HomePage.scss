@@ -21,6 +21,7 @@
     .main {
       #primary {
         float: left;
+        padding: 0 2em;
         width: 78%;
 
         .home-articles-cont {
@@ -289,7 +290,8 @@
       padding: 0;
 
       .site-intro {
-        margin: 2em 0 1em;
+        margin: 7em 0 1em;
+        padding: 0 1em;
 
         h1 {
           font-size: 2em;
@@ -303,6 +305,7 @@
       .main {
         #primary {
           display: block;
+          padding: 0 1em;
           width: 100%;
 
           .home-articles-cont {

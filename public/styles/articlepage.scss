@@ -1,0 +1,529 @@
+.report-modal {
+  background-color: $color-bg-modal;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: 0.2s;
+  width: 0%;
+  z-index: 1;
+
+  .modal-close-btn {
+    align-self: flex-end;
+    background: 0;
+    border: 0;
+    color: $text-grey;
+    cursor: pointer;
+    font-size: 3em;
+    font-weight: 300;
+    line-height: 0.7;
+    margin: 0.7em;
+    outline: 0;
+    transition: 0.3s;
+  }
+
+  .report-form {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+
+    h1 {
+      align-self: center;
+      font-family: 'Zilla Slab', serif;
+      font-size: 2.2em;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .select-list {
+
+      .select {
+        height: 2.4em;
+        max-width: 15em;
+      }
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      margin: 0 0 1em;
+
+      span {
+        font-size: 1.1em;
+        font-weight: 500;
+        text-transform: capitalize;
+      }
+
+      select,
+      textarea {
+        @include placeholder($text-grey);
+        border: solid 1px $color-border;
+        border-radius: 0.125em;
+        font-family: "Zilla Slab", serif;
+        font-size: 1em;
+        font-weight: 500;
+        height: 20em;
+        margin-top: 0.5em;
+        padding: 0.5em 0.8em;
+        resize: none;
+      }
+    }
+
+    .report-save-options {
+      align-self: flex-end;
+    }
+
+    .btn-cancel-report,
+    .btn-submit-report {
+      border-radius: 0.2em;
+      cursor: pointer;
+      font-size: 0.9em;
+      line-height: 1.1;
+      margin: 0.2em 0 0 0.7em;
+      outline: 0;
+      padding: 0.6em 1.5em;
+      position: relative;
+      white-space: nowrap;
+
+      &:hover {
+        bottom: 1px;
+      }
+
+      &:active {
+        bottom: 0;
+      }
+    }
+
+    .btn-cancel-report {
+      background: $color-white;
+      border: 1px solid $color-accent;
+      color: $color-accent;
+    }
+
+    .btn-submit-report {
+      @include outer-box-shadow(0, 1px, 2px, 0, $shadow-comment-box);
+      background: $color-accent;
+      border: 0;
+      color: $text-white;
+    }
+  }
+}
+
+.article-image-container {
+  align-items: center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  height: 24em;
+  justify-content: center;
+  overflow: hidden;
+
+  #back-btn,
+  #bookmark-btn-first {
+    display: none;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.article-content {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: -8.75em;
+  width: 60%;
+
+  /* article title and category styling */
+  #article-category,
+  #article-title {
+    color: $text-white;
+    font-family: "Zilla Slab", serif;
+  }
+
+  #article-category {
+    font-size: 1.6em;
+    font-weight: 700;
+  }
+
+  #article-title {
+    font-size: 3.13em;
+    font-weight: 700;
+    margin-bottom: 1em;
+    white-space: nowrap;
+  }
+
+  /* author container styling */
+  .author-container img {
+    border: solid 1px $color-border;
+    border-radius: 50%;
+    height: 3.13em;
+    vertical-align: middle;
+    width: 3.13em;
+  }
+
+  .author-container {
+    cursor: pointer;
+    display: flex;
+    width: max-content;
+
+    div {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.5em;
+
+      #author-name {
+        color: $text-black;
+        font-size: 1.13em;
+        font-weight: 600;
+        margin: 0 0.4em 0.3em;
+      }
+
+      div {
+        color: $text-grey;
+        flex-direction: row;
+
+        #author-date,
+        #read-time {
+          font-size: 0.88em;
+          font-weight: 600;
+          margin: 0 0.6em 0 0.4em;
+        }
+
+      }
+
+    }
+
+  }
+
+  /* article body styling */
+  .article-body p {
+    font-size: 1.13em;
+    font-weight: 500;
+    line-height: 220%;
+    text-align: justify;
+  }
+
+  /* article options styling */
+  .article-options {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: fixed;
+    right: 10%;
+    top: 55%;
+
+    button {
+      background: inherit;
+      border: 0;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    i {
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: $color-accent;
+      cursor: pointer;
+      margin: 0 0 16px;
+      position: relative;
+
+      &:hover {
+        bottom: 1px;
+      }
+
+      &:active {
+        top: 1px;
+      }
+    }
+
+    #twitter-icon ,
+    #facebook-icon ,
+    #goolge-icon {
+      height: 2.3em;
+      width: 2.3em;
+    }
+
+    #twitter-icon {
+      background-image: url('../assets/icons/twitter-logo.png');
+    }
+
+    #facebook-icon {
+      background-image: url('../assets/icons/facebook-logo.png');
+    }
+
+    #goolge-icon {
+      background-image: url('../assets/icons/google-logo.png');
+    }
+
+    .article-share-options {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-like-options {
+      display: flex;
+      flex-direction: column;
+
+      .report-article-btn {
+
+        i {
+          color: $color-red;
+        }
+      }
+    }
+
+  }
+
+  /* comments styling */
+  .comment-content {
+    span {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 1em;
+    }
+
+    input {
+      border: 0;
+      margin-left: 1em;
+      padding: 0.5em;
+      width: 100%;
+    }
+
+    .new-comment {
+      @include outer-box-shadow(0, 0, 3px, 0, $shadow-comment-box);
+      border: solid 1px $color-border;
+      display: flex;
+      padding: 0.6em 1em;
+    }
+
+    .comment-box {
+      @include outer-box-shadow(0, 0, 2px, 0, $shadow-comment-box);
+      background: $color-secondary;
+      border: solid 1px $color-border;
+      display: flex;
+      flex-direction: column;
+      margin: 1em 0;
+
+      .author-container{
+        padding: 1em 1em 0;
+        width: max-content;
+      }
+
+      p {
+        color: $text-alternate;
+        font-size: 1em;
+        font-weight: 600;
+        line-height: 180%;
+        margin: 0 1em;
+        padding: 0 0.5em;
+      }
+
+      .options-container {
+        align-self: flex-end;
+        font-size: 1.7em;
+        margin: 1em;
+
+        button {
+          background: inherit;
+          border: 0;
+
+          &:focus {
+            outline: 0;
+          }
+        }
+
+        i {
+          background: inherit;
+          color: $color-accent;
+          cursor: pointer;
+          padding: 0 0.4em;
+          position: relative;
+
+          &:hover {
+            bottom: 1px;
+          }
+
+          &:active {
+            top: 1px;
+          }
+        }
+      }
+
+      .options-menu {
+        display: none;
+        font-size: 0.6em;
+        margin-left: 3em;
+        position: absolute;
+
+        ul {
+          @include outer-box-shadow(0, 0, 3px, 0, $shadow-comment-box);
+          background-color: $color-bg;
+          border-radius: 0.1em;
+          color: $text-black;
+          list-style: none;
+          min-width: 7em;
+
+
+          li {
+            border-bottom: 0.5px solid $color-border;
+            cursor: pointer;
+            padding: 0.5em 0.8em;
+
+            &:last-child {
+              border-bottom: 0;
+            }
+
+            &:hover {
+              background: $color-accent;
+              color: $text-white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}
+
+@media screen and (max-width: 768px) {
+  .report-modal {
+
+    .report-form {
+      width: 85%;
+
+      h1 {
+        font-size: 2em;
+      }
+    }
+  }
+
+  .article-image-container {
+    height: 12em;
+
+    #back-btn,
+    #bookmark-btn-first {
+      background: transparent;
+      border: 0;
+      display: block;
+      outline: none;
+      position: absolute;
+    }
+
+    #back-btn{
+      background-image: url('../assets/icons/back-btn.png');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: 2.5em 2.5em;
+      height: 2.5em;
+      left: 0.8em;
+      text-shadow: 0.1em 0.1em 3 $color-bg;
+      top: 3.6em;
+      width: 2.5em;
+    }
+
+    #bookmark-btn-first {
+      color: $color-primary;
+      right: 0.8em;
+      top: 11.5em;
+    }
+  }
+
+  .article-content {
+    margin-top: -2em;
+    width: 92%;
+
+    #article-category {
+      font-size: 1.2em;
+    }
+
+    #article-title {
+      background: $color-accent;
+      font-size: 1.5em;
+      margin-left: -5%;
+      padding-left: 5%;
+      white-space: normal;
+      width: 110%;
+    }
+
+    .author-container {
+
+      div {
+        margin-bottom: 0.5em;
+
+        #author-name {
+          font-weight: 600;
+        }
+
+      }
+
+    }
+
+    /* article options styling */
+    .article-options {
+      flex-direction: row;
+      font-size: 1em;
+      justify-content: space-between;
+      position: static;
+
+      i {
+        margin-right: 0.3em;
+      }
+
+      #twitter-icon ,
+      #facebook-icon ,
+      #goolge-icon {
+        height: 2em;
+        width: 2em;
+      }
+
+      .article-share-options {
+        flex-direction: row;
+      }
+
+      .article-like-options {
+        flex-direction: row;
+
+        .report-article-btn {
+
+          i{
+            margin-right: 0;
+          }
+        }
+      }
+
+    }
+
+  }
+
+  .article-content {
+
+    .comment-content {
+
+      .comment-box {
+
+        .options-menu {
+
+          ul {
+            min-width: 6.5em;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

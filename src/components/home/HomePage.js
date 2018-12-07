@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { CardList } from '../Card';
-import formatDate from '../../utils/dateUtils';
+import { formatDate } from '../../utils';
 import Header from '../common/Header';
 import mockArticles from '../../../mockdata/articles';
 
@@ -18,7 +18,7 @@ export const PopularPosts = (props) => {
         <li>
           { article.slice(0, 6).map((currentArticle, index) => (
             <div className="pop-post" key={`post${String(index)}`}>
-              <p><NavLink to="/login">{currentArticle.title}</NavLink></p>
+              <p><NavLink to="/articles/1">{currentArticle.title}</NavLink></p>
               <span>
                 {`${currentArticle.author.fullName} in ${currentArticle.category} on ${formatDate(currentArticle.createdAt)}`}
               </span>

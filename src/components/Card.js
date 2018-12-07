@@ -30,7 +30,7 @@ export const CardList = (props) => {
   if (className === 'home-articles-cont') {
     button = (
       <div className="read-more-btn">
-        <NavLink to="/login" className="category-link">
+        <NavLink to={`/articles/category/${title}`} className="category-link">
           <h1>
             <span className="title">view more </span>
             <i className="fas fa-long-arrow-alt-right" />
@@ -43,7 +43,7 @@ export const CardList = (props) => {
     <div className={className}>
 
       <h1 className="article-title">{title}</h1>
-      <NavLink to="/login">
+      <NavLink to="/articles/1">
         {
           article
             .map((currentArticle, index) => (

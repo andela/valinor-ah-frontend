@@ -44,6 +44,13 @@
       "no-underscore-dangle": 0,
       "no-alert": 0,
       "no-lone-blocks": 0,
+      "jsx-a11y/label-has-associated-control": [ 2, {
+        "labelComponents": [],
+        "labelAttributes": [],
+        "controlComponents": [],
+        "depth": 3
+      }],
+      "jsx-a11y/label-has-for": 0,
       "jsx-quotes": 1,
       "react/display-name": [1, { "ignoreTranspilerName": false }],
       "react/forbid-prop-types": [1, { "forbid": ["any"] }],
@@ -53,7 +60,13 @@
       "react/jsx-indent-props": 0,
       "react/jsx-key": 1,
       "react/jsx-max-props-per-line": 0,
-      "react/jsx-no-bind": 1,
+      "react/jsx-no-bind": [ 1, {
+        "ignoreDOMComponents": false,
+        "ignoreRefs": false,
+        "allowArrowFunctions": false,
+        "allowFunctions": false,
+        "allowBind": true
+      }],
       "react/jsx-no-duplicate-props": 1,
       "react/jsx-no-literals": 0,
       "react/jsx-no-undef": 1,
