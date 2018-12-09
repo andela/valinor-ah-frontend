@@ -1,5 +1,7 @@
 export default {
-  button: {
-    status: false,
+  global: {
+    isLoading: false,
+    isLoggedIn: false,
+    errors: []
   }
 };

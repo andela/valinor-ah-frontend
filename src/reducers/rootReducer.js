@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import buttonReducer from './buttonReducer';
+import globalReducer from './globalReducer';
 
 const rootReducer = combineReducers({
-  buttonReducer
+  global: globalReducer
 });
 
 export default rootReducer;

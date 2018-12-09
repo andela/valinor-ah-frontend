@@ -1,0 +1,18 @@
+.spinner-overlay {
+  background-color: $spinner-overlay;
+  color: $color-accent;
+  font-size: 1.3em;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 999999999999;
+
+  .fas {
+    -webkit-animation: fa-spin 1s infinite linear;
+    animation: fa-spin 1s infinite linear;
+    position: relative;
+    top: 45%;
+  }
+}

@@ -1,9 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { NavBar } from '../../../../../src/components/common/header/NavBar';
 
-import NavBar from '../../../../../src/components/common/header/NavBar';
+const setup = (status) => {
+  const props = {
+    status: {
+      isLoggedIn: status
+    }
+  };
 
+  const wrapper = shallow(<NavBar {...props} />);
+  return {
+    props,
+    wrapper
+  };
+};
 test('NavBar snapshot test', () => {
-  const component = shallow(<NavBar />);
-  expect(component).toMatchSnapshot();
+  expect(setup(false)).toMatchSnapshot();
 });

@@ -1,6 +1,6 @@
 import HomePage from './components/home/HomePage';
-import Login from './components/login/LoginPage';
 import SignUp from './components/signup/SignUpPage';
+import LoginPage from './components/login/LoginPage';
 import ArticlePage from './components/ArticlePage';
 import AllArticlesPage from './components/allarticlespage/AllArticlesPage';
 import NewArticle from './components/NewArticle';
@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: '/login',
-    component: Login,
+    component: LoginPage,
     exact: true
   },
   {

@@ -28,7 +28,7 @@ const UserSettings = (props) => {
           </div>
         </li>
         <li className="nav-item no-margin">
-          <a className="nav-link" href="/">
+          <a href="/login" className="nav-link">
             <span className="d-inline d-sm-inline d-md-inline d-lg-none">
               <img className="nav-img" src={loginMobile} alt="login" />
             </span>
@@ -38,7 +38,7 @@ const UserSettings = (props) => {
           </a>
         </li>
         <li className="nav-item no-margin">
-          <a className="nav-link" href="/">
+          <a className="nav-link" href="/signup">
             <span className="d-inline d-sm-inline d-md-inline d-lg-none">
               <img className="nav-img" src={signup} alt="signup" />
             </span>

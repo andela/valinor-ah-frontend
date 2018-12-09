@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import more from '../../../../public/images/more.png';
 import mockCategories from '../../../../mockdata/categories';
 import NavItems from './NavItems';
 import UserSettings from './UserSettings';
 
-class NavBar extends Component {
-  state = {
-    categories: mockCategories
-  };
+export class NavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: mockCategories,
+    };
+  }
 
   render() {
+    const { status } = this.props;
     const { categories } = this.state;
     return (
       <div className="navbar-collapse offcanvas-collapse" id="navbarSupportedContent">
@@ -28,10 +34,18 @@ class NavBar extends Component {
             </a>
           </li>
         </ul>
-        <UserSettings isLoggedIn={false} />
+        <UserSettings isLoggedIn={status.isLoggedIn} />
       </div>
     );
   }
 }
 
-export default NavBar;
+NavBar.propTypes = {
+  status: PropTypes.object.isRequired
+};
+
+export const mapStateToProps = state => ({
+  status: state.global
+});
+
+export default connect(mapStateToProps)(NavBar);

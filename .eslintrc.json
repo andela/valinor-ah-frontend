@@ -42,6 +42,7 @@
       "eol-last": 2,
       "no-unused-vars": 2,
       "no-underscore-dangle": 0,
+      "import/no-named-as-default":0,
       "no-alert": 0,
       "no-lone-blocks": 0,
       "jsx-a11y/label-has-associated-control": [ 2, {

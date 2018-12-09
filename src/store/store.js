@@ -1,5 +1,5 @@
+import { persistStore } from 'redux-persist';
 import configureStore from './configureStore';
 
-const store = configureStore();
-
-export default store;
+export const store = configureStore();
+export const persistor = persistStore(store);

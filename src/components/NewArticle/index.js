@@ -1,17 +1,139 @@
 import React from 'react';
 import Downshift from 'downshift';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import PropTypes from 'prop-types';
+
+import ReactQuill from 'react-quill';
 
 import { WithContext as ReactTags } from 'react-tag-input';
+import { sampleCategoryOptions, sampleTagOptions } from '../../../mockdata/samplebody';
 
 const KeyCodes = {
   comma: 188,
   enter: 13,
   semicolon: 186
 };
-const delimiters = [KeyCodes.comma, KeyCodes.enter, KeyCodes.semicolon];
+const delimiters = Object.values(KeyCodes);
 
+export const getSuggestions = (input, options) => (
+  options.filter(categoryItem => !input || categoryItem.value.toLowerCase()
+    .includes(input.toLowerCase()))
+);
+
+/**
+ * Category dropdown component
+ * @param {object} props
+ */
+export const CategoryDropdown = (props) => {
+  const { category, onCategoryChange, categoryOptions } = props;
+  return (
+    <Downshift
+      selectedItem={category}
+      onStateChange={onCategoryChange}
+      >
+      {({
+        getInputProps,
+        getItemProps,
+        getLabelProps,
+        getMenuProps,
+        getToggleButtonProps,
+        isOpen,
+        inputValue,
+        highlightedIndex,
+        selectedItem,
+        clearSelection
+      }) => (
+        <div>
+          <label {...getLabelProps()}>
+            <span>Category</span>
+            <div id="downshift-0-input-and-control">
+              <input
+                {...getInputProps({
+                  placeholder: 'Add Category here'
+                })} />
+              {selectedItem ? (<button type="button" onClick={clearSelection}><i className="fas fa-times" /></button>)
+                : (<button type="button" {...getToggleButtonProps()}><i className="fas fa-caret-down" /></button>)}
+            </div>
+          </label>
+          <div className="category-menu-container">
+            <div
+              className="category-menu"
+              {...getMenuProps()}>
+              {isOpen
+                ? getSuggestions(inputValue, categoryOptions)
+                  .map((categoryItem, index) => (
+                    <div
+                      key={categoryItem.id}
+                      {...getItemProps({
+                        index,
+                        item: categoryItem.value,
+                        className: highlightedIndex === index ? 'category-menu-item highlighted' : 'category-menu-item'
+                      })}>
+                      {categoryItem.value}
+                    </div>
+                  ))
+                : null}
+            </div>
+          </div>
+        </div>
+      )}
+    </Downshift>
+  );
+};
+
+
+/**
+ * Rich Text Editor component
+ * @param {object} props - contains body and changeHandler
+ */
+export const TextEditor = (props) => {
+  const { body, onEditorChange } = props;
+  const quillModules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, false] }],
+      [{ size: [] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ color: [] }, { background: [] }],
+      [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+      ['link', 'image', 'video'],
+      ['clean']
+    ],
+    clipboard: {
+      // toggle to add extra line breaks when pasting HTML
+      matchVisual: false,
+    }
+  };
+
+  const quillFormats = [
+    'header',
+    'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'color', 'background',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video',
+  ];
+
+  return (
+    <ReactQuill
+      theme="snow"
+      onChange={onEditorChange}
+      value={body}
+      modules={quillModules}
+      formats={quillFormats}
+      bounds=".editor-cell"
+      placeholder="Add your article here"
+    />
+  );
+};
+
+TextEditor.propTypes = {
+  body: PropTypes.string.isRequired,
+  onEditorChange: PropTypes.func.isRequired
+};
+
+
+/**
+ * Article page component
+ */
 class NewArticle extends React.Component {
   constructor(props) {
     super(props);
@@ -21,29 +143,9 @@ class NewArticle extends React.Component {
       description: '',
       body: '',
       category: '',
-      categoryOptions: [
-        { id: '1', value: 'Football' },
-        { id: '2', value: 'Gaming' },
-        { id: '3', value: 'Programming' },
-        { id: '1', value: 'Andela' },
-        { id: '2', value: 'Bootcamp' },
-        { id: '3', value: 'Cohort-41' },
-        { id: '4', value: 'Learning' },
-        { id: '5', value: 'Gaming' },
-        { id: '6', value: 'Food' }
-      ],
+      categoryOptions: sampleCategoryOptions,
       tags: [],
-      tagOptions: [
-        { id: '3', text: 'Andela' },
-        { id: '4', text: 'Bootcamp' },
-        { id: '5', text: 'Cohort-41' },
-        { id: '6', text: 'Learning' },
-        { id: '7', text: 'Gaming' },
-        { id: '8', text: 'Food' },
-        { id: '9', text: 'Andelino' },
-        { id: '10', text: 'Andrela' },
-        { id: '11', text: 'Andrebaa' },
-      ]
+      tagOptions: sampleTagOptions
     };
 
     // input handler
@@ -67,9 +169,9 @@ class NewArticle extends React.Component {
     });
   }
 
-  handleEditorChange = (event, editor) => {
+  handleEditorChange = (html) => {
     this.setState({
-      body: editor.getData()
+      body: html
     });
   }
 
@@ -85,11 +187,6 @@ class NewArticle extends React.Component {
       });
     }
   }
-
-  getSuggestions = (input, options) => (
-    options.filter(categoryItem => !input || categoryItem.value.toLowerCase()
-      .includes(input.toLowerCase()))
-  )
 
   handleDelete(i) {
     const { tags } = this.state;
@@ -124,11 +221,6 @@ class NewArticle extends React.Component {
 
     return (
       <div className="site-content">
-        <div>
-          Header here
-          <br />
-          Header here
-        </div>
         <form className="edit-article-container">
           <h3>Add a new article</h3>
           <div className="title-cell">
@@ -137,6 +229,7 @@ class NewArticle extends React.Component {
               <input
                 id="title"
                 name="title"
+                className="title-input"
                 onChange={this.handleChange}
                 value={title} placeholder="Title"
                 type="text"
@@ -156,75 +249,20 @@ class NewArticle extends React.Component {
             </label>
           </div>
 
-
           <div className="editor-cell">
-            <CKEditor
-              editor={ClassicEditor}
-              data={body}
-              onChange={this.handleEditorChange} />
+            <TextEditor body={body} onEditorChange={this.handleEditorChange} />
           </div>
-
 
           <div className="categories-cell">
-            <Downshift
-              selectedItem={category}
-              onStateChange={this.handleCategoryChange}
-              >
-              {({
-                getInputProps,
-                getItemProps,
-                getLabelProps,
-                getMenuProps,
-                getToggleButtonProps,
-                isOpen,
-                inputValue,
-                highlightedIndex,
-                selectedItem,
-                clearSelection
-              }) => (
-                <div>
-                  <label {...getLabelProps()}>
-                    <span>Category</span>
-                    <div id="downshift-0-input-and-control">
-                      <input
-                        {...getInputProps({
-                          placeholder: 'Add Category here'
-                        })} />
-                      {selectedItem ? (<button type="button" onClick={clearSelection}><i className="fas fa-times" /></button>)
-                        : (<button type="button" {...getToggleButtonProps()}><i className="fas fa-caret-down" /></button>)}
-                    </div>
-                  </label>
-                  <div className="category-menu-container">
-                    <div
-                      className="category-menu"
-                      {...getMenuProps()}>
-                      {isOpen
-                        ? this.getSuggestions(inputValue, categoryOptions)
-                          .map((categoryItem, index) => (
-                            <div
-                              key={categoryItem.id}
-                              {...getItemProps({
-                                index,
-                                item: categoryItem.value,
-                                className: highlightedIndex === index ? 'category-menu-item highlighted' : 'category-menu-item'
-                              })}>
-                              {categoryItem.value}
-                            </div>
-                          ))
-                        : null}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </Downshift>
+            <CategoryDropdown
+              category={category}
+              categoryOptions={categoryOptions}
+              onCategoryChange={this.handleCategoryChange} />
           </div>
-
 
           <div className="upload-cell">
             <span>Image Upload</span>
-            <div id="selected-image-container">
-              <img src="https://support.hostgator.com/img/articles/weebly_image_sample.png" id="selected-image" alt="article" />
-            </div>
+            <div id="selected-image-container" />
             <button type="button" id="image-browse-button">
               <label>
                 <input type="file" name="pic" accept="image/*" />
@@ -257,7 +295,7 @@ class NewArticle extends React.Component {
           </div>
 
           <div className="save-draft-cell">
-            <button type="submit" className="btn-draft">Save to draft</button>
+            <button type="submit" className="btn-draft"><span>Save to draft</span></button>
           </div>
 
           <div className="save-cell">

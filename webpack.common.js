@@ -4,6 +4,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cssnano = require('cssnano');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
+const webpack = require('webpack');
+require('dotenv').config();
 
 module.exports = {
   entry: './src/index.js',
@@ -71,6 +74,12 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
+      'process.env.JWT_SECRET': JSON.stringify(process.env.JWT_SECRET),
+      'process.env.FACEBOOK_APP_ID': JSON.stringify(process.env.FACEBOOK_APP_ID)
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
@@ -84,7 +93,8 @@ module.exports = {
         preset: ['default', { discardComments: { removeAll: true } }],
       },
       canPrint: true
-    })
+    }),
+    new Dotenv()
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.css', '.scss', '.png']
@@ -93,7 +103,8 @@ module.exports = {
     minimizer: [
       new UglifyJsPlugin({
         sourceMap: true,
-        exclude: /\/node_modules/
+        exclude: /\/node_modules/,
+        include: [/node_modules\/query-string/, /node_modules\/dotenv\/lib\/main/]
       })
     ]
   }

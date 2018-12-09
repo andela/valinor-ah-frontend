@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import newArticle from '../../../../public/images/new.svg';
 import bell from '../../../../public/images/bell.svg';
 import logout from '../../../../public/images/logout.png';
 import favorites from '../../../../public/images/favorites.png';
 import preferences from '../../../../public/images/preferences.png';
-import profile from '../../../../public/images/profile.png';
 
 const Login = (props) => {
   const { url } = props;
@@ -29,13 +29,12 @@ const Login = (props) => {
         </div>
       </li>
       <li className="nav-item">
-        <a className="nav-link" href="/">
+        <NavLink className="nav-link" to="/new-article">
           <span className="pr-2">
-            <img className="d-none d-sm-none d-lg-inline mt-2 nav-img" src={newArticle} alt="login" />
-            <img className="d-inline d-sm-inline nav-img d-lg-none mobile-nav-icons" src={profile} alt="profile" />
+            <img className="d-none d-sm-none d-lg-inline mt-2 nav-img" src={newArticle} alt="new article" />
           </span>
           <span className="d-inline d-sm-inline d-lg-none">Profile</span>
-        </a>
+        </NavLink>
       </li>
 
       <li className="nav-item dropdown d-none d-lg-inline">

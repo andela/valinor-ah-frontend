@@ -1,13 +1,45 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import PropTypes from 'prop-types';
+import toastr from 'toastr';
 import emailIcon from '../../../public/assets/icons/mail-icon.svg';
 import userIcon from '../../../public/assets/icons/user-icon.svg';
+import loginFacebook from '../../utils/loginFacebook';
+import {
+  facebookAuth,
+  facebookAuthFailure,
+} from '../../actions/userActions';
+import { isUserLoggedIn } from '../../utils/verifyToken';
 
-class SignUp extends React.Component {
+export class SignUp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
+    this.responseFacebook = this.responseFacebook.bind(this);
+  }
+
+  componentWillMount() {
+    const { history, logout } = this.props;
+    if (isUserLoggedIn()) return history.push('/');
+    logout();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { history, status } = this.props;
+    if (!prevProps.status.isLoggedIn && status.isLoggedIn) {
+      toastr.success('Sign up was successful');
+      return history.push('/');
+    }
+  }
+
+  responseFacebook(response) {
+    const {
+      retrieveUserFacebookData,
+      triggerFacebookAuthFailure,
+    } = this.props;
+    loginFacebook(response, retrieveUserFacebookData, triggerFacebookAuthFailure);
   }
 
   render() {
@@ -46,11 +78,22 @@ class SignUp extends React.Component {
                     </button>
                   </div>
 
+
                   <div className="col-lg-4 social-button">
-                    <button type="button" className="btn btn-primary w-100  facebook-btn">
-                      <i className="fab fa-facebook-f mr-2" />
-                      Signup with Facebook
-                    </button>
+
+                    <FacebookLogin
+                      appId={process.env.FACEBOOK_APP_ID}
+                      autoLoad={false}
+                      fields="name,email,picture"
+                      callback={this.responseFacebook}
+                      // eslint-disable-next-line react/jsx-no-bind
+                      render={renderProps => (
+                        <button type="button" className="btn btn-primary w-100  facebook-btn" onClick={renderProps.onClick}>
+                          <i className="fab fa-facebook-f mr-2" />
+                          Signup with Facebook
+                        </button>
+                      )}
+                    />
                   </div>
 
                   <div className="col-lg-4 social-button">
@@ -94,4 +137,31 @@ class SignUp extends React.Component {
     );
   }
 }
-export default SignUp;
+
+SignUp.propTypes = {
+  status: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  retrieveUserFacebookData: PropTypes.func.isRequired,
+  triggerFacebookAuthFailure: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+};
+
+
+export const mapStateToProps = state => ({
+  status: state.global
+});
+
+export const mapDispatchToProps = dispatch => ({
+  retrieveUserFacebookData: (data) => {
+    dispatch(facebookAuth(data));
+  },
+  triggerFacebookAuthFailure: () => {
+    dispatch(facebookAuthFailure({ error: 'facebook authentication failed' }));
+    toastr.error('Facebook authentication failed');
+  },
+  logout: () => {
+    dispatch(facebookAuthFailure({ error: 'your session has expired, please log in' }));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

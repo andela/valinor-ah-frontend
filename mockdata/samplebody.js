@@ -37,3 +37,27 @@ export const sampleReportTypes = [
   { id: 2, value: 'Hate Speech' },
   { id: 3, value: 'Rules Violation' }
 ];
+
+export const sampleCategoryOptions = [
+  { id: '1', value: 'Football' },
+  { id: '2', value: 'Gaming' },
+  { id: '3', value: 'Programming' },
+  { id: '4', value: 'Andela' },
+  { id: '5', value: 'Bootcamp' },
+  { id: '6', value: 'Cohort-41' },
+  { id: '7', value: 'Learning' },
+  { id: '8', value: 'Gaming' },
+  { id: '9', value: 'Food' }
+];
+
+export const sampleTagOptions = [
+  { id: '3', text: 'Andela' },
+  { id: '4', text: 'Bootcamp' },
+  { id: '5', text: 'Cohort-41' },
+  { id: '6', text: 'Learning' },
+  { id: '7', text: 'Gaming' },
+  { id: '8', text: 'Food' },
+  { id: '9', text: 'Andelino' },
+  { id: '10', text: 'Andrela' },
+  { id: '11', text: 'Andrebaa' },
+];
