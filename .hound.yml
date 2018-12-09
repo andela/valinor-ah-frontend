@@ -3,5 +3,5 @@ eslint:
   config_file: .eslintrc.json
 
 scss-lint:
-  enabled: false
+  enabled: true
   config_file: .scss-lint.yml

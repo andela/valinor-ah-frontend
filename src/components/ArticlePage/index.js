@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import articlePageScript from '../../../public/assets/js/articlePageScript';
+import articlePageScript from '../../../public/js/articlePageScript';
 import { body, articleSample, sampleReportTypes } from '../../../mockdata/samplebody';
 import { formatDate, formatReadTime } from '../../utils';
 import CommentBox from './CommentBox';
