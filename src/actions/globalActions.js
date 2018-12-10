@@ -6,7 +6,7 @@ import {
 
 export const globalLoading = isLoading => ({
   type: TRIGGER_LOADING,
-  isLoading,
+  isLoading
 });
 
 export const globalFailure = error => ({

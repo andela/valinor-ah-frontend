@@ -17,5 +17,5 @@ export default {
   tagTitles: [],
   postArticle: {
     errors: {}
-  }
+  },
 };

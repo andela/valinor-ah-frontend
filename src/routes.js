@@ -1,6 +1,7 @@
 import Home from './components/home/HomePage';
 import Login from './components/login/LoginPage';
 import SignUpPage from './components/signup/SignUpPage';
+import VerifyPage from './components/signup/VerifyPage';
 import ArticlePage from './components/ArticlePage';
 import AllArticlesPage from './components/allarticlespage/AllArticlesPage';
 import NewArticle from './components/NewArticle';
@@ -40,7 +41,11 @@ const routes = [
   },
   {
     path: '/search',
-    component: SearchPage,
+    component: SearchPage
+  },
+  {
+    path: '/verifypage',
+    component: VerifyPage,
     exact: true
   },
   {

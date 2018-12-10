@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
 import loginMobile from '../../../../public/images/login.png';
 import signup from '../../../../public/images/signup.png';
 import Login from './Login';
