@@ -24,8 +24,8 @@ class App extends Component {
 
   render() {
     return (
-      <PersistGate persistor={persistor}>
-        <Provider store={store}>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
           <Router>
             <Fragment>
               <Header />
@@ -56,8 +56,8 @@ class App extends Component {
               />
             </Fragment>
           </Router>
-        </Provider>
-      </PersistGate>
+        </PersistGate>
+      </Provider>
     );
   }
 }

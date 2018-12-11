@@ -6,7 +6,10 @@ import requestOptions from '../utils/requestOptions';
 const socialLogin = userObject => dispatch => fetch(`${process.env.API_BASE_URL}/auth/social`, requestOptions(userObject, 'POST', null))
   .then(
     res => res.json(),
-    error => dispatch(globalFailure(['An error has occured', error]))
+    (error) => {
+      dispatch(globalFailure(['An error has occured', error]));
+      toastr.error('An error has occured, please try again!');
+    }
   )
   .then((response) => {
     dispatch(globalLoading(false));

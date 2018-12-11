@@ -63,7 +63,6 @@ export class UserSettings extends Component {
   }
 }
 
-
 UserSettings.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired
 };

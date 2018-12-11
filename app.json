@@ -9,6 +9,9 @@
     "GOOGLE_CLIENT_ID": {
       "required": true
     },
+    "FACEBOOK_APP_ID": {
+      "required": true
+    },
     "JWT_SECRET": {
       "required": true
     }

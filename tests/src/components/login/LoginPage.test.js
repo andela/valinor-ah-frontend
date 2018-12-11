@@ -15,6 +15,18 @@ const profileObj = {
   googleId: '7698761582',
   imageUrl: 'https://fake.com/'
 };
+
+const userFacebookInformation = {
+  name: 'fishes donkey',
+  email: 'doneky@apples.com',
+  userID: '34343434343',
+  picture: {
+    data: {
+      url: 'https://doneky.com'
+    }
+  }
+};
+
 test('should test LoginPage components', () => {
   // eslint-disable-next-line max-len
   const firstComponent = mount(<Router><LoginPage isLoggedIn={false} request={jest.fn()} failure={jest.fn()} handleLogin={jest.fn()} /></Router>);
@@ -26,6 +38,7 @@ test('should test LoginPage components', () => {
 
   const instance = secondComponent.instance();
   instance.responseGoogle({ profileObj });
+  instance.responseFacebook({ userFacebookInformation });
 });
 
 

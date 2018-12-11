@@ -26,5 +26,4 @@ const globalReducer = (state = global, action) => {
   }
 };
 
-
 export default globalReducer;
