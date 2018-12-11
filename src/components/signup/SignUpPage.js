@@ -9,17 +9,26 @@ import userIcon from '../../../public/assets/icons/user-icon.svg';
 import { globalLoading, globalFailure } from '../../actions/globalActions';
 import login from '../../actions/googleActions';
 import loginGoogle from '../../utils/loginGoogle';
+import loginFacebook from '../../utils/loginFacebook';
+import FacebookButton from '../common/FacebookButton';
 
 export class SignUp extends Component {
   constructor(props) {
     super(props);
     this.responseGoogle = this.responseGoogle.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this);
   }
 
   responseGoogle(response) {
     const { handleLogin, failure } = this.props;
     loginGoogle(response, handleLogin, failure, 'google');
   }
+
+  responseFacebook(response) {
+    const { handleLogin, failure } = this.props;
+    loginFacebook(response, handleLogin, failure);
+  }
+
 
   render() {
     const { isLoggedIn, request } = this.props;
@@ -58,11 +67,9 @@ export class SignUp extends Component {
                     <GoogleButton responseGoogle={this.responseGoogle} text="Signup with Google" request={request} />
                   </div>
 
+
                   <div className="col-lg-4 social-button">
-                    <button type="button" className="btn btn-primary w-100  facebook-btn">
-                      <i className="fab fa-facebook-f mr-2" />
-                      Signup with Facebook
-                    </button>
+                    <FacebookButton responseFacebook={this.responseFacebook} text="Signup with Facebook" request={request} />
                   </div>
 
                   <div className="col-lg-4 social-button">
@@ -121,6 +128,5 @@ const mapDispatchToProps = dispatch => ({
   request: isLoading => dispatch(globalLoading(isLoading)),
   failure: error => dispatch(globalFailure(error))
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

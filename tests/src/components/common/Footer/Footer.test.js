@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import Footer from '../../../../../src/components/common/footer/Footer';
 
-test('NavBar snapshot test', () => {
-  const component = shallow(<Footer />);
-  expect(component).toMatchSnapshot();
+test('Footer snapshot test', () => {
+  const wrapper = shallow(<Footer />);
+  expect(wrapper).toMatchSnapshot();
 });

@@ -17,6 +17,17 @@ const profileObj = {
   imageUrl: 'https://fake.com/'
 };
 
+const userFacebookInformation = {
+  name: 'fishes donkey',
+  email: 'doneky@apples.com',
+  userID: '34343434343',
+  picture: {
+    data: {
+      url: 'https://doneky.com'
+    }
+  }
+};
+
 test('should test SignUpPage components', () => {
   // eslint-disable-next-line max-len
   const firstComponent = shallow(<SignUp isLoggedIn request={jest.fn()} failure={jest.fn()} handleLogin={jest.fn()} />);
@@ -27,6 +38,7 @@ test('should test SignUpPage components', () => {
 
   const instance = firstComponent.instance();
   instance.responseGoogle({ profileObj });
+  instance.responseFacebook({ userFacebookInformation });
 });
 
 describe('Signup snapshot test', () => {

@@ -1,24 +1,31 @@
-
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import GoogleButton from '../common/GoogleButton';
+import FacebookButton from '../common/FacebookButton';
 import emailIcon from '../../../public/assets/icons/mail-icon.svg';
 import { globalLoading, globalFailure } from '../../actions/globalActions';
 import login from '../../actions/googleActions';
 import loginGoogle from '../../utils/loginGoogle';
+import loginFacebook from '../../utils/loginFacebook';
 
 export class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.responseGoogle = this.responseGoogle.bind(this);
+    this.responseFacebook = this.responseFacebook.bind(this);
   }
 
   responseGoogle(response) {
     const { handleLogin, failure } = this.props;
     loginGoogle(response, handleLogin, failure, 'google');
+  }
+
+  responseFacebook(response) {
+    const { handleLogin, failure } = this.props;
+    loginFacebook(response, handleLogin, failure);
   }
 
   render() {
@@ -57,14 +64,12 @@ export class LoginPage extends Component {
                 <div className="row social-buttons-row">
 
                   <div className="col-lg-4 social-button">
+
                     <GoogleButton responseGoogle={this.responseGoogle} text="Login with Google" request={request} />
                   </div>
 
                   <div className="col-lg-4 social-button">
-                    <button type="button" className="btn btn-primary w-100  facebook-btn">
-                      <i className="fab fa-facebook-f mr-2" />
-                      Login with Facebook
-                    </button>
+                    <FacebookButton responseFacebook={this.responseFacebook} text="Login with Facebook" request={request} />
                   </div>
 
                   <div className="col-lg-4 social-button">
@@ -103,7 +108,6 @@ export class LoginPage extends Component {
     );
   }
 }
-
 
 LoginPage.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
