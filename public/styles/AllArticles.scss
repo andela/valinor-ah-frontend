@@ -1,0 +1,108 @@
+.main {
+
+  #primary {
+
+    .category-cont {
+      overflow: visible;
+
+      .card {
+        height: 17em;
+        width: 48%;
+      }
+    }
+  }
+}
+
+.all-articles-header {
+  margin-bottom: 0.5em;
+  margin-right: 2em;
+}
+
+.pagination {
+  border-radius: 1em;
+  clear: both;
+  margin-right: 2em;
+
+  .page-item {
+    font-size: 0.8em;
+    margin: 0.06em;
+  }
+}
+
+.left-arrow, .right-arrow {
+  .page-link {
+    background-color: $pagination-button;
+    color: $text-grey;
+  }
+}
+
+.page-link {
+  color: $text-grey;
+
+  &:hover {
+    background-color: $pagination-button;
+    color: $text-grey;
+  }
+}
+
+.page-header {
+  color: $text-grey;
+  font-family: $font-welcome;
+  text-transform: uppercase;
+}
+
+.page-limit {
+  color: $text-grey;
+  font-size: 0.8em;
+}
+
+.list-inline-item {
+  a {
+    color: $text-grey;
+
+    &:hover {
+      color: $color-accent;
+    }
+
+    &:active {
+      color: $text-black;
+      font-weight: bold;
+    }
+  }
+}
+
+.list-inline-item:not(:last-child) {
+  margin-right: 0;
+}
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .all-articles-main {
+    margin-top: 6em;
+  }
+}
+
+@media (max-width: 992px) {
+  .page-header {
+    h3 {
+      font-size: 0.8em;
+    }
+  }
+
+  .page-limit {
+    ul {
+      li {
+        font-size: 0.6em;
+      }
+    }
+  }
+
+  .all-articles-main {
+    margin-top: 2em;
+  }
+}

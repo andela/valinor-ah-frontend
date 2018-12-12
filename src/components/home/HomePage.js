@@ -1,36 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
-import PropTypes from 'prop-types';
-
 import { CardList } from '../Card';
-import { formatDate } from '../../utils';
-// import formatDate from '../../utils/dateUtils';
 import mockArticles from '../../../mockdata/articles';
+import PopularPosts from './PopularPosts';
 
-export const PopularPosts = (props) => {
-  const {
-    article
-  } = props;
-  return (
-    <div className="sidebar">
-      <h1>Popular Posts</h1>
-      <ul>
-        <li>
-          { article.slice(0, 6).map((currentArticle, index) => (
-            <div className="pop-post" key={`post${String(index)}`}>
-              <p><NavLink to="/articles/1">{currentArticle.title}</NavLink></p>
-              <span>
-                {`${currentArticle.author.fullName} in ${currentArticle.category} on ${formatDate(currentArticle.createdAt)}`}
-              </span>
-            </div>
-          )) }
-        </li>
-      </ul>
-    </div>
-  );
-};
-
-export class HomePage extends Component {
+class HomePage extends Component {
   state = {
     articles: mockArticles
   };
@@ -60,6 +33,4 @@ export class HomePage extends Component {
   }
 }
 
-PopularPosts.propTypes = {
-  article: PropTypes.array.isRequired,
-};
+export default HomePage;

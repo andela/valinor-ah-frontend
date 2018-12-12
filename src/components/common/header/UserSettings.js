@@ -8,7 +8,7 @@ import picture from '../../../../public/images/avatar.jpg';
 const UserSettings = (props) => {
   const { isLoggedIn } = props;
 
-  if (isLoggedIn) {
+  if (!isLoggedIn) {
     return (
       <ul className="navbar-nav navbar-links user-links ml-auto">
         <div className="d-inline d-sm-inline d-lg-none section-header">
