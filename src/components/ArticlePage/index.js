@@ -121,7 +121,6 @@ class ArticlePage extends React.Component {
             </div>
           </form>
         </div>
-        <p>Header here</p>
         <div className="article-image-container" style={{ backgroundImage: `url(${article.imageUrl})` }}>
           <i id="back-btn" />
           <button type="button" id="bookmark-btn-first" className="bookmark-btn" onClick={this.handleBookmarkClick}>

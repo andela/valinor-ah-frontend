@@ -235,6 +235,7 @@
       color: $color-accent;
       cursor: pointer;
       margin: 0 0 16px;
+      opacity: unset;
       position: relative;
 
       &:hover {
@@ -347,6 +348,7 @@
           background: inherit;
           color: $color-accent;
           cursor: pointer;
+          opacity: unset;
           padding: 0 0.4em;
           position: relative;
 
@@ -365,6 +367,7 @@
         font-size: 0.6em;
         margin-left: 3em;
         position: absolute;
+        z-index: 1;
 
         ul {
           @include outer-box-shadow(0, 0, 3px, 0, $shadow-comment-box);

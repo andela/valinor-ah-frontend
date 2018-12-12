@@ -12,8 +12,8 @@ export const Card = (props) => {
   } = props;
 
   return (
-    <div className="card" style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <a href={link}>
+    <div className="card" style={{ backgroundImage: 'url(https://bit.ly/2B4NZ51)' }}>
+      <NavLink to={`/articles/${link}`}>
         <div className="card-overlay">
           <div className="article-meta">
             <p className="category-name">{category}</p>
@@ -22,7 +22,7 @@ export const Card = (props) => {
           </div>
           <button className="btn" type="button">Read More</button>
         </div>
-      </a>
+      </NavLink>
     </div>
   );
 };

@@ -5,14 +5,14 @@ import { formatDate } from '../../utils';
 
 const PopularPosts = (props) => {
   const {
-    article
+    articles
   } = props;
   return (
     <div className="sidebar">
       <h1>Popular Posts</h1>
       <ul>
         <li>
-          { article.slice(0, 6).map((currentArticle, index) => (
+          { articles.slice(0, 6).map((currentArticle, index) => (
             <div className="pop-post" key={`post${String(index)}`}>
               <p><NavLink to="/articles/1">{currentArticle.title}</NavLink></p>
               <span>
@@ -27,7 +27,7 @@ const PopularPosts = (props) => {
 };
 
 PopularPosts.propTypes = {
-  article: PropTypes.array.isRequired,
+  articles: PropTypes.array.isRequired,
 };
 
 export default PopularPosts;
