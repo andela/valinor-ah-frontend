@@ -8,6 +8,8 @@
 @import './Header';
 @import './Footer';
 @import './Navbar';
+@import './AllArticles';
+
 
 * {
   box-sizing: border-box;
@@ -27,14 +29,183 @@ body {
 
 .main-container {
   display: block;
-  margin-top: 2.5em;
   min-height: 100vh;
   overflow: hidden;
   padding: 0 0 5em;
   position: relative;
 
   .site-content {
+    margin-top: 4em;
     overflow: hidden;
+
+    .main {
+
+      #primary {
+        float: left;
+        padding: 0 2em;
+        width: 78%;
+
+        .article-title {
+          border-bottom: 1px solid $color-secondary;
+          border-top: 1px solid $color-secondary;
+          color: $text-grey;
+          font-family: 'Zilla Slab';
+          font-size: 2em;
+          margin: 0 1em 0.4em 0;
+          padding: 0.5em 0;
+          text-align: center;
+          text-transform: capitalize;
+        }
+
+        .card {
+          @include outer-box-shadow(0, 8px, 17px, -7px, $shadow);
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          border: 0;
+          border-radius: 1em;
+          color: $text-white;
+          float: left;
+          // height: 22em;
+          margin: 0 1% 1% 0;
+          position: relative;
+          top: 0;
+          transition: all 0.5s;
+          z-index: 9;
+
+          &:hover {
+            @include outer-box-shadow(0, 8px, 17px, -7px, $color-primary);
+            transform: scale(1.2);
+            z-index:  99;
+
+            .card-overlay {
+              background: none;
+
+              .article-meta {
+
+                p {
+                  text-shadow: 2px 2px 4px $text-black;
+                }
+              }
+            }
+
+          }
+
+          a {
+            color: $white-color;
+            height: 100%;
+            text-decoration: none;
+
+            .card-overlay {
+              background: $transparent-black;
+              border-radius: 1em;
+              height: 100%;
+              padding: 1.8em 2em;
+              transition-duration: 0.5s;
+              transition-property: background;
+              width: 100%;
+              z-index: 5;
+
+              .article-meta {
+
+                p {
+                  display: flex;
+                  margin: 0;
+                }
+
+                .category-name {
+                  font-size: 0.7em;
+                  font-weight: 100;
+                  text-transform: capitalize;
+                }
+
+                .title {
+                  font-family: 'Zilla Slab';
+                  font-size: 1.1em;
+                  font-weight: 700;
+                  margin: 0.5em 0 0.8em;
+                  text-transform: capitalize;
+                }
+
+                .excerpt {
+                  font-size: 0.7em;
+                  font-weight: 100;
+                }
+              }
+
+              button {
+                background-color: $color-accent;
+                border-radius: 0.5em;
+                bottom: 2em;
+                color: $text-white;
+                font-size: 0.7em;
+                padding: 0.9em 1.7em;
+                position: absolute;
+
+                &:hover,
+                &:active {
+                  background-color: $text-white;
+                  color: $color-accent;
+
+                }
+              }
+            }
+          }
+        }
+
+      }
+
+      #secondary {
+        float: left;
+        padding: 0 2em 0 0;
+        width: 22%;
+
+        .sidebar {
+
+          h1 {
+            font-family: 'Zilla Slab';
+            font-size: 1.2em;
+            font-weight: 700;
+            margin: 0 0 1.4em;
+            text-align: center;
+            text-transform: uppercase;
+          }
+
+          ul {
+            list-style: none;
+
+            li {
+              margin: 0 0 1em;
+
+              .pop-post {
+                margin: 0 0 1em;
+
+                p {
+                  font-size: 1em;
+                  font-weight: 700;
+                  margin: 0;
+
+                  a {
+                    color: $text-black;
+                    font-family: 'Zilla Slab';
+                    text-decoration: none;
+                  }
+
+                }
+
+                span {
+                  color: $text-grey;
+                  font-size: 0.7em;
+                  font-weight: lighter;
+                }
+
+              }
+            }
+          }
+        }
+      }
+    }
+
   }
 }
 
@@ -42,10 +213,108 @@ a {
   color: $color-accent;
 }
 
-@media screen and (max-width: 850px) {
-  /* phones */
-  .main-container .site-content {
-    // margin-top: 1.5em;
-    overflow: hidden;
+@media screen and (max-width: 768px) {
+  #app {
+    .site-content {
+      margin-top: 3em;
+
+      .site-intro {
+        margin: 2em 0 1em;
+        padding: 0 1em;
+
+        h1 {
+          font-size: 2em;
+        }
+
+        p {
+          font-size: 0.8em;
+        }
+      }
+
+      .main {
+        #primary {
+          display: block;
+          padding: 0 1em;
+          width: 100%;
+          padding: 0 1em;
+
+          .home-articles-cont,
+          .category-cont {
+            margin: 0 0 1.5em;
+
+            .article-title {
+              font-size: 1.3em;
+              margin: 0 0 0.4em;
+            }
+
+            .card {
+              height: 13em;
+              margin: 0 0 0.5em;
+              transition: none;
+              width: 100%;
+
+              &:hover {
+                transform: scale(1);
+              }
+
+              &:nth-child(7) {
+                margin: 0 0 1em;
+              }
+
+              &:nth-child(5),
+              &:nth-child(6) {
+                position: relative;
+                top: 0;
+              }
+
+              &:nth-child(2),
+              &:nth-child(7) {
+                height: 13em;
+                width: 100%;
+              }
+
+              .card-overlay {
+                padding: 1.4em;
+
+                .category-name {
+                  font-size: 0.7em;
+                }
+
+                .article-meta {
+
+                  .title {
+                    font-size: 1em;
+                    margin: 0 0 0.5em;
+                  }
+
+                  .excerpt {
+                    font-size: 0.7em;
+                  }
+                }
+
+                button {
+                  bottom: 1em;
+                  font-size: 0.7em;
+                  padding: 0.8em 1.4em;
+                }
+              }
+            }
+
+            .read-more-btn {
+              margin: 0 0 1em;
+              text-align: center;
+
+            }
+          }
+        }
+
+        #secondary {
+
+          .sidebar {
+            display: none;
+          }
+        }
+      }
+    }
   }
 }

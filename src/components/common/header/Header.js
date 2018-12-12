@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../../../../public/images/site-logo.png';
 import '../../../../public/js/NavBar';
@@ -18,9 +19,9 @@ const Header = () => (
           <input className="form-control" type="search" placeholder="Search..." aria-label="Search" />
         </form>
       </div>
-      <a className="navbar-brand" href="/">
+      <NavLink to="/" className="navbar-brand">
         <img src={logo} alt="logo" />
-      </a>
+      </NavLink>
       <Navbar />
     </nav>
   </header>
