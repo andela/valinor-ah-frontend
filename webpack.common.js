@@ -75,6 +75,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
       'process.env.GOOGLE_CLIENT_ID': JSON.stringify(process.env.GOOGLE_CLIENT_ID),
       'process.env.JWT_SECRET': JSON.stringify(process.env.JWT_SECRET)

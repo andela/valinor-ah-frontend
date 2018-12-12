@@ -20,6 +20,13 @@
 
     .main {
       #primary {
+        text-align: center;
+
+        .loading-icon {
+          color: $color-accent;
+          position: relative;
+          top: 2em;
+        }
 
         .home-articles-cont {
           margin: 0 0 1em;
@@ -27,6 +34,7 @@
 
           .card {
             height: 22em;
+            text-align: left;
             width: 23.5%;
 
             &:nth-child(5),

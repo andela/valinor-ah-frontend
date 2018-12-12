@@ -39,7 +39,7 @@ const allArticles = () => {
             </nav>
           </div>
           <div id="secondary">
-            <PopularPosts article={articles} />
+            <PopularPosts articles={articles} />
           </div>
         </div>
       </div>
