@@ -65,7 +65,7 @@ export class UserSettings extends Component {
 
 
 UserSettings.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({ isLoggedIn: state.global.isLoggedIn });

@@ -110,7 +110,7 @@ Card.propTypes = {
   category: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   backgroundImage: PropTypes.string.isRequired,
-  link: PropTypes.string.isRequired,
+  link: PropTypes.number.isRequired,
 };
 
 CardList.propTypes = {
