@@ -8,5 +8,9 @@ export default {
   popularArticles: {
     articles: [],
     error: []
+  },
+  article: {
+    isLoading: false,
+    item: {}
   }
 };

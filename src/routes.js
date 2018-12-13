@@ -23,7 +23,7 @@ const routes = [
     exact: false
   },
   {
-    path: '/articles/:slug',
+    path: '/articles/:id',
     component: ArticlePage,
     exact: true
   },

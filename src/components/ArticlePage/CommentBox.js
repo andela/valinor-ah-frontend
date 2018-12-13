@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { formatDate } from '../../utils/index';
 
 
 const CommentBox = (props) => {
@@ -18,7 +19,7 @@ const CommentBox = (props) => {
           <div>
             <span id="author-name">{comment.author.fullName}</span>
             <div>
-              <span id="author-date">{comment.date}</span>
+              <span id="author-date">{formatDate(comment.createdAt)}</span>
             </div>
           </div>
         </div>

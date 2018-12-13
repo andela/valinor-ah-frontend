@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import articlePageScript from '../../../public/js/articlePageScript';
-import { body, articleSample, sampleReportTypes } from '../../../mockdata/samplebody';
+import { sampleReportTypes, articleSample } from '../../../mockdata/samplebody';
 import { formatDate, formatReadTime } from '../../utils';
 import CommentBox from './CommentBox';
+import fetchArticle from '../../actions/singleArticleActions';
 
 export const SelectList = (props) => {
   const { types } = props;
@@ -23,7 +24,7 @@ SelectList.propTypes = {
   types: PropTypes.array.isRequired
 };
 
-class ArticlePage extends React.Component {
+export class ArticlePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +32,7 @@ class ArticlePage extends React.Component {
       articleLikeStatus: null,
       bookmarkState: false,
       commentLikeState: [null, null],
-      reportTypes: sampleReportTypes
+      reportTypes: sampleReportTypes,
     };
 
     this.handleLikeClick = this.handleLikeClick.bind(this);
@@ -42,6 +43,8 @@ class ArticlePage extends React.Component {
   }
 
   componentDidMount() {
+    const { fetchSingleArticle, match } = this.props;
+    fetchSingleArticle(match.params.id);
     articlePageScript();
   }
 
@@ -90,8 +93,11 @@ class ArticlePage extends React.Component {
 
   render() {
     const {
-      article, articleLikeStatus, bookmarkState, commentLikeState, reportTypes
+      articleLikeStatus, bookmarkState, commentLikeState, reportTypes
     } = this.state;
+    let { article } = this.state;
+    const { payload } = this.props;
+    article = payload;
     const { author } = article;
     // resolve button classes based on state
     const likeClass = articleLikeStatus
@@ -100,111 +106,118 @@ class ArticlePage extends React.Component {
       ? 'fas fa-thumbs-down fa-2x' : 'far fa-thumbs-down fa-2x';
     const bookmarkClass = bookmarkState
       ? 'fas fa-bookmark fa-2x' : 'far fa-bookmark fa-2x';
-
     return (
-      <div className="site-content">
-        <div className="report-modal">
-          <button type="button" className="modal-close-btn">&times;</button>
-          <form className="report-form">
-            <h1>Report Article</h1>
-            <label className="select-list" htmlFor="select-list">
-              <span>Type</span>
-              <SelectList types={reportTypes} />
-            </label>
-            <label>
-              <span>Body</span>
-              <textarea placeholder="Please provide the reason for your report" />
-            </label>
-            <div className="report-save-options">
-              <button type="submit" className="btn-submit-report">Report</button>
-              <button type="button" className="btn-cancel-report">Cancel</button>
+      (Object.keys(payload).length < 1) ? (<div />)
+        : (
+          <div className="site-content">
+            <div className="report-modal">
+              <button type="button" className="modal-close-btn">&times;</button>
+              <form className="report-form">
+                <h1>Report Article</h1>
+                <label className="select-list" htmlFor="select-list">
+                  <span>Type</span>
+                  <SelectList types={reportTypes} />
+                </label>
+                <label>
+                  <span>Body</span>
+                  <textarea placeholder="Please provide the reason for your report" />
+                </label>
+                <div className="report-save-options">
+                  <button type="submit" className="btn-submit-report">Report</button>
+                  <button type="button" className="btn-cancel-report">Cancel</button>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-        <div className="article-image-container" style={{ backgroundImage: `url(${article.imageUrl})` }}>
-          <i id="back-btn" />
-          <button type="button" id="bookmark-btn-first" className="bookmark-btn" onClick={this.handleBookmarkClick}>
-            <i id="bookmark-btn" className={bookmarkClass} />
-          </button>
-        </div>
-        <div className="article-content">
-          <span id="article-category">{article.category}</span>
-          <span id="article-title">{article.title}</span>
-          <div className="article-main">
-            <div className="author-container">
-              <img src={author.avatarUrl} alt="author" />
-              <div>
-                <span id="author-name">{author.fullName}</span>
-                <div>
-                  <span id="author-date">{formatDate(article.createdAt)}</span>
+            <div className="article-image-container" style={{ backgroundImage: `url(${article.articleImage})` }}>
+              <i id="back-btn" />
+              <button type="button" id="bookmark-btn-first" className="bookmark-btn" onClick={this.handleBookmarkClick}>
+                <i id="bookmark-btn" className={bookmarkClass} />
+              </button>
+            </div>
+            <div className="article-content">
+              <span id="article-category">{article.category}</span>
+              <span id="article-title">{article.title}</span>
+              <div className="article-main">
+                <div className="author-container">
+                  <img src={author.avatarUrl} alt="author" />
+                  <div>
+                    <span id="author-name">{author.fullName}</span>
+                    <div>
+                      <span id="author-date">{formatDate(article.createdAt)}</span>
                   •
-                  <span id="read-time">{formatReadTime(article.readTime)}</span>
+                      <span id="read-time">{formatReadTime(article.readTime)}</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="article-body">
+                  {article.body}
+                </div>
+                <div className="article-options">
+                  <div className="article-share-options">
+                    <button type="button" className="bookmark-btn" onClick={this.handleBookmarkClick}>
+                      <i className={bookmarkClass} />
+                    </button>
+                    <i id="goolge-icon" />
+                    <i id="facebook-icon" />
+                    <i id="twitter-icon" />
+                  </div>
+                  <div className="article-like-options">
+                    <button type="button" className="like-article-btn" onClick={this.handleLikeClick}>
+                      <i className={likeClass} />
+                    </button>
+                    <button type="button" className="dislike-article-btn" onClick={this.handleDislikeClick}>
+                      <i className={dislikeClass} />
+                    </button>
+                    <button type="button" className="report-article-btn">
+                      <i className="far fa-flag fa-2x" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="article-body">
-              <p>
-                {body}
-                <br />
-                <br />
-                {body}
-                <br />
-                <br />
-                {body}
-                <br />
-                <br />
-                {body}
-              </p>
-            </div>
-            <div className="article-options">
-              <div className="article-share-options">
-                <button type="button" className="bookmark-btn" onClick={this.handleBookmarkClick}>
-                  <i className={bookmarkClass} />
-                </button>
-                <i id="goolge-icon" />
-                <i id="facebook-icon" />
-                <i id="twitter-icon" />
-              </div>
-              <div className="article-like-options">
-                <button type="button" className="like-article-btn" onClick={this.handleLikeClick}>
-                  <i className={likeClass} />
-                </button>
-                <button type="button" className="dislike-article-btn" onClick={this.handleDislikeClick}>
-                  <i className={dislikeClass} />
-                </button>
-                <button type="button" className="report-article-btn">
-                  <i className="far fa-flag fa-2x" />
-                </button>
-              </div>
-            </div>
-          </div>
 
-          <hr />
-          <div className="comment-content">
-            <span>Comments</span>
-            <div className="new-comment">
-              <div className="author-container">
-                <img src={author.avatarUrl} alt="author" />
-              </div>
-              <input placeholder="Add a comment..." />
-            </div>
-
-            <div className="comment-list">
-              {article.comments
-                .map((commentItem, index) => (
-                  <CommentBox
+              <hr />
+              <div className="comment-content">
+                <span>Comments</span>
+                <div className="new-comment">
+                  <div className="author-container">
+                    <img src={author.avatarUrl} alt="author" />
+                  </div>
+                  <input placeholder="Add a comment..." />
+                </div>
+                <div className="comment-list">
+                  {article.comments
+                    .map((commentItem, index) => (
+                      <CommentBox
                     key={commentItem.id}
                     comment={commentItem}
                     commentLikeStatus={commentLikeState[index]}
                     onCommentLikeClick={this.handleCommentLikeClick.bind(this, index)}
                     onCommentDislikeClick={this.handleCommentDislikeClick.bind(this, index)} />
-                ))}
+                    ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        )
+
     );
   }
 }
 
-export default ArticlePage;
+ArticlePage.propTypes = {
+  fetchSingleArticle: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
+  payload: PropTypes.object.isRequired
+};
+
+export const mapStateToProps = state => ({
+  payload: state.article.item
+});
+
+export const mapDispatchToProps = dispatch => ({
+  fetchSingleArticle: (articleId) => {
+    dispatch(fetchArticle(articleId));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticlePage);
