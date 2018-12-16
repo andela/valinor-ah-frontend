@@ -1,12 +1,17 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+
+import PopularPosts from './PopularPosts';
 import { CardList } from '../Card';
 import mockArticles from '../../../mockdata/articles';
-import PopularPosts from './PopularPosts';
 
 class HomePage extends Component {
-  state = {
-    articles: mockArticles
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      articles: mockArticles
+    };
+  }
 
   render() {
     const { articles } = this.state;
@@ -32,5 +37,9 @@ class HomePage extends Component {
     );
   }
 }
+
+PopularPosts.propTypes = {
+  article: PropTypes.array.isRequired,
+};
 
 export default HomePage;

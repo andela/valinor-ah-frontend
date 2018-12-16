@@ -1,8 +1,11 @@
 import { combineReducers } from 'redux';
-import buttonReducer from './buttonReducer';
+import { reducer as toastr } from 'react-redux-toastr';
+
+import global from './globalReducer';
 
 const rootReducer = combineReducers({
-  buttonReducer
+  global,
+  toastr
 });
 
 export default rootReducer;

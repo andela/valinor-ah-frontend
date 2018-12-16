@@ -1,16 +1,31 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+
+import GoogleButton from '../common/GoogleButton';
 import emailIcon from '../../../public/assets/icons/mail-icon.svg';
 import userIcon from '../../../public/assets/icons/user-icon.svg';
+import { globalLoading, globalFailure } from '../../actions/globalActions';
+import login from '../../actions/googleActions';
+import loginGoogle from '../../utils/loginGoogle';
 
-class SignUp extends React.Component {
+export class SignUp extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.responseGoogle = this.responseGoogle.bind(this);
+  }
+
+  responseGoogle(response) {
+    const { handleLogin, failure } = this.props;
+    loginGoogle(response, handleLogin, failure, 'google');
   }
 
   render() {
+    const { isLoggedIn, request } = this.props;
+    if (isLoggedIn) {
+      return <Redirect to="/" />;
+    }
     return (
       <Fragment>
         <div className="site-content vertical-center">
@@ -40,10 +55,7 @@ class SignUp extends React.Component {
                 <div className="row social-buttons-row">
 
                   <div className="col-lg-4 social-button">
-                    <button type="button" className="btn btn-primary w-100 google-btn">
-                      <i className="fab fa-google mr-2" />
-                      Signup with Google
-                    </button>
+                    <GoogleButton responseGoogle={this.responseGoogle} text="Signup with Google" request={request} />
                   </div>
 
                   <div className="col-lg-4 social-button">
@@ -94,4 +106,21 @@ class SignUp extends React.Component {
     );
   }
 }
-export default SignUp;
+
+SignUp.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  handleLogin: PropTypes.func.isRequired,
+  request: PropTypes.func.isRequired,
+  failure: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({ isLoggedIn: state.global.isLoggedIn });
+
+const mapDispatchToProps = dispatch => ({
+  handleLogin: userObject => dispatch(login(userObject)),
+  request: isLoading => dispatch(globalLoading(isLoading)),
+  failure: error => dispatch(globalFailure(error))
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
