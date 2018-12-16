@@ -10,6 +10,7 @@
 @import './Navbar';
 @import './AllArticles';
 @import './NewArticle';
+@import './Spinner';
 
 * {
   box-sizing: border-box;
@@ -66,7 +67,6 @@ body {
           border-radius: 1em;
           color: $text-white;
           float: left;
-          // height: 22em;
           margin: 0 1% 1% 0;
           position: relative;
           top: 0;

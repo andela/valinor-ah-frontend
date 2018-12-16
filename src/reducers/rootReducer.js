@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import buttonReducer from './buttonReducer';
+import googleLoginReducer from './googleLoginReducer';
 
 const rootReducer = combineReducers({
-  buttonReducer
+  googleLoginReducer
 });
 
 export default rootReducer;

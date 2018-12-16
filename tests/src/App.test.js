@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import App from '../../src/App';
+import { unwrappedComponent as App } from '../../src/App';
 
 test('App snapshot test', () => {
-  const component = shallow(<App />);
+  const component = shallow(<App isLoading={false} />);
   expect(component).toMatchSnapshot();
 });

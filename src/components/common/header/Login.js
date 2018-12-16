@@ -6,6 +6,7 @@ import bell from '../../../../public/images/bell.svg';
 import logout from '../../../../public/images/logout.png';
 import favorites from '../../../../public/images/favorites.png';
 import preferences from '../../../../public/images/preferences.png';
+import logoutUser from '../../../services/logoutUser';
 
 const Login = (props) => {
   const { url } = props;
@@ -71,7 +72,7 @@ const Login = (props) => {
           <a className="dropdown-item" href="/">Profile</a>
           <a className="dropdown-item" href="/">Favourites</a>
           <a className="dropdown-item" href="/">Preference</a>
-          <a className="dropdown-item" href="/">Logout</a>
+          <a onClick={logoutUser} className="dropdown-item" href="/">Logout</a>
         </div>
       </li>
 
@@ -85,7 +86,7 @@ const Login = (props) => {
       </li>
 
       <li className="nav-item d-inline d-sm-inline d-md-inline d-lg-none">
-        <a className="nav-link" href="/">
+        <a onClick={logoutUser} className="nav-link" href="/">
           <span className="pr-2">
             <img className="mobile-nav-icons" src={logout} alt="logout" />
           </span>

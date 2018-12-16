@@ -3,6 +3,15 @@
   "scripts": {
   },
   "env": {
+    "API_BASE_URL": {
+      "required": true
+    },
+    "GOOGLE_CLIENT_ID": {
+      "required": true
+    },
+    "JWT_KEY": {
+      "required": true
+    }
   },
   "formation": {
     "web": {

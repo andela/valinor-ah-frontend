@@ -1,16 +1,34 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import GoogleLogin from 'react-google-login';
+import PropTypes from 'prop-types';
+
 import emailIcon from '../../../public/assets/icons/mail-icon.svg';
 import userIcon from '../../../public/assets/icons/user-icon.svg';
+import login, { onRequestClick, onFailureClick } from '../../actions/googleLoginActions';
+import loginGoogle from '../../utils/loginGoogle';
 
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
     };
+    this.responseGoogle = this.responseGoogle.bind(this);
+  }
+
+  responseGoogle(response) {
+    // eslint-disable-next-line react/prop-types
+    const { handleLogin, failure } = this.props;
+    loginGoogle(response, handleLogin, failure, 'google');
   }
 
   render() {
+    // eslint-disable-next-line react/prop-types
+    const { isLoggedIn, request } = this.props;
+    if (isLoggedIn) {
+      return <Redirect to="/" />;
+    }
     return (
       <Fragment>
         <div className="site-content vertical-center">
@@ -40,10 +58,21 @@ class SignUp extends React.Component {
                 <div className="row social-buttons-row">
 
                   <div className="col-lg-4 social-button">
-                    <button type="button" className="btn btn-primary w-100 google-btn">
-                      <i className="fab fa-google mr-2" />
-                      Signup with Google
-                    </button>
+                    <GoogleLogin
+                      clientId={process.env.GOOGLE_CLIENT_ID}
+                      // eslint-disable-next-line react/jsx-no-bind
+                      render={renderProps => (
+                        <button
+                        onClick={renderProps.onClick} type="button" className="btn btn-primary w-100 google-btn">
+                          <i className="fab fa-google mr-2" />
+                          Signup with Google
+                        </button>
+                      )}
+                      buttonText="Signup with Google"
+                      onSuccess={this.responseGoogle}
+                      onFailure={this.responseGoogle}
+                      onRequest={request}
+                    />
                   </div>
 
                   <div className="col-lg-4 social-button">
@@ -94,4 +123,21 @@ class SignUp extends React.Component {
     );
   }
 }
-export default SignUp;
+
+SignUp.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  request: PropTypes.func.isRequired,
+  failure: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({ isLoggedIn: state.googleLoginReducer.global.isLoggedIn });
+
+const mapDispatchToProps = dispatch => ({
+  handleLogin: userObject => dispatch(login(userObject)),
+  request: () => dispatch(onRequestClick()),
+  failure: () => dispatch(onFailureClick())
+});
+
+export const unwrappedComponent = SignUp;
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
