@@ -1,6 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../../../public/styles/Footer.scss';
 import facebook from '../../../../public/images/facebook-logo-button.svg';
 import twitter from '../../../../public/images/twitter-logo-button.svg';
 

@@ -4,6 +4,9 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cssnano = require('cssnano');
 const path = require('path');
+const webpack = require('webpack');
+
+require('dotenv').config();
 
 module.exports = {
   entry: './src/index.js',
@@ -71,6 +74,11 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
+      'process.env.GOOGLE_CLIENT_ID': JSON.stringify(process.env.GOOGLE_CLIENT_ID),
+      'process.env.JWT_SECRET': JSON.stringify(process.env.JWT_SECRET)
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',

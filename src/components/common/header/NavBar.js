@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import more from '../../../../public/images/more.png';
 import mockCategories from '../../../../mockdata/categories';
 import NavItems from './NavItems';

@@ -1,6 +1,6 @@
 import HomePage from './components/home/HomePage';
 import Login from './components/login/LoginPage';
-import SignUp from './components/signup/SignUpPage';
+import SignUpPage from './components/signup/SignUpPage';
 import ArticlePage from './components/ArticlePage';
 import AllArticlesPage from './components/allarticlespage/AllArticlesPage';
 import NewArticle from './components/NewArticle';
@@ -18,7 +18,7 @@ const routes = [
   },
   {
     path: '/signup',
-    component: SignUp,
+    component: SignUpPage,
     exact: false
   },
   {

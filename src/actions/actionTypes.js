@@ -1,2 +1,3 @@
-export const ON_BUTTON = 'ON_BUTTON';
-export const OFF_BUTTON = 'OFF_BUTTON';
+export const TRIGGER_LOGGEDIN = 'TRIGGER_LOGGEDIN';
+export const TRIGGER_FAILURE = 'TRIGGER_FAILURE';
+export const TRIGGER_LOADING = 'TRIGGER_LOADING';

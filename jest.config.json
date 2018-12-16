@@ -1,7 +1,8 @@
 {
   "collectCoverage": true,
   "setupFiles": [
-    "./tests/support/setupTestsConfig.js"
+    "./tests/support/setupTestsConfig.js",
+    "./tests/support/localstorage"
   ],
   "snapshotSerializers": [
     "enzyme-to-json/serializer"

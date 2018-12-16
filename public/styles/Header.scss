@@ -6,7 +6,7 @@ header{
   width: 100%;
 
   .navbar {
-    @include outer-box-shadow(0, 0, 1px, 0, $shadow);
+    border-bottom: 1px solid $header-border-color;
     text-transform: uppercase;
 
     .navbar-brand {
