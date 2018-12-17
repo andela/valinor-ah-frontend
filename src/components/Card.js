@@ -104,7 +104,6 @@ export const CardList = (props) => {
   );
 };
 
-
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import ReduxToastr from 'react-redux-toastr';
-
 import routes from './routes';
 import { persistor, store } from './store/store';
 import NotFound from './components/404/NotFound';
@@ -18,7 +17,7 @@ class App extends Component {
     this.state = {};
   }
 
-  componentWillMount() {
+  componentDidMount() {
     checkUserStatus();
   }
 

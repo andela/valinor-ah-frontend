@@ -5,6 +5,7 @@ import ArticlePage from './components/ArticlePage';
 import AllArticlesPage from './components/allarticlespage/AllArticlesPage';
 import NewArticle from './components/NewArticle';
 import SearchPage from './components/SearchPage/SearchPage';
+import WelcomePage from './components/welcome/WelcomePage';
 
 const routes = [
   {
@@ -41,6 +42,11 @@ const routes = [
     path: '/search',
     component: SearchPage,
     exact: true
+  },
+  {
+    path: '/welcome',
+    component: WelcomePage,
+    exact: false
   }
 ];
 
