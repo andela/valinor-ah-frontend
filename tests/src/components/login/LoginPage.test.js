@@ -27,7 +27,7 @@ const userFacebookInformation = {
   }
 };
 
-test('should test LoginPage components', () => {
+describe('should test LoginPage components', () => {
   // eslint-disable-next-line max-len
   const firstComponent = mount(<Router><LoginPage isLoggedIn={false} request={jest.fn()} failure={jest.fn()} handleLogin={jest.fn()} /></Router>);
   // eslint-disable-next-line max-len
@@ -40,7 +40,6 @@ test('should test LoginPage components', () => {
   instance.responseGoogle({ profileObj });
   instance.responseFacebook({ userFacebookInformation });
 });
-
 
 describe('Login snapshot test', () => {
   let component, store;

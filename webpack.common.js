@@ -6,7 +6,6 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const cssnano = require('cssnano');
 const path = require('path');
 const webpack = require('webpack');
-
 require('dotenv').config();
 
 module.exports = {
