@@ -1,23 +1,10 @@
 import articlesReducer from '../../../src/reducers/articlesReducer';
 
-import { FETCH_CATEGORY_SUCCESS, FETCH_CATEGORY_REQUEST } from '../../../src/actions/actionTypes';
+import { FETCH_CATEGORY_SUCCESS } from '../../../src/actions/actionTypes';
 
 test('should return empty initial state', () => {
   expect(articlesReducer(undefined, {}))
     .toEqual({});
-});
-
-
-test('should handle category request', () => {
-  const action = {
-    type: FETCH_CATEGORY_REQUEST,
-    categoryName: 'progaming'
-  };
-
-  expect(articlesReducer({}, action))
-    .toEqual({
-      progaming: {}
-    });
 });
 
 test('should handle category request success/failure', () => {

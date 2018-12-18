@@ -4,5 +4,9 @@ export default {
     isLoading: false,
     error: []
   },
-  articlesByCategory: {}
+  articlesByCategory: {},
+  popularArticles: {
+    articles: [],
+    error: []
+  }
 };

@@ -7,19 +7,28 @@ const PopularPosts = (props) => {
   const {
     articles
   } = props;
+  if (!articles.length) {
+    return null;
+  }
   return (
     <div className="sidebar">
       <h1>Popular Posts</h1>
       <ul>
         <li>
-          { articles.slice(0, 6).map((currentArticle, index) => (
-            <div className="pop-post" key={`post${String(index)}`}>
-              <p><NavLink to="/articles/1">{currentArticle.title}</NavLink></p>
-              <span>
-                {`${currentArticle.author.fullName} in ${currentArticle.category} on ${formatDate(currentArticle.createdAt)}`}
-              </span>
-            </div>
-          )) }
+          { articles.map((currentArticle, index) => {
+            const { author, category } = currentArticle;
+            return (
+              <div className="pop-post" key={`post${String(index)}`}>
+                <p><NavLink to={`/articles/${currentArticle.id}`}>{currentArticle.title}</NavLink></p>
+                <span>
+                  {<NavLink to={`/users/${author.id}`}>{author.fullName}</NavLink>}
+                  &nbsp;in&nbsp;
+                  {<NavLink to={`/articles/category/${category.categoryName}`}>{category.categoryName}</NavLink>}
+                  &nbsp;on&nbsp;
+                  {formatDate(currentArticle.createdAt)}
+                </span>
+              </div>);
+          })}
         </li>
       </ul>
     </div>

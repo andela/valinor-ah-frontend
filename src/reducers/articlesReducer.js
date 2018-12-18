@@ -1,13 +1,11 @@
-import { FETCH_CATEGORY_SUCCESS, FETCH_CATEGORY_FAILURE, FETCH_CATEGORY_REQUEST } from '../actions/actionTypes';
+import { FETCH_CATEGORY_SUCCESS, FETCH_CATEGORY_FAILURE } from '../actions/actionTypes';
+import initialState from '../store/initialState';
 
-const articlesReducer = (state = {}, action) => {
+const { articlesByCategory } = initialState;
+
+const articlesReducer = (state = articlesByCategory, action) => {
   const { type, categoryName, payload } = action;
   switch (type) {
-    case FETCH_CATEGORY_REQUEST:
-      return ({
-        ...state,
-        [categoryName]: {}
-      });
     case FETCH_CATEGORY_SUCCESS:
     case FETCH_CATEGORY_FAILURE:
       return ({

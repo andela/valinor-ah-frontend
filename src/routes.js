@@ -1,4 +1,4 @@
-import HomePage from './components/home/HomePage';
+import Home from './components/home/HomePage';
 import Login from './components/login/LoginPage';
 import SignUpPage from './components/signup/SignUpPage';
 import ArticlePage from './components/ArticlePage';
@@ -8,7 +8,7 @@ import NewArticle from './components/NewArticle';
 const routes = [
   {
     path: '/',
-    component: HomePage,
+    component: Home,
     exact: true
   },
   {
