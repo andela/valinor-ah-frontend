@@ -25,7 +25,7 @@ export const CardListArray = (props) => {
 };
 
 export class HomePage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { requestCategory, requestPopularPosts } = this.props;
 
     // fetch the required categories

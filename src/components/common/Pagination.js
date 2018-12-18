@@ -64,9 +64,23 @@ class Pagination extends Component {
     return (
       <div className="pag-cont">
         <ul>
-          <li><button type="button" disabled={(currentPage - 1 === 0) ? 'disabled' : ''} className={(currentPage - 1 === 0) ? 'disabled' : ''} onClick={this.decrementPage}>&lt;</button></li>
+          <li>
+            <button
+              type="button" disabled={(currentPage - 1 === 0) ? 'disabled' : ''}
+              className={(currentPage - 1 === 0) ? 'disabled' : ''}
+              onClick={this.decrementPage}>
+              &lt;
+            </button>
+          </li>
           <Buttons pages={pages} setActive={this.setActive} currentPage={currentPage} />
-          <li><button type="button" disabled={(currentPage === pages) ? 'disabled' : ''} className={(currentPage === pages) ? 'disabled' : ''} onClick={this.incrementPage}>&gt;</button></li>
+          <li>
+            <button
+              type="button" disabled={(currentPage === pages) ? 'disabled' : ''}
+              className={(currentPage === pages) ? 'disabled' : ''}
+              onClick={this.incrementPage}>
+              &gt;
+            </button>
+          </li>
         </ul>
       </div>
     );

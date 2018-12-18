@@ -30,7 +30,7 @@ const routes = [
     exact: true
   },
   {
-    path: '/articles/category/:categoryname',
+    path: '/articles/category/:categoryName',
     component: AllArticlesPage,
     exact: true
   },

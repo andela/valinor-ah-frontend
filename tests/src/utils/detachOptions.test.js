@@ -19,9 +19,9 @@ describe('Test detachOptions function', () => {
     const result = detachOptions(categories, 'categoryName');
     expect(result).toEqual([
       { value: 'all', label: 'all' },
-      { value: 'food', label: 'food' },
-      { value: 'programming', label: 'programming' },
-      { value: 'physics', label: 'physics' },
+      { value: 'sports', label: 'sports' },
+      { value: 'technology', label: 'technology' },
+      { value: 'fashion', label: 'fashion' },
       { value: 'gaming', label: 'gaming' },
       { value: 'business', label: 'business' },
       { value: 'travel', label: 'travel' },
