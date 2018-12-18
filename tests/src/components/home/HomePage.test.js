@@ -5,7 +5,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import mockData from '../../../../mockdata/articles';
-import ConnectedHomePage, { HomePageComponent, CardListArray } from '../../../../src/components/home/HomePage';
+import DefaultHomePage, { HomePage, CardListArray } from '../../../../src/components/home/HomePage';
 import PopularPosts from '../../../../src/components/home/PopularPosts';
 
 const { articles } = mockData;
@@ -13,6 +13,9 @@ const { articles } = mockData;
 test('PopularPosts snapshot test', () => {
   const component = shallow(<PopularPosts articles={articles} />);
   expect(component).toMatchSnapshot();
+
+  // const noArticleComponent = shallow(<PopularPosts articles={[]} />);
+  // expect(noArticleComponent).toMatchSnapshot();
 });
 
 // mock fetched articles by category
@@ -51,15 +54,20 @@ Enzyme.configure({ adapter: new Adapter() });
 function setup() {
   const props = {
     requestCategory: jest.fn(),
-    articlesByCategory: mockArticlesByCategory
+    requestPopularPosts: jest.fn(),
+    articlesByCategory: mockArticlesByCategory,
+    popularPosts: { articles }
   };
 
   const middlewares = [thunk];
   const mockStore = configureMockStore(middlewares);
-  const store = mockStore({ articlesByCategory: mockArticlesByCategory });
+  const store = mockStore({
+    articlesByCategory: mockArticlesByCategory,
+    popularPosts: { articles }
+  });
 
-  const homePageWrapper = shallow(<HomePageComponent {...props} />);
-  const connectedWrapper = shallow(<ConnectedHomePage store={store} />);
+  const homePageWrapper = shallow(<HomePage {...props} />);
+  const connectedWrapper = shallow(<DefaultHomePage {...props} store={store} />);
 
   return {
     props,

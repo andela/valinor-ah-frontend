@@ -3,21 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { CardList } from '../Card';
-import mockArticles from '../../../mockdata/articles';
 import PopularPosts from './PopularPosts';
-import { fetchCategory } from '../../actions/articleActions';
+import { fetchCategory, fetchPopularPosts } from '../../actions/articleActions';
 
 export const CardListArray = (props) => {
   const { articlesByCategory } = props;
   const categories = Object.entries(articlesByCategory);
-
-  // check if the categories are still loading
-  const fetchedCategories = categories.filter(categoryArray => (categoryArray[1].articles));
-  const failedCategories = categories.filter(categoryArray => (categoryArray[1].error));
-  const loading = categories.length > (fetchedCategories.length + failedCategories.length);
-  if (loading) {
-    return <i className="fas fa-spinner fa-3x fa-spin loading-icon" />;
-  }
 
   return categories.map((category) => {
     if (category[1].articles) {
@@ -29,35 +20,26 @@ export const CardListArray = (props) => {
         article={category[1].articles.slice(0, 6)} />
       );
     }
-    return (
-      <h5 key={category[0]}>
-        <strong>{category[0]}</strong>
-        <br />
-        {category[1].error.message}
-      </h5>
-    );
+    return null;
   });
 };
 
-export class HomePageComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      articles: mockArticles
-    };
-  }
-
+export class HomePage extends Component {
   componentWillMount() {
+    const { requestCategory, requestPopularPosts } = this.props;
+
+    // fetch the required categories
     const categoriesToFetch = ['sports', 'fashion', 'technology'];
-    const { requestCategory } = this.props;
     categoriesToFetch.forEach((category) => {
       requestCategory(category);
     });
+
+    // fetch the popular posts
+    requestPopularPosts();
   }
 
   render() {
-    const { articles } = this.state;
-    const { articlesByCategory } = this.props;
+    const { articlesByCategory, popularPosts } = this.props;
 
     return (
       <Fragment>
@@ -71,7 +53,7 @@ export class HomePageComponent extends Component {
               {<CardListArray articlesByCategory={articlesByCategory} />}
             </div>
             <div id="secondary">
-              <PopularPosts articles={articles.articles} />
+              <PopularPosts articles={popularPosts.articles} />
             </div>
           </div>
         </div>
@@ -84,17 +66,21 @@ CardListArray.propTypes = {
   articlesByCategory: PropTypes.object.isRequired
 };
 
-HomePageComponent.propTypes = {
+HomePage.propTypes = {
   requestCategory: PropTypes.func.isRequired,
-  articlesByCategory: PropTypes.object.isRequired
+  requestPopularPosts: PropTypes.func.isRequired,
+  articlesByCategory: PropTypes.object.isRequired,
+  popularPosts: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  articlesByCategory: state.articlesByCategory
+  articlesByCategory: state.articlesByCategory,
+  popularPosts: state.popularArticles
 });
 
 const mapActionsToProps = {
-  requestCategory: fetchCategory
+  requestCategory: fetchCategory,
+  requestPopularPosts: fetchPopularPosts,
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(HomePageComponent);
+export default connect(mapStateToProps, mapActionsToProps)(HomePage);

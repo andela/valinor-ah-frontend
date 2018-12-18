@@ -92,7 +92,7 @@ export const CardList = (props) => {
                 title={currentArticle.title}
                 body={currentArticle.body}
                 backgroundImage={currentArticle.articleImage}
-                link={currentArticle.slug}
+                link={currentArticle.id}
                 key={`card${String(index)}`}
               />
             ))
