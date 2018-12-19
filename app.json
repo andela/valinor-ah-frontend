@@ -6,6 +6,15 @@
     "API_BASE_URL": {
       "required": true
     },
+    "CLOUDINARY_API_KEY": {
+      "required": true
+    },
+    "CLOUDINARY_ARTICLE_PRESET": {
+      "required": true
+    },
+    "CLOUDINARY_CLOUD_NAME": {
+      "required": true
+    },
     "GOOGLE_CLIENT_ID": {
       "required": true
     },

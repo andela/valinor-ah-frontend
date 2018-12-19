@@ -9,6 +9,7 @@ import bell from '../../../../public/images/bell.svg';
 import logout from '../../../../public/images/logout.png';
 import favorites from '../../../../public/images/favorites.png';
 import preferences from '../../../../public/images/preferences.png';
+import profile from '../../../../public/images/profile.png';
 import { globalLoggedIn } from '../../../actions/globalActions';
 
 export class Login extends Component {
@@ -47,12 +48,23 @@ export class Login extends Component {
             </form>
           </div>
         </li>
+
+        <li className="nav-item d-inline d-lg-none">
+          <NavLink className="nav-link" to="/profile">
+            <span className="pr-2">
+              <img className="d-inline mobile-nav-icons" src={profile} alt="profile" />
+            </span>
+            <span>Profile</span>
+          </NavLink>
+        </li>
+
         <li className="nav-item">
           <NavLink className="nav-link" to="/new-article">
             <span className="pr-2">
-              <img className="d-none d-sm-none d-lg-inline mt-2 nav-img" src={newArticle} alt="new article" />
+              <img className="mt-2 d-none d-lg-inline nav-img" src={newArticle} alt="new article" />
+              <img className="d-inline d-sm-inline d-lg-none mobile-nav-icons" src={newArticle} alt="new article" />
             </span>
-            <span className="d-inline d-sm-inline d-lg-none">Profile</span>
+            <span className="d-lg-none">New Article</span>
           </NavLink>
         </li>
 

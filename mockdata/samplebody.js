@@ -39,15 +39,15 @@ export const sampleReportTypes = [
 ];
 
 export const sampleCategoryOptions = [
-  { id: '1', value: 'Football' },
-  { id: '2', value: 'Gaming' },
-  { id: '3', value: 'Programming' },
-  { id: '4', value: 'Andela' },
-  { id: '5', value: 'Bootcamp' },
-  { id: '6', value: 'Cohort-41' },
-  { id: '7', value: 'Learning' },
-  { id: '8', value: 'Gaming' },
-  { id: '9', value: 'Food' }
+  { id: '1', categoryName: 'Football' },
+  { id: '2', categoryName: 'Gaming' },
+  { id: '3', categoryName: 'Programming' },
+  { id: '4', categoryName: 'Andela' },
+  { id: '5', categoryName: 'Bootcamp' },
+  { id: '6', categoryName: 'Cohort-41' },
+  { id: '7', categoryName: 'Learning' },
+  { id: '8', categoryName: 'Gaming' },
+  { id: '9', categoryName: 'Food' }
 ];
 
 export const sampleTagOptions = [

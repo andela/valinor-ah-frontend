@@ -14,6 +14,9 @@ const { articles } = mockData;
 test('PopularPosts snapshot test', () => {
   const component = shallow(<PopularPosts articles={articles} />);
   expect(component).toMatchSnapshot();
+
+  const noArticleComponent = shallow(<PopularPosts articles={[]} />);
+  expect(noArticleComponent).toMatchSnapshot();
 });
 
 // mock fetched articles by category

@@ -1,21 +1,69 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import Enzyme, { shallow, render } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
-import NewArticle, { getSuggestions, CategoryDropdown, TextEditor } from '../../../../src/components/NewArticle';
-import { sampleCategoryOptions } from '../../../../mockdata/samplebody';
+import ConnectedNewArticle, {
+  NewArticle, getSuggestions, CategoryDropdown, TextEditor
+} from '../../../../src/components/NewArticle';
+import { sampleCategoryOptions, sampleTagOptions } from '../../../../mockdata/samplebody';
 
-const newArticlePage = shallow(<NewArticle />);
-const instance = newArticlePage.instance();
+Enzyme.configure({ adapter: new Adapter() });
+
+const props = {
+  requestCategoryTitles: jest.fn(),
+  categoryOptions: sampleCategoryOptions,
+  requestTagTitles: jest.fn(),
+  tagOptions: sampleTagOptions,
+  requestPostArticle: jest.fn(),
+  isLoggedIn: true,
+  history: {},
+};
+
+function setup() {
+  const middlewares = [thunk];
+  const mockStore = configureMockStore(middlewares);
+  const store = mockStore({
+    categoryTitles: sampleCategoryOptions,
+    tagTitles: sampleTagOptions,
+    postArticle: {
+      errors: {}
+    },
+    global: {
+      isLoggedIn: true
+    }
+  });
+
+  const newArticleWrapper = shallow(<NewArticle {...props} />);
+  const loggedOutProps = {
+    ...props,
+    isLoggedIn: false,
+  };
+  const signUpPageRedirect = shallow(<NewArticle {...loggedOutProps} />);
+  const connectedWrapper = shallow(<ConnectedNewArticle {...props} store={store} />);
+
+  return {
+    props,
+    newArticleWrapper,
+    signUpPageRedirect,
+    connectedWrapper
+  };
+}
+
+const { newArticleWrapper, signUpPageRedirect } = setup();
+const newArticleInstance = newArticleWrapper.instance();
 
 test('New Article snapshot test', () => {
-  expect(newArticlePage).toMatchSnapshot();
+  expect(newArticleWrapper).toMatchSnapshot();
+  expect(signUpPageRedirect).toMatchSnapshot();
 });
 
 test('Category dropdown snapshot test', () => {
   const categoryDropdown = render(<CategoryDropdown
     category="Food"
     categoryOptions={sampleCategoryOptions}
-    onCategoryChange={instance.handleCategoryChange} />);
+    onCategoryChange={newArticleInstance.handleCategoryChange} />);
 
   expect(categoryDropdown).toMatchSnapshot();
 });
@@ -23,7 +71,7 @@ test('Category dropdown snapshot test', () => {
 test('Text Editor snapshot test', () => {
   const textEditor = shallow(<TextEditor
     body="Truansuisnd"
-    onEditorChange={instance.handleEditorChange} />);
+    onEditorChange={newArticleInstance.handleEditorChange} />);
 
   expect(textEditor).toMatchSnapshot();
 });
@@ -33,24 +81,46 @@ test('Handler tests', () => {
   const event = {
     target: { name: 'title', value: 'my title' }
   };
-  newArticlePage.find('.title-input').simulate('change', event);
+  newArticleWrapper.find('.title-input').simulate('change', event);
 
   // category input/ selection handler
-  const selectionChange = { selectedItem: 'testing' };
-  const inputChange = { inputValue: 'testing' };
-  instance.handleCategoryChange(selectionChange);
-  instance.handleCategoryChange(inputChange);
+  const selectionChange = { selectedItem: 'selecttesting' };
+  const inputChange = { inputValue: 'inputtesting' };
+  const undefinedChange = {};
+  newArticleInstance.handleCategoryChange(selectionChange);
+  expect(newArticleInstance.state.category).toEqual('selecttesting');
+
+  newArticleInstance.handleCategoryChange(inputChange);
+  expect(newArticleInstance.state.category).toEqual('inputtesting');
+
+  newArticleInstance.handleCategoryChange(undefinedChange);
+  expect(newArticleInstance.state.category).toEqual('inputtesting');
 
   // suggestions filter
   const suggestions = getSuggestions('Fo', sampleCategoryOptions);
   expect(suggestions)
-    .toEqual([{ id: '1', value: 'Football' }, { id: '9', value: 'Food' }]);
+    .toEqual([{ id: '1', categoryName: 'Football' }, { id: '9', categoryName: 'Food' }]);
 
-  instance.handleEditorChange('this is html');
+  // text editor handler
+  newArticleInstance.handleEditorChange('this is html');
+  expect(newArticleInstance.state.body).toEqual('this is html');
 
   // tag handlers
   const testTag = { id: '2', text: 'testing' };
-  instance.handleAddition(testTag);
-  instance.handleDrag(testTag, 2, 1);
-  instance.handleDelete(1);
+  newArticleInstance.handleAddition(testTag);
+  newArticleInstance.handleDrag(testTag, 2, 1);
+  newArticleInstance.handleDelete(1);
+
+  // submit handlers
+  const publishEvent = {
+    target: { className: 'btn-publish' }
+  };
+  const draftEvent = {
+    target: { className: 'btn-draft' }
+  };
+  newArticleInstance.handleSubmit(publishEvent);
+  expect(props.requestPostArticle.mock.calls.length).toBe(1);
+
+  newArticleInstance.handleSubmit(draftEvent);
+  expect(props.requestPostArticle.mock.calls.length).toBe(2);
 });

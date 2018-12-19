@@ -12,5 +12,10 @@ export default {
   article: {
     isLoading: false,
     item: {}
+  },
+  categoryTitles: [],
+  tagTitles: [],
+  postArticle: {
+    errors: {}
   }
 };
