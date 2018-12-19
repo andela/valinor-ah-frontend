@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import HtmlToReact from 'html-to-react';
+
 import articlePageScript from '../../../public/js/articlePageScript';
 import { sampleReportTypes, articleSample } from '../../../mockdata/samplebody';
 import { formatDate, formatReadTime } from '../../utils';
 import CommentBox from './CommentBox';
 import fetchArticle from '../../actions/singleArticleActions';
+
+const HtmlToReactParser = new HtmlToReact.Parser();
 
 export const SelectList = (props) => {
   const { types } = props;
@@ -98,6 +102,7 @@ export class ArticlePage extends React.Component {
     let { article } = this.state;
     const { payload } = this.props;
     article = payload;
+    const articleBody = HtmlToReactParser.parse(article.body);
     const { author } = article;
     // resolve button classes based on state
     const likeClass = articleLikeStatus
@@ -150,7 +155,8 @@ export class ArticlePage extends React.Component {
                   </div>
                 </div>
                 <div className="article-body">
-                  {article.body}
+                  {articleBody}
+                  <br />
                 </div>
                 <div className="article-options">
                   <div className="article-share-options">

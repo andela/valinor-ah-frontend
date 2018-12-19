@@ -150,12 +150,14 @@
   #article-category {
     font-size: 1.6em;
     font-weight: 700;
+    text-shadow: 0.1em 0.1em 3em $black-color;
   }
 
   #article-title {
     font-size: 3.13em;
     font-weight: 700;
     margin-bottom: 1em;
+    text-shadow: 0.1em 0.1em 3em $black-color;
     white-space: nowrap;
   }
 
@@ -431,7 +433,7 @@
       background-size: 2.5em 2.5em;
       height: 2.5em;
       left: 0.8em;
-      text-shadow: 0.1em 0.1em 3 $color-bg;
+      text-shadow: 0.1em 0.1em 3em $black-color;
       top: 3.6em;
       width: 2.5em;
     }

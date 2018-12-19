@@ -73,7 +73,7 @@ header {
   left: 50%;
   padding: 0;
   text-align: center;
-  top: 110%;
+  top: 85%;
   transform: translateX(-50%);
 
   .dropdown-item {
@@ -150,7 +150,7 @@ header {
 
 .desktop-search-bar.show {
   font-size: 1em;
-  top: 5.3em;
+  top: 4em;
 }
 
 .mobile-search-bar.show {
@@ -276,18 +276,7 @@ header {
   header {
 
     .navbar {
-      padding-left: 2.25em;
-      padding-right: 2.25em;
-    }
-  }
-}
-
-@media (min-width: 1200px) {
-  header {
-
-    .navbar {
-      padding-left: 5.25em;
-      padding-right: 5.25em;
+      padding: 0 4em 0 3em;
     }
   }
 }

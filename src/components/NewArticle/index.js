@@ -1,11 +1,13 @@
 import React from 'react';
 import Downshift from 'downshift';
 import PropTypes from 'prop-types';
-
 import ReactQuill from 'react-quill';
-
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router';
 import { WithContext as ReactTags } from 'react-tag-input';
-import { sampleCategoryOptions, sampleTagOptions } from '../../../mockdata/samplebody';
+import { fetchCategoryTitles } from '../../actions/categoryActions';
+import { fetchTagTitles } from '../../actions/tagActions';
+import { postArticle } from '../../actions/postArticleActions';
 
 const KeyCodes = {
   comma: 188,
@@ -15,7 +17,7 @@ const KeyCodes = {
 const delimiters = Object.values(KeyCodes);
 
 export const getSuggestions = (input, options) => (
-  options.filter(categoryItem => !input || categoryItem.value.toLowerCase()
+  options.filter(categoryItem => !input || categoryItem.categoryName.toLowerCase()
     .includes(input.toLowerCase()))
 );
 
@@ -65,10 +67,10 @@ export const CategoryDropdown = (props) => {
                       key={categoryItem.id}
                       {...getItemProps({
                         index,
-                        item: categoryItem.value,
+                        item: categoryItem.categoryName,
                         className: highlightedIndex === index ? 'category-menu-item highlighted' : 'category-menu-item'
                       })}>
-                      {categoryItem.value}
+                      {categoryItem.categoryName}
                     </div>
                   ))
                 : null}
@@ -79,7 +81,6 @@ export const CategoryDropdown = (props) => {
     </Downshift>
   );
 };
-
 
 /**
  * Rich Text Editor component
@@ -125,16 +126,10 @@ export const TextEditor = (props) => {
   );
 };
 
-TextEditor.propTypes = {
-  body: PropTypes.string.isRequired,
-  onEditorChange: PropTypes.func.isRequired
-};
-
-
 /**
  * Article page component
  */
-class NewArticle extends React.Component {
+export class NewArticle extends React.Component {
   constructor(props) {
     super(props);
 
@@ -142,10 +137,9 @@ class NewArticle extends React.Component {
       title: '',
       description: '',
       body: '',
+      articleImage: '',
       category: '',
-      categoryOptions: sampleCategoryOptions,
       tags: [],
-      tagOptions: sampleTagOptions
     };
 
     // input handler
@@ -161,6 +155,20 @@ class NewArticle extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
     this.handleDrag = this.handleDrag.bind(this);
+
+    // upload handler
+    this.handleUpload = this.handleUpload.bind(this);
+
+    // submit handler
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { requestCategoryTitles, requestTagTitles } = this.props;
+    // fetch categories
+    requestCategoryTitles();
+    // fetch tags
+    requestTagTitles();
   }
 
   handleChange = (event) => {
@@ -214,10 +222,65 @@ class NewArticle extends React.Component {
     this.setState({ tags: newTags });
   }
 
+  handleSubmit(e) {
+    const { requestPostArticle, history } = this.props;
+    const {
+      title, description, body, articleImage, category, tags
+    } = this.state;
+    const tagsArray = tags.map(tag => tag.text);
+    const featuredImage = articleImage.trim().length === 0 ? undefined : articleImage;
+    const status = e.target.className === 'btn-publish' ? 'publish' : 'draft';
+
+    const postBody = {
+      title,
+      description,
+      body,
+      articleImage: featuredImage,
+      categoryName: category,
+      tagsArray,
+      status,
+    };
+    requestPostArticle(postBody, history);
+  }
+
+  handleUpload() {
+    cloudinary.openUploadWidget( // eslint-disable-line no-undef
+      {
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        upload_preset: process.env.CLOUDINARY_ARTICLE_PRESET,
+        multiple: false,
+        maxFiles: 1,
+        cropping: true,
+      },
+      (error, result) => {
+        if (result.event === 'success') {
+          this.setState({
+            articleImage: result.info.secure_url
+          });
+          const thumbnailContainer = document.getElementById('selected-image-container');
+          thumbnailContainer.style.backgroundImage = `url(${result.info.secure_url})`;
+        }
+      }
+    );
+  }
+
   render() {
     const {
-      title, description, body, category, categoryOptions, tags, tagOptions
+      title, description, body, category, tags
     } = this.state;
+    const {
+      categoryOptions, tagOptions, isLoggedIn, errors
+    } = this.props;
+
+    // modify the tag options objects to be able to work with reacttags
+    tagOptions.forEach((tagObject) => {
+      tagObject.text = tagObject.tagName;
+      tagObject.id = String(tagObject.id);
+    });
+
+    if (!isLoggedIn) {
+      return (<Redirect to="/signup" />);
+    }
 
     return (
       <div className="site-content">
@@ -225,7 +288,10 @@ class NewArticle extends React.Component {
           <h3>Add a new article</h3>
           <div className="title-cell">
             <label>
-              <span>Title</span>
+              <div className="label-error">
+                <span>Title</span>
+                <i>{errors.title}</i>
+              </div>
               <input
                 id="title"
                 name="title"
@@ -238,7 +304,10 @@ class NewArticle extends React.Component {
           </div>
           <div className="description-cell">
             <label>
-              <span>Description</span>
+              <div className="label-error">
+                <span>Description</span>
+                <i>{errors.description}</i>
+              </div>
               <input
                 id="description" name="description"
                 onChange={this.handleChange}
@@ -250,6 +319,9 @@ class NewArticle extends React.Component {
           </div>
 
           <div className="editor-cell">
+            <div className="label-error">
+              <i>{errors.body}</i>
+            </div>
             <TextEditor body={body} onEditorChange={this.handleEditorChange} />
           </div>
 
@@ -261,17 +333,17 @@ class NewArticle extends React.Component {
           </div>
 
           <div className="upload-cell">
-            <span>Image Upload</span>
+            <span>Featured Image</span>
             <div id="selected-image-container" />
-            <button type="button" id="image-browse-button">
-              <label>
-                <input type="file" name="pic" accept="image/*" />
-                Upload
-              </label>
+            <button type="button" onClick={this.handleUpload} id="image-browse-button">
+              Upload
             </button>
           </div>
 
           <div className="tags-cell">
+            <div className="label-error">
+              <i>{errors.tags}</i>
+            </div>
             <span id="tags-label">Tags</span>
             <ReactTags
               tags={tags}
@@ -295,11 +367,11 @@ class NewArticle extends React.Component {
           </div>
 
           <div className="save-draft-cell">
-            <button type="submit" className="btn-draft"><span>Save to draft</span></button>
+            <button type="button" onClick={this.handleSubmit} className="btn-draft"><span>Save to draft</span></button>
           </div>
 
           <div className="save-cell">
-            <button type="submit" className="btn-publish">Publish</button>
+            <button type="button" onClick={this.handleSubmit} className="btn-publish">Publish</button>
           </div>
 
         </form>
@@ -308,4 +380,37 @@ class NewArticle extends React.Component {
   }
 }
 
-export default NewArticle;
+TextEditor.propTypes = {
+  body: PropTypes.string.isRequired,
+  onEditorChange: PropTypes.func.isRequired
+};
+
+NewArticle.propTypes = {
+  requestCategoryTitles: PropTypes.func.isRequired,
+  categoryOptions: PropTypes.array.isRequired,
+  requestTagTitles: PropTypes.func.isRequired,
+  tagOptions: PropTypes.array.isRequired,
+  requestPostArticle: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired,
+  errors: PropTypes.object,
+};
+
+NewArticle.defaultProps = {
+  errors: {}
+};
+
+const mapStateToProps = state => ({
+  categoryOptions: state.categoryTitles,
+  tagOptions: state.tagTitles,
+  isLoggedIn: state.global.isLoggedIn,
+  errors: state.postArticle.errors,
+});
+
+const mapActionsToProps = {
+  requestCategoryTitles: fetchCategoryTitles,
+  requestTagTitles: fetchTagTitles,
+  requestPostArticle: postArticle,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(NewArticle);

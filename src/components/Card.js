@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import HtmlToReact from 'html-to-react';
 
 export const Card = (props) => {
   const {
@@ -11,6 +12,10 @@ export const Card = (props) => {
     link
   } = props;
 
+  const HtmlToReactParser = new HtmlToReact.Parser();
+  const excerptHtml = body.slice(0, 70);
+  const excerpt = HtmlToReactParser.parse(excerptHtml);
+
   return (
     <div className="card" style={{ backgroundImage: 'url(https://bit.ly/2B4NZ51)' }}>
       <NavLink to={`/articles/${link}`}>
@@ -18,7 +23,10 @@ export const Card = (props) => {
           <div className="article-meta">
             <p className="category-name">{category}</p>
             <p className="title">{title}</p>
-            <p className="excerpt">{`${body.slice(0, 70)}....`}</p>
+            <p className="excerpt">
+              {excerpt}
+              ...
+            </p>
           </div>
           <button className="btn" type="button">Read More</button>
         </div>

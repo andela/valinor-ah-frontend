@@ -76,9 +76,12 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL),
+      'process.env.CLOUDINARY_API_KEY': JSON.stringify(process.env.CLOUDINARY_API_KEY),
+      'process.env.CLOUDINARY_CLOUD_NAME': JSON.stringify(process.env.CLOUDINARY_CLOUD_NAME),
+      'process.env.CLOUDINARY_ARTICLE_PRESET': JSON.stringify(process.env.CLOUDINARY_ARTICLE_PRESET),
+      'process.env.FACEBOOK_APP_ID': JSON.stringify(process.env.FACEBOOK_APP_ID),
       'process.env.GOOGLE_CLIENT_ID': JSON.stringify(process.env.GOOGLE_CLIENT_ID),
       'process.env.JWT_SECRET': JSON.stringify(process.env.JWT_SECRET),
-      'process.env.FACEBOOK_APP_ID': JSON.stringify(process.env.FACEBOOK_APP_ID)
     }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
