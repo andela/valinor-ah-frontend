@@ -12,11 +12,11 @@
 @import './AllArticles';
 @import './NewArticle';
 @import './Spinner';
+@import './SearchPage';
 
 * {
   box-sizing: border-box;
   font-family: 'Open Sans';
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -39,6 +39,10 @@ body {
   .site-content {
     margin-top: 4em;
     overflow: hidden;
+
+    .search-page {
+      margin: 3em 0 0;
+    }
 
     .main {
 
@@ -70,6 +74,7 @@ body {
           float: left;
           margin: 0 1% 1% 0;
           position: relative;
+          text-align: left;
           top: 0;
           transition: all 0.5s;
           z-index: 9;
@@ -154,6 +159,66 @@ body {
           }
         }
 
+        .pag-cont {
+          margin: 3em 0 0;
+          text-align: right;
+
+          ul {
+            list-style: none;
+
+            li {
+              display: inline;
+
+              &:first-child {
+                button {
+                  border-bottom-left-radius: 0.5em;
+                  border-top-left-radius: 0.5em;
+                }
+              }
+
+              &:last-child {
+                button {
+                  border-bottom-right-radius: 0.5em;
+                  border-top-right-radius: 0.5em;
+                }
+              }
+
+              &:first-child,
+              &:last-child {
+                button {
+                  background-color: $header-border-color;
+                  padding: 0.5em;
+                }
+              }
+
+              &:hover,
+              &:active {
+                button {
+                  background-color: $header-border-color;
+                  cursor: pointer;
+                  outline: none;
+                }
+              }
+
+              .active {
+                background-color: $header-border-color;
+              }
+
+              .disabled {
+                opacity: 0.3;
+              }
+
+              button {
+                background: none;
+                color: $text-grey;
+                font-size: 0.8em;
+                font-weight: lighter;
+                margin: 0 0.04em;
+                padding: 0.5em 1em;
+              }
+            }
+          }
+        }
       }
 
       #secondary {
@@ -237,7 +302,6 @@ a {
           display: block;
           padding: 0 1em;
           width: 100%;
-          padding: 0 1em;
 
           .home-articles-cont,
           .category-cont {
@@ -307,12 +371,65 @@ a {
 
             }
           }
+
+          .pag-cont {
+            text-align: center;
+          }
         }
 
         #secondary {
 
           .sidebar {
             display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 350) {
+  #app {
+    .site-content {
+      margin-top: 3em;
+
+      .site-intro {
+        margin: 2em 0 1em;
+        padding: 0 1em;
+
+        h1 {
+          font-size: 2em;
+        }
+
+        p {
+          font-size: 0.8em;
+        }
+      }
+
+      .main {
+        #primary {
+          display: block;
+          padding: 0 1em;
+          width: 100%;
+
+          .pag-cont {
+
+            ul {
+
+              li {
+
+                &:first-child,
+                &:last-child {
+                  button {
+                    padding: 0.5em 0.3em;
+                  }
+                }
+
+                button {
+                  padding: 0.5em 0.8em;
+                }
+              }
+            }
           }
         }
       }

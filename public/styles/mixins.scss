@@ -20,26 +20,31 @@
   box-shadow: $v $w $x $y $z;
 };
 
-@mixin placeholder($color){
+@mixin placeholder($color, $fontsize){
 
   &::-webkit-input-placeholder{
     color: $color;
+    font-size: $fontsize;
   }
 
   &::-moz-placeholder{
     color: $color;
+    font-size: $fontsize;
   }
 
   &:-ms-input-placeholder{
     color: $color;
+    font-size: $fontsize;
   }
 
   &::-moz-placeholder{
     color: $color;
+    font-size: $fontsize;
   }
 
   &::placeholder{
     color: $color;
+    font-size: $fontsize;
   }
 
 }

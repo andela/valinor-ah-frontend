@@ -10,7 +10,7 @@ import mockData from '../../../mockdata/articles';
 const { articles } = mockData;
 
 test('Card snapshot test', () => {
-  const component = shallow(<Card title="test" category="test" body="test" backgroundImage="https://testing/" link="some/interesting/link" />);
+  const component = shallow(<Card title="test" category="test" body="test" backgroundImage="https://testing/" link="https://testing/" />);
   expect(component).toMatchSnapshot();
 });
 

@@ -10,7 +10,7 @@ const Footer = () => (
         <div className="col-7 m-0">
           <a href="/"><p className="d-inline m-0">Privacy Policy</p></a>
           <a href="/"><p className="d-inline pl-2 m-0">Terms of Use</p></a>
-          <p className="text-muted m-0 font-weight-bold">Copyright 2018, Author’s Haven</p>
+          <p className="text-muted m-0 font-weight-bold">Copyright 2018 &copy; Author’s Haven</p>
         </div>
         <div className="col-5 text-right">
           <div className="social-links">
@@ -25,7 +25,7 @@ const Footer = () => (
         <div className="col-8">
           <div className="row">
             <div className="col-sm">
-              <p className="text-muted footer-text m-0 pt-2 text-right">Copyright 2018, Author’s Haven</p>
+              <p className="text-muted footer-text m-0 pt-2 text-right">Copyright 2018 &copy; Author’s Haven</p>
             </div>
             <div className="col-sm">
               <div className="social-links text-center">
