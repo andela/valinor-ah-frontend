@@ -22,7 +22,7 @@
     }
 
     input {
-      @include placeholder ($text-grey);
+      @include placeholder ($text-grey, initial);
       border: solid 1px $color-border;
       border-radius: 0.125em;
       font-family: "Zilla Slab", serif;
