@@ -297,18 +297,73 @@
       margin-bottom: 1em;
     }
 
-    input {
+    textarea {
+      @include placeholder($text-grey, initial);
       border: 0;
-      margin-left: 1em;
+      font-family: "Zilla Slab", serif;
+      font-size: 1em;
+      font-weight: 500;
+      height: 9em;
+      outline: 0;
       padding: 0.5em;
-      width: 100%;
+      resize: none;
     }
 
     .new-comment {
-      @include outer-box-shadow(0, 0, 3px, 0, $shadow-comment-box);
+      @include outer-box-shadow(0, 0, 2px, 0, $shadow-comment-box);
       border: solid 1px $color-border;
+      border-radius: 0.2em;
       display: flex;
+      flex-direction: column;
       padding: 0.6em 1em;
+
+      .post-comment-btn {
+        align-self: flex-end;
+        background: $color-accent;
+        border: 1px solid $color-accent;
+        border-radius: 3em;
+        color: $text-white;
+        cursor: pointer;
+        font-size: 0.9em;
+        outline: 0;
+        padding: 0.5em 2.5em;
+        position: relative;
+
+        &:hover {
+          background: $text-white;
+          border: 1px solid $color-accent;
+          bottom: 1px;
+          color: $color-accent;
+        }
+
+        &:active {
+          bottom: 0;
+        }
+      }
+
+      .author-container {
+        line-height: 3em;
+
+        span {
+          font-size: 0.9em;
+        }
+
+        img {
+          margin: 0 1em 0 0;
+        }
+
+        a {
+          img {
+            border: 0;
+          }
+        }
+      }
+
+      .author-name {
+        line-height: 3em;
+        margin: 0 1em;
+        width: 70%;
+      }
     }
 
     .comment-box {

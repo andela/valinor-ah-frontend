@@ -8,7 +8,9 @@ function setup() {
   const props = {
     fetchSingleArticle: jest.fn(),
     match: { params: { id: 1 } },
-    payload: mockData
+    payload: mockData,
+    postArticleComment: jest.fn(),
+    isLoggedIn: false,
   };
 
 

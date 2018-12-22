@@ -13,24 +13,26 @@ afterEach(() => {
 
 test('request article success action', () => {
   const articleId = 1;
+  const mockArticle = {
+    id: 1,
+    artcleImage: 'https://bit.ly/2CaG1ce',
+    title: 'My story at the beach',
+    slug: 'My-story-at-the-beach-2324232323',
+    description: 'This is my story at the beach',
+    body: 'Once upon a time in Mexico.. there was ...',
+    readTime: 3600,
+    category: 'sports',
+    rating: null,
+    likes: 2,
+    dislikes: 0,
+    status: 'publish',
+    commentsCount: 6,
+    createdAt: '2018-12-18T19:24:32.889Z',
+    updatedAt: '2018-12-18T19:24:32.889Z',
+  };
   const mockResponse = {
-    article: {
-      id: 1,
-      artcleImage: 'https://bit.ly/2CaG1ce',
-      title: 'My story at the beach',
-      slug: 'My-story-at-the-beach-2324232323',
-      description: 'This is my story at the beach',
-      body: 'Once upon a time in Mexico.. there was ...',
-      readTime: 3600,
-      category: 'sports',
-      rating: null,
-      likes: 2,
-      dislikes: 0,
-      status: 'publish',
-      commentsCount: 6,
-      createdAt: '2018-12-18T19:24:32.889Z',
-      updatedAt: '2018-12-18T19:24:32.889Z',
-    }
+    status: 'success',
+    article: mockArticle
   };
 
   fetchMock.getOnce(`${process.env.API_BASE_URL}/articles/${articleId}`, {
@@ -44,14 +46,13 @@ test('request article success action', () => {
       isLoading: true,
     },
     {
+      type: RECEIVE_ARTICLE_SUCCESS,
+      item: mockResponse
+    },
+    {
       type: TRIGGER_LOADING,
       isLoading: false,
     },
-    {
-      type: RECEIVE_ARTICLE_SUCCESS,
-      articleId,
-      item: mockResponse
-    }
   ];
 
   const store = mockStore({});
@@ -77,7 +78,7 @@ test('request article failure action', () => {
       type: TRIGGER_FAILURE,
       isLoading: false,
       error: { message: 'failure' }
-    }
+    },
   ];
 
   const store = mockStore({});

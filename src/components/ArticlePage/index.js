@@ -2,12 +2,15 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import HtmlToReact from 'html-to-react';
+import { NavLink } from 'react-router-dom';
 
 import articlePageScript from '../../../public/js/articlePageScript';
-import { sampleReportTypes, articleSample } from '../../../mockdata/samplebody';
+import { sampleReportTypes } from '../../../mockdata/samplebody';
 import { formatDate, formatReadTime } from '../../utils';
 import CommentBox from './CommentBox';
 import fetchArticle from '../../actions/singleArticleActions';
+import { postComment } from '../../actions/commentActions';
+import getToken from '../../utils/getToken';
 
 const HtmlToReactParser = new HtmlToReact.Parser();
 
@@ -24,19 +27,15 @@ export const SelectList = (props) => {
   );
 };
 
-SelectList.propTypes = {
-  types: PropTypes.array.isRequired
-};
-
 export class ArticlePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: articleSample,
       articleLikeStatus: null,
       bookmarkState: false,
       commentLikeState: [null, null],
       reportTypes: sampleReportTypes,
+      commentInput: '',
     };
 
     this.handleLikeClick = this.handleLikeClick.bind(this);
@@ -44,6 +43,8 @@ export class ArticlePage extends React.Component {
     this.handleBookmarkClick = this.handleBookmarkClick.bind(this);
     this.handleCommentLikeClick = this.handleCommentLikeClick.bind(this);
     this.handleCommentDislikeClick = this.handleCommentDislikeClick.bind(this);
+    this.handleCommentInput = this.handleCommentInput.bind(this);
+    this.handleCommentPost = this.handleCommentPost.bind(this);
   }
 
   componentDidMount() {
@@ -95,15 +96,45 @@ export class ArticlePage extends React.Component {
     });
   }
 
+  handleCommentInput(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  handleCommentPost() {
+    const { commentInput } = this.state;
+    const { payload, postArticleComment } = this.props;
+
+    const body = {
+      body: commentInput,
+    };
+    postArticleComment(payload.id, body);
+    this.setState({
+      commentInput: ''
+    });
+  }
+
   render() {
     const {
-      articleLikeStatus, bookmarkState, commentLikeState, reportTypes
+      articleLikeStatus, bookmarkState, commentLikeState, reportTypes, commentInput,
     } = this.state;
-    let { article } = this.state;
-    const { payload } = this.props;
-    article = payload;
-    const articleBody = HtmlToReactParser.parse(article.body);
+
+    const { payload, isLoggedIn } = this.props;
+
+    const article = payload;
+
+    // get author information
     const { author } = article;
+
+    // parse html article body to react
+    const articleBody = HtmlToReactParser.parse(article.body);
+
+    // get user information from local storage
+
+    const user = getToken(true);
+    const userFullName = user ? user.fullName : '';
+
     // resolve button classes based on state
     const likeClass = articleLikeStatus
       ? 'fas fa-thumbs-up fa-2x' : 'far fa-thumbs-up fa-2x';
@@ -111,6 +142,8 @@ export class ArticlePage extends React.Component {
       ? 'fas fa-thumbs-down fa-2x' : 'far fa-thumbs-down fa-2x';
     const bookmarkClass = bookmarkState
       ? 'fas fa-bookmark fa-2x' : 'far fa-bookmark fa-2x';
+
+
     return (
       (Object.keys(payload).length < 1) ? (<div />)
         : (
@@ -184,12 +217,41 @@ export class ArticlePage extends React.Component {
               <hr />
               <div className="comment-content">
                 <span>Comments</span>
+
                 <div className="new-comment">
-                  <div className="author-container">
-                    <img src={author.avatarUrl} alt="author" />
-                  </div>
-                  <input placeholder="Add a comment..." />
+                  {(isLoggedIn) ? (
+                    <Fragment>
+                      <div className="author-container">
+                        <img src="https://bit.ly/2Bzc7wF" alt="author" />
+                        <span id="author-name">{userFullName}</span>
+                      </div>
+                      <textarea
+                        name="commentInput"
+                        placeholder="Add a comment..."
+                        value={commentInput}
+                        onChange={this.handleCommentInput} />
+                      <button
+                        className="post-comment-btn"
+                        type="button"
+                        onClick={this.handleCommentPost}>
+                        POST
+                      </button>
+                    </Fragment>
+                  ) : (
+                    <div className="author-container">
+                      <NavLink to="/signup">
+                        <img src="https://bit.ly/2Bzc7wF" alt="author" />
+                        Sign up&nbsp;
+                      </NavLink>
+                      or&nbsp;
+                      <NavLink to="/login">
+                      login&nbsp;
+                      </NavLink>
+                      to post a comment
+                    </div>
+                  )}
                 </div>
+
                 <div className="comment-list">
                   {article.comments
                     .map((commentItem, index) => (
@@ -210,20 +272,26 @@ export class ArticlePage extends React.Component {
   }
 }
 
+SelectList.propTypes = {
+  types: PropTypes.array.isRequired
+};
+
 ArticlePage.propTypes = {
   fetchSingleArticle: PropTypes.func.isRequired,
+  postArticleComment: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
-  payload: PropTypes.object.isRequired
+  payload: PropTypes.object.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
 };
 
 export const mapStateToProps = state => ({
-  payload: state.article.item
+  payload: state.article.item,
+  isLoggedIn: state.global.isLoggedIn,
 });
 
-export const mapDispatchToProps = dispatch => ({
-  fetchSingleArticle: (articleId) => {
-    dispatch(fetchArticle(articleId));
-  }
-});
+const mapActionsToProps = {
+  postArticleComment: postComment,
+  fetchSingleArticle: fetchArticle,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticlePage);
+export default connect(mapStateToProps, mapActionsToProps)(ArticlePage);
