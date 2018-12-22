@@ -1,27 +1,26 @@
 import { toastr } from 'react-redux-toastr';
-import * as types from './actionTypes';
+import { RECEIVE_ARTICLE_SUCCESS } from './actionTypes';
 import { globalLoading, globalFailure } from './globalActions';
 
-
-const receiveArticleSuccess = (articleId, response) => ({
-  type: types.RECEIVE_ARTICLE_SUCCESS,
-  articleId,
+const receiveArticleSuccess = response => ({
+  type: RECEIVE_ARTICLE_SUCCESS,
   item: response
 });
-
 
 const fetchArticle = articleId => (dispatch) => {
   dispatch(globalLoading(true));
   return fetch(`${process.env.API_BASE_URL}/articles/${articleId}`)
-    .then(res => res.json())
+    .then(
+      res => res.json(),
+      error => dispatch(globalFailure(error))
+    )
     .then((body) => {
-      if (body.errors) {
-        dispatch(globalFailure(body.errors));
-        toastr.error(body.status.toUpperCase(), body.errors.message[0]);
-      } else {
-        dispatch(globalLoading(false));
-        dispatch(receiveArticleSuccess(articleId, body));
+      if (body.status === 'success') {
+        dispatch(receiveArticleSuccess(body));
+        return dispatch(globalLoading(false));
       }
+      toastr.error(body.status.toUpperCase(), body.errors.message[0]);
+      return dispatch(globalFailure(body.errors));
     });
 };
 

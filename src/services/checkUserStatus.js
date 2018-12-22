@@ -1,9 +1,10 @@
 
 import verifyToken from '../utils/verifyToken';
 import { persistor } from '../store/store';
+import getToken from '../utils/getToken';
 
 const checkUserStatus = () => {
-  const user = localStorage.getItem('user');
+  const user = getToken(true);
   const root = localStorage.getItem('persist:root');
   if (root && !user) {
     const parseRoot = JSON.parse(root);

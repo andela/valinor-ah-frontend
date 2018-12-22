@@ -64,7 +64,7 @@ function setup() {
   const mockStore = configureMockStore(middlewares);
   const store = mockStore({
     articlesByCategory: mockArticlesByCategory,
-    popularPosts: { articles }
+    popularArticles: { articles }
   });
 
   const homePageWrapper = shallow(<HomePage {...props} />);

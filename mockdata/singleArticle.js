@@ -24,5 +24,35 @@ export default {
     followers: 0,
     following: 0
   },
-  comments: []
+  comments: [
+    {
+      id: 3,
+      body: 'This actually good',
+      inlineComment: null,
+      createdAt: '2019-01-03T19:37:48.584Z',
+      updatedAt: '2019-01-03T19:37:48.584Z',
+      author: {
+        id: 1,
+        fullName: 'John Doe',
+        avatarUrl: 'https://bit.ly/2UT01ax',
+        following: 0,
+        followers: 0
+      },
+      replies: [
+        {
+          id: 4,
+          body: 'Policy is bad',
+          createdAt: '2019-01-03T19:37:48.872Z',
+          updatedAt: '2019-01-03T19:37:48.872Z',
+          commenter: {
+            id: 1,
+            fullName: 'John Doe',
+            avatarUrl: 'https://bit.ly/2UT01ax',
+            following: 0,
+            followers: 0
+          }
+        }
+      ]
+    }
+  ]
 };

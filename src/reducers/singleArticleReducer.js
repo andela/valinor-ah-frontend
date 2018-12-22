@@ -10,7 +10,6 @@ const singleArticleReducer = (state = article, action) => {
     case RECEIVE_ARTICLE_SUCCESS:
       return {
         ...state,
-        isLoading: action.isLoading,
         item: action.item.article
       };
     default:

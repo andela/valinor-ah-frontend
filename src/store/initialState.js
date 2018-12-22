@@ -10,8 +10,12 @@ export default {
     error: []
   },
   article: {
-    isLoading: false,
-    item: {}
+    item: {
+      createdAt: '',
+      readTime: '',
+      comments: [],
+      author: {}
+    }
   },
   categoryTitles: [],
   tagTitles: [],
