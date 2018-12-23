@@ -30,5 +30,10 @@ export default {
     results: {},
     query: 'all?limit=10&page=1',
     errors: ''
+  },
+  bookmarks: {
+    errors: {},
+    bookmarkedArticles: [],
+    bookmarkStatus: false
   }
 };

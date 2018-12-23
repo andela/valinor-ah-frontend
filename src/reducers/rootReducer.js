@@ -10,6 +10,7 @@ import tagReducer from './tagReducer';
 import postArticleReducer from './postArticleReducer';
 import searchReducer from './searchReducer';
 import authorReducer from './authorReducer';
+import bookmarksReducer from './bookmarksReducer';
 
 const rootReducer = combineReducers({
   articlesByCategory: articlesReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   searchResults: searchReducer,
   tagTitles: tagReducer,
   toastr,
+  bookmarks: bookmarksReducer
 });
 
 export default rootReducer;

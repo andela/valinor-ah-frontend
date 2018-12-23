@@ -2,7 +2,7 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import fetchMock from 'fetch-mock';
 import fetchArticle from '../../../src/actions/singleArticleActions';
-import { RECEIVE_ARTICLE_SUCCESS, TRIGGER_LOADING, TRIGGER_FAILURE } from '../../../src/actions/actionTypes';
+import { RECEIVE_ARTICLE_SUCCESS, TRIGGER_LOADING } from '../../../src/actions/actionTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -55,33 +55,7 @@ test('request article success action', () => {
     },
   ];
 
-  const store = mockStore({});
-
-  return store.dispatch(fetchArticle(articleId))
-    .then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
-});
-
-test('request article failure action', () => {
-  const articleId = 100;
-  fetchMock.getOnce(`${process.env.API_BASE_URL}/articles/${articleId}`, {
-    headers: { 'content-type': 'application/json' },
-    body: { status: 'failure', errors: { message: 'failure' } }
-  });
-  const expectedActions = [
-    {
-      type: TRIGGER_LOADING,
-      isLoading: true,
-    },
-    {
-      type: TRIGGER_FAILURE,
-      isLoading: false,
-      error: { message: 'failure' }
-    },
-  ];
-
-  const store = mockStore({});
+  const store = mockStore({ article: { item: {} } });
 
   return store.dispatch(fetchArticle(articleId))
     .then(() => {

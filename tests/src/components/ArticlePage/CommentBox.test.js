@@ -11,6 +11,11 @@ function setup() {
     payload: mockData,
     postArticleComment: jest.fn(),
     isLoggedIn: false,
+    bookmarks: {
+      bookmarkedArticles: [],
+      errors: {},
+      bookmarkStatus: false
+    }
   };
 
 
