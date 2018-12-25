@@ -22,6 +22,28 @@ export default {
       articlesRead: 0,
       createdAt: '2018-12-14T13:06:20.151Z',
       articlesWritten: 5
+    },
+    {
+      id: 3,
+      fullName: 'Akanmu Christopher',
+      bio: null,
+      avatarUrl: null,
+      following: 0,
+      followers: 0,
+      articlesRead: 0,
+      createdAt: '2018-12-14T13:06:20.151Z',
+      articlesWritten: 5
+    },
+    {
+      id: 17,
+      fullName: 'Augustine Ezinwa',
+      bio: null,
+      avatarUrl: null,
+      following: 0,
+      followers: 0,
+      articlesRead: 0,
+      createdAt: '2018-12-14T13:06:20.151Z',
+      articlesWritten: 5
     }
   ]
 };

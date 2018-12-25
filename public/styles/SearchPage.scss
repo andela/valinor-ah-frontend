@@ -11,27 +11,32 @@
           text-transform: capitalize;
         }
 
-        select {
-          -webkit-appearance: none;
-          background-color: $white-color;
-          border-color: $filter-border;
-          -webkit-border-radius: 0;
-          border-radius: 0;
-          display: block;
-          font-size: 0.7em;
-          margin: 0 0 1em;
-          padding: 0.9em 0.4em;
-          text-transform: lowercase;
-          width: 100%;
-        }
-
         #authors-options {
           text-transform: capitalize;
+        }
+
+        .css-10nd86i {
+          margin: 0 0 1em;
+
+          .css-vj8t7z, .css-2o5izw, .css-15k3avv {
+            border-color: $filter-border;
+            border-radius: 0;
+            font-size: 0.7em;
+
+            .css-1492t68, .css-d8oujb {
+              display: none;
+            }
+          }
+
         }
       }
 
       #primary {
         padding-right: 1em;
+
+        .no-search-results {
+          margin: 4em 0 0;
+        }
 
         .search-params {
           margin: 3em 0 1.5em;

@@ -39,6 +39,8 @@ describe('should test LoginPage components', () => {
   const instance = secondComponent.instance();
   instance.responseGoogle({ profileObj });
   instance.responseFacebook({ userFacebookInformation });
+  instance.handleSubmit({ preventDefault: jest.fn() });
+  instance.handleInputChange({ preventDefault: jest.fn(), target: { name: 'Chris', value: 'Chris' } });
 });
 
 describe('Login snapshot test', () => {

@@ -9,7 +9,7 @@ const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 test('TEST login component', () => {
-  const component = shallow(<Login url={`${'https://fake'}`} logOutAction={jest.fn()} logOutUser={jest.fn()} />);
+  const component = shallow(<Login url={`${'https://fake'}`} logOutAction={jest.fn()} logOutUser={jest.fn()} handleSearchSubmit={jest.fn()} />);
   expect(component).toMatchSnapshot();
   const instance = component.instance();
   instance.logOutUser();
@@ -25,7 +25,7 @@ describe('', () => {
       }
     };
     store = mockStore(initialState);
-    component = shallow(<DefaultLogin store={store} url={`${'https://fake'}`} logOutAction={jest.fn()} />);
+    component = shallow(<DefaultLogin store={store} url={`${'https://fake'}`} logOutAction={jest.fn()} handleSearchSubmit={jest.fn()} />);
   });
 
   it('certify that isLoggedIn is false', () => {

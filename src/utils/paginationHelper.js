@@ -1,7 +1,7 @@
 const paginationHelper = (pages, currentPage) => {
   const limit = 7;
   if (currentPage > pages) {
-    return 'error';
+    return [1];
   }
   const result = [];
   if (pages < limit) {

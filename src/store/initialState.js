@@ -22,4 +22,13 @@ export default {
   postArticle: {
     errors: {}
   },
+  authors: {
+    results: [],
+    errors: {},
+  },
+  searchResults: {
+    results: {},
+    query: 'all?limit=10&page=1',
+    errors: ''
+  }
 };
