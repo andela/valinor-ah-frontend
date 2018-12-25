@@ -4,12 +4,16 @@ import PropTypes from 'prop-types';
 import paginationHelper from '../../utils/paginationHelper';
 
 export const Buttons = (props) => {
-  const { pages, setActive, currentPage } = props;
+  const {
+    pages,
+    setActive,
+    currentPage,
+  } = props;
   const range = paginationHelper(pages, currentPage);
   return (
     range.map((num, index) => (
       <li key={String(index)}>
-        <button type="button" className={(currentPage === num) ? 'active' : ''} onClick={setActive} value={num} disabled={(num === '...') ? 'disabled' : ''}>{num}</button>
+        <button type="button" className={currentPage === num ? 'active' : ''} onClick={setActive} value={num} disabled={num === '...' || currentPage === num ? 'disabled' : ''}>{num}</button>
       </li>
     ))
   );
@@ -26,20 +30,32 @@ class Pagination extends Component {
     this.decrementPage = this.decrementPage.bind(this);
   }
 
+  componentDidUpdate() {
+    const { pageNumber } = this.props;
+    const { currentPage } = this.state;
+    if (pageNumber !== currentPage) {
+      return this.setActive({ target: { value: pageNumber } });
+    }
+  }
+
   setActive(e) {
-    return this.setState({ currentPage: Number(e.target.value) });
+    const { custom } = this.props;
+    this.setState({ currentPage: Number(e.target.value) });
+    return custom(Number(e.target.value));
   }
 
   incrementPage() {
-    return this.setState(prevState => ({
-      currentPage: prevState.currentPage + 1
-    }));
+    const { custom } = this.props;
+    const { currentPage } = this.state;
+    this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
+    return custom(currentPage + 1);
   }
 
   decrementPage() {
-    return this.setState(prevState => ({
-      currentPage: prevState.currentPage - 1
-    }));
+    const { custom } = this.props;
+    const { currentPage } = this.state;
+    this.setState(prevState => ({ currentPage: prevState.currentPage - 1 }));
+    return custom(currentPage - 1);
   }
 
   render() {
@@ -58,7 +74,9 @@ class Pagination extends Component {
 }
 
 Pagination.propTypes = {
-  pages: PropTypes.number.isRequired
+  pages: PropTypes.number.isRequired,
+  pageNumber: PropTypes.number.isRequired,
+  custom: PropTypes.func.isRequired
 };
 
 export default Pagination;

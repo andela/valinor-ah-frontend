@@ -13,6 +13,6 @@ describe('TEST PAGINATION HELPER FUNCTION', () => {
     expect(resultThree).toEqual([1, '...', 16, 17, 18, 19]);
     expect(resultTFour).toEqual([1, '...', 17, 18, 19, 20]);
     expect(resultTFive).toEqual([1, 2, 3, 4, 5, 6]);
-    expect(resultSix).toEqual('error');
+    expect(resultSix).toEqual([1]);
   });
 });

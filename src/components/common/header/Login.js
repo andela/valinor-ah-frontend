@@ -27,7 +27,7 @@ export class Login extends Component {
   }
 
   render() {
-    const { url } = this.props;
+    const { url, handleSearchSubmit } = this.props;
 
 
     return (
@@ -43,8 +43,8 @@ export class Login extends Component {
             </button>
           </a>
           <div className="dropdown-menu desktop-search-bar" aria-labelledby="navbarSearchLink">
-            <form className="form-inline my-2 my-lg-0">
-              <input className="form-control" type="search" placeholder="Search..." aria-label="Search" />
+            <form className="form-inline my-lg-0" onSubmit={handleSearchSubmit}>
+              <input className="form-control" type="search" placeholder="Search..." aria-label="Search" name="searchInput" />
             </form>
           </div>
         </li>
@@ -132,7 +132,8 @@ export class Login extends Component {
 
 Login.propTypes = {
   url: PropTypes.string.isRequired,
-  logOutAction: PropTypes.func.isRequired
+  logOutAction: PropTypes.func.isRequired,
+  handleSearchSubmit: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = dispatch => ({

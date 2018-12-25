@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import more from '../../../../public/images/more.png';
 import mockCategories from '../../../../mockdata/categories';
 import NavItems from './NavItems';
@@ -11,6 +12,7 @@ class NavBar extends Component {
 
   render() {
     const { categories } = this.state;
+    const { handleSearchSubmit } = this.props;
     return (
       <div className="navbar-collapse offcanvas-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav navbar-links mr-auto">
@@ -27,10 +29,14 @@ class NavBar extends Component {
             </a>
           </li>
         </ul>
-        <UserSettings />
+        <UserSettings handleSearchSubmit={handleSearchSubmit} />
       </div>
     );
   }
 }
+
+NavBar.propTypes = {
+  handleSearchSubmit: PropTypes.func.isRequired
+};
 
 export default NavBar;

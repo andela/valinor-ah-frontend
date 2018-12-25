@@ -15,7 +15,7 @@ export class UserSettings extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, handleSearchSubmit } = this.props;
     if (!isLoggedIn) {
       return (
         <ul className="navbar-nav navbar-links user-links ml-auto">
@@ -30,8 +30,8 @@ export class UserSettings extends Component {
               </button>
             </a>
             <div className="dropdown-menu desktop-search-bar" aria-labelledby="navbarSearchLink">
-              <form className="form-inline my-2 my-lg-0">
-                <input className="form-control" type="search" placeholder="Search..." aria-label="Search" />
+              <form className="form-inline my-lg-0" onSubmit={handleSearchSubmit}>
+                <input className="form-control" type="search" placeholder="Search..." aria-label="Search" name="searchInput" />
               </form>
             </div>
           </li>
@@ -58,12 +58,13 @@ export class UserSettings extends Component {
         </ul>
       );
     }
-    return <Login url={picture} />;
+    return <Login handleSearchSubmit={handleSearchSubmit} url={picture} />;
   }
 }
 
 UserSettings.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  handleSearchSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({ isLoggedIn: state.global.isLoggedIn });

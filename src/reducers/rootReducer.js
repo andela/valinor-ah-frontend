@@ -8,16 +8,20 @@ import popularPostsReducer from './popularPostsReducer';
 import categoryReducer from './categoryReducer';
 import tagReducer from './tagReducer';
 import postArticleReducer from './postArticleReducer';
+import searchReducer from './searchReducer';
+import authorReducer from './authorReducer';
 
 const rootReducer = combineReducers({
-  global,
-  toastr,
   articlesByCategory: articlesReducer,
-  popularArticles: popularPostsReducer,
   article: singleArticleReducer,
+  authors: authorReducer,
   categoryTitles: categoryReducer,
-  tagTitles: tagReducer,
+  global,
+  popularArticles: popularPostsReducer,
   postArticle: postArticleReducer,
+  searchResults: searchReducer,
+  tagTitles: tagReducer,
+  toastr,
 });
 
 export default rootReducer;

@@ -127,7 +127,6 @@ LoginPage.propTypes = {
 };
 
 LoginPage.defaultProps = {
-  // emailError: [],
   sendEmail: () => {}
 };
 
