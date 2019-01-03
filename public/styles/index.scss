@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Zilla+Slab:300,300i,400,500,600,700|Open+Sans:300,400,600,700,800');
 @import 'react-redux-toastr/src/styles/index';
+
 @import './variables';
 @import './mixins';
 @import './HomePage';
@@ -42,6 +43,13 @@ body {
 
     .search-page {
       margin: 3em 0 0;
+    }
+
+    .error {
+      color: $color-red;
+      display: block;
+      font-size: 0.8em;
+      list-style: none;
     }
 
     .main {

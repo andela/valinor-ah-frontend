@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import fetchMock from 'fetch-mock';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import sinon from 'sinon';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import DefaultSignUp, { SignUp } from '../../../../src/components/signup/SignUpPage';
@@ -28,6 +29,20 @@ const userFacebookInformation = {
   }
 };
 
+const initialState = {
+  global: {
+    isLoading: false,
+    isLoggedIn: false
+  },
+  usersReducer: {
+    fullNameError: 'jbdafkjabsfl',
+    emailError: 'jbdafkjabsfl',
+    isLoading: 'jbdafkjabsfl',
+    fullName: 'jbdafkjabsfl',
+    email: 'jbdafkjabsfl',
+  }
+};
+
 test('should test SignUpPage components', () => {
   // eslint-disable-next-line max-len
   const firstComponent = shallow(<SignUp isLoggedIn request={jest.fn()} failure={jest.fn()} handleLogin={jest.fn()} />);
@@ -44,12 +59,6 @@ test('should test SignUpPage components', () => {
 describe('Signup snapshot test', () => {
   let component, store;
   beforeEach(() => {
-    const initialState = {
-      global: {
-        isLoading: false,
-        isLoggedIn: false
-      }
-    };
     store = mockStore(initialState);
     component = shallow(<DefaultSignUp store={store} />);
   });
@@ -67,6 +76,15 @@ describe('Signup snapshot test', () => {
         isLoading: false,
         type: 'TRIGGER_FAILURE',
       }
+    ]);
+  });
+
+  it('should call registerUser', () => {
+    fetchMock.post(`${process.env.API_BASE_URL}/users/signup`, { message: 'emal sent successfully' });
+    component.props().registerUser({ fullName: 'jkasbd ksjabd', email: 'chris@yahoo.com' }, jest.fn());
+    const actions = store.getActions();
+    expect(actions).toEqual([
+      { isLoading: true, type: 'TRIGGER_LOADING' }
     ]);
   });
 
@@ -93,5 +111,45 @@ describe('Signup snapshot test', () => {
     component.props().handleLogin(body);
     const actions = store.getActions();
     expect(actions).toEqual([]);
+  });
+});
+
+function setup() {
+  const props = {
+    fullNameError: ['ghh'],
+    emailError: ['klkl'],
+    isLoading: false,
+    isLoggedIn: false,
+    isSuccess: false,
+    registerUser: jest.fn(),
+    handleLogin: jest.fn(),
+    request: jest.fn(),
+    failure: jest.fn()
+  };
+
+
+  const enzymeWrapper = shallow(<SignUp {...props} />);
+  return {
+    props,
+    enzymeWrapper
+  };
+}
+
+describe('Component', () => {
+  describe('signup', () => {
+    const { enzymeWrapper } = setup();
+    it('shallow test', () => {
+      expect(enzymeWrapper).toMatchSnapshot();
+    });
+    it('simulates handleSubmit event', () => {
+      const handleSubmitSpy = sinon.spy(enzymeWrapper.instance(), 'handleSubmit');
+      enzymeWrapper.find('form.form-signup').simulate('submit', { preventDefault: () => {} });
+      expect(handleSubmitSpy.called);
+    });
+    it('simulates handleChange event', () => {
+      const handleChangeSpy = sinon.spy(enzymeWrapper.instance(), 'handleChange');
+      enzymeWrapper.find('.email').simulate('change', { preventDefault: () => {}, target: {} });
+      expect(handleChangeSpy.called);
+    });
   });
 });
