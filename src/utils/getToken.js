@@ -1,8 +1,8 @@
 const getToken = (getUser) => {
-  const user = localStorage.getItem('user');
+  const user = JSON.parse(localStorage.getItem('user'));
   if (getUser) return user;
   if (user) {
-    const { token } = JSON.parse(user);
+    const { token } = user;
     return token;
   }
 };
