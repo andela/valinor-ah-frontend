@@ -12,11 +12,10 @@ import PopularPosts from '../../../../src/components/home/PopularPosts';
 const { articles } = mockData;
 
 test('PopularPosts snapshot test', () => {
-  const component = shallow(<PopularPosts articles={articles} />);
-  expect(component).toMatchSnapshot();
-
   const noArticleComponent = shallow(<PopularPosts articles={[]} />);
   expect(noArticleComponent).toMatchSnapshot();
+  const component = shallow(<PopularPosts articles={articles} />);
+  expect(component).toMatchSnapshot();
 });
 
 // mock fetched articles by category

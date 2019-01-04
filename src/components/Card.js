@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import HtmlToReact from 'html-to-react';
 
@@ -37,10 +37,22 @@ export const Card = (props) => {
 
 export const CardList = (props) => {
   const {
-    article, title, className
+    article, title, className, pageLimit, setPageLimit
   } = props;
   let button;
   let top;
+  let firstIndicator = '';
+  let secondIndicator = '';
+  let thirdIndicator = '';
+  switch (pageLimit) {
+    case 10: firstIndicator = true;
+      break;
+    case 50: secondIndicator = true;
+      break;
+    case 100: thirdIndicator = true;
+      break;
+    default:
+  }
   if (className === 'home-articles-cont') {
     button = (
       <div className="read-more-btn">
@@ -62,7 +74,7 @@ export const CardList = (props) => {
       <Fragment>
         <div className="d-flex all-articles-header">
           <div className="mr-auto page-header">
-            <h3 className="m-0">{ title }</h3>
+            <h3 className="m-0">{title}</h3>
           </div>
           <div className="d-flex page-limit">
             <ul className="list-inline m-0 align-self-end">
@@ -70,15 +82,27 @@ export const CardList = (props) => {
                 Articles Per Page |
               </li>
               <li className="list-inline-item">
-                <a href="/"> 10</a>
+                <Link
+                  to="" value={10} onClick={setPageLimit}
+                  style={firstIndicator ? { color: '#000000', fontWeight: 'bold' } : {}}>
+                  10
+                </Link>
                 <span> | </span>
               </li>
               <li className="list-inline-item">
-                <a href="/">50</a>
+                <Link
+                  to="" value={50} onClick={setPageLimit}
+                  style={secondIndicator ? { color: '#000000', fontWeight: 'bold' } : {}}>
+                  50
+                </Link>
                 <span> | </span>
               </li>
               <li className="list-inline-item">
-                <a href="/">100</a>
+                <Link
+                  to="" value={100} onClick={setPageLimit}
+                  style={thirdIndicator ? { color: '#000000', fontWeight: 'bold' } : {}}>
+                  100
+                </Link>
                 <span> | </span>
               </li>
             </ul>
@@ -93,18 +117,18 @@ export const CardList = (props) => {
 
       {top}
       {
-          article
-            .map((currentArticle, index) => (
-              <Card
-                category={currentArticle.category}
-                title={currentArticle.title}
-                body={currentArticle.body}
-                backgroundImage={currentArticle.articleImage}
-                link={currentArticle.id}
-                key={`card${String(index)}`}
-              />
-            ))
-        }
+        article
+          .map((currentArticle, index) => (
+            <Card
+              category={currentArticle.category}
+              title={currentArticle.title}
+              body={currentArticle.body}
+              backgroundImage={currentArticle.articleImage}
+              link={currentArticle.id}
+              key={`card${String(index)}`}
+            />
+          ))
+      }
 
       {button}
 
@@ -117,11 +141,18 @@ Card.propTypes = {
   category: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   backgroundImage: PropTypes.string.isRequired,
-  link: PropTypes.number.isRequired,
+  link: PropTypes.number.isRequired
 };
 
 CardList.propTypes = {
   article: PropTypes.array.isRequired,
   title: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
+  pageLimit: PropTypes.number,
+  setPageLimit: PropTypes.func
+};
+
+CardList.defaultProps = {
+  pageLimit: 10,
+  setPageLimit: () => {}
 };

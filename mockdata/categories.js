@@ -3,15 +3,15 @@ export default {
   categories: [
     {
       id: 1,
-      categoryName: 'food'
+      categoryName: 'sports'
     },
     {
       id: 2,
-      categoryName: 'programming'
+      categoryName: 'technology'
     },
     {
       id: 3,
-      categoryName: 'physics'
+      categoryName: 'fashion'
     },
     {
       id: 5,

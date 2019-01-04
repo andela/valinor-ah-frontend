@@ -3,14 +3,14 @@ import {
   FETCH_CATEGORY_SUCCESS,
   FETCH_CATEGORY_FAILURE,
   FETCH_POPULAR_SUCCESS,
-  FETCH_POPULAR_FAILURE
+  FETCH_POPULAR_FAILURE,
 } from './actionTypes';
 import { globalLoading, globalFailure } from './globalActions';
 
-const requestCategorySuccess = (categoryName, articles) => ({
+const requestCategorySuccess = (categoryName, category) => ({
   type: FETCH_CATEGORY_SUCCESS,
   categoryName,
-  payload: { articles },
+  payload: { articles: category.articles, ...category },
 });
 
 const requestCategoryFailure = (categoryName, error) => ({
@@ -29,12 +29,15 @@ const requestPopularFailure = error => ({
   payload: { error }
 });
 
-export const fetchCategory = categoryName => (dispatch) => {
+export const fetchCategory = (categoryName, page, limit) => (dispatch) => {
+  const articleRequestUrl = page ? `${process.env.API_BASE_URL}/articles/category/${categoryName}?page=${page}&limit=${limit || 10}`
+    : `${process.env.API_BASE_URL}/articles/category/${categoryName}`;
+
   // dispatch global action to set state to laoding
   dispatch(globalLoading(true));
 
   // make fetch request
-  return fetch(`${process.env.API_BASE_URL}/articles/category/${categoryName}`)
+  return fetch(articleRequestUrl)
     .then(
       res => res.json(),
       error => dispatch(globalFailure(error))
@@ -48,7 +51,7 @@ export const fetchCategory = categoryName => (dispatch) => {
 
       if (category.articles) {
         // category successfully fetched
-        dispatch(requestCategorySuccess(categoryName, category.articles));
+        dispatch(requestCategorySuccess(categoryName, category));
       }
 
       // dispatch global action to set loading state to false
