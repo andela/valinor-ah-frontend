@@ -14,7 +14,7 @@ const checkUserStatus = () => {
     }
   }
   if (user) {
-    const { token } = JSON.parse(user);
+    const { token } = user;
     const verify = verifyToken(token, process.env.JWT_SECRET);
     if (verify.message) {
       persistor.purge();
