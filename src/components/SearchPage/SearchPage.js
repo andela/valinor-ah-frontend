@@ -5,6 +5,8 @@ import makeAnimated from 'react-select/lib/animated';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import HtmlToReact from 'html-to-react';
+
 
 import Pagination from '../common/Pagination';
 import constructQuery from '../../utils/constructQuery';
@@ -14,6 +16,7 @@ import { fetchTagTitles } from '../../actions/tagActions';
 import fetchAuthors from '../../actions/authorsActions';
 import searchActions from '../../actions/searchActions';
 
+const HtmlToReactParser = new HtmlToReact.Parser();
 
 export const Filters = (props) => {
   const {
@@ -244,8 +247,10 @@ export class SearchPage extends Component {
             {
               articles.map((article, index) => (
                 <div key={String(index)} className="result">
-                  <h6><Link to={`/articles/${article.id}`}>{article.title}</Link></h6>
-                  <p className="excerpt">{article.body}</p>
+                  <h6><Link to={`/articles/${article.id}`}>{HtmlToReactParser.parse(article.title)}</Link></h6>
+                  <p className="excerpt">
+                    {HtmlToReactParser.parse(article.body.slice(0, 200))}
+                  </p>
                 </div>
               ))
             }
