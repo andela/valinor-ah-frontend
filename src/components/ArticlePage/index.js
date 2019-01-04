@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import HtmlToReact from 'html-to-react';
 import { NavLink } from 'react-router-dom';
 
+import { toastr } from 'react-redux-toastr';
 import articlePageScript from '../../../public/js/articlePageScript';
 import { sampleReportTypes } from '../../../mockdata/samplebody';
 import { formatDate, formatReadTime } from '../../utils';
@@ -11,6 +12,7 @@ import CommentBox from './CommentBox';
 import fetchArticle from '../../actions/singleArticleActions';
 import { postComment } from '../../actions/commentActions';
 import getToken from '../../utils/getToken';
+import { fetchUserBookmarks, bookmarkArticle } from '../../actions/bookmarkActions';
 
 const HtmlToReactParser = new HtmlToReact.Parser();
 
@@ -45,12 +47,38 @@ export class ArticlePage extends React.Component {
     this.handleCommentDislikeClick = this.handleCommentDislikeClick.bind(this);
     this.handleCommentInput = this.handleCommentInput.bind(this);
     this.handleCommentPost = this.handleCommentPost.bind(this);
+    this.identifyUserBookmarks = this.identifyUserBookmarks.bind(this);
+    this.updateBookmarkStatus = this.updateBookmarkStatus.bind(this);
   }
 
   componentDidMount() {
-    const { fetchSingleArticle, match } = this.props;
+    const {
+      fetchSingleArticle, match, isLoggedIn, fetchUserBookmarkedArticles
+    } = this.props;
     fetchSingleArticle(match.params.id);
     articlePageScript();
+    if (isLoggedIn) fetchUserBookmarkedArticles();
+  }
+
+  componentDidUpdate(prevProps) {
+    // const { bookmarkState } = this.state;
+    const { bookmarks, isLoggedIn } = this.props;
+    const { bookmarkStatus, bookmarkedArticles } = bookmarks;
+    if ((prevProps.isLoggedIn !== isLoggedIn && !isLoggedIn)) {
+      return this.updateBookmarkStatus(false);
+    }
+    if ((prevProps.bookmarks.bookmarkStatus !== bookmarkStatus) && bookmarkStatus) {
+      toastr.success('you have added this article to your bookmarks');
+      return this.updateBookmarkStatus(true);
+    }
+    if ((prevProps.bookmarks.bookmarkStatus !== bookmarkStatus) && !bookmarkStatus) {
+      toastr.success('you have unbookmarked this article');
+      return this.updateBookmarkStatus(false);
+    }
+    if ((prevProps.bookmarks.bookmarkedArticles !== bookmarkedArticles)
+     && bookmarkedArticles.length) {
+      return this.identifyUserBookmarks();
+    }
   }
 
   // click handlers
@@ -69,9 +97,14 @@ export class ArticlePage extends React.Component {
   }
 
   handleBookmarkClick() {
-    this.setState(prevState => ({
-      bookmarkState: !prevState.bookmarkState
-    }));
+    const { isLoggedIn, bookmarkCurrentArticle, match } = this.props;
+    if (!isLoggedIn) return toastr.error('please log in to bookmark this article');
+    this.setState((prevState) => {
+      bookmarkCurrentArticle(match.params.id);
+      return ({
+        bookmarkState: !prevState.bookmarkState
+      });
+    });
   }
 
   handleCommentLikeClick(index) {
@@ -113,6 +146,22 @@ export class ArticlePage extends React.Component {
     this.setState({
       commentInput: ''
     });
+  }
+
+  identifyUserBookmarks() {
+    const { bookmarks, match } = this.props;
+    const { bookmarkedArticles } = bookmarks;
+    const currentViewedArticleId = +match.params.id;
+    let isBookmarked;
+    if (bookmarkedArticles.length) {
+      isBookmarked = bookmarkedArticles
+        .find(articleUnderProbe => +articleUnderProbe.id === currentViewedArticleId) ? true : null;
+    }
+    if (isBookmarked) return this.setState({ bookmarkState: true });
+  }
+
+  updateBookmarkStatus(status = false) {
+    this.setState({ bookmarkState: status });
   }
 
   render() {
@@ -282,16 +331,23 @@ ArticlePage.propTypes = {
   match: PropTypes.object.isRequired,
   payload: PropTypes.object.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  bookmarks: PropTypes.object.isRequired,
+  bookmarkCurrentArticle: PropTypes.func.isRequired,
+  fetchUserBookmarkedArticles: PropTypes.func.isRequired
 };
 
 export const mapStateToProps = state => ({
   payload: state.article.item,
   isLoggedIn: state.global.isLoggedIn,
+  bookmarks: state.bookmarks,
 });
 
 const mapActionsToProps = {
   postArticleComment: postComment,
   fetchSingleArticle: fetchArticle,
+  bookmarkCurrentArticle: bookmarkArticle,
+  fetchUserBookmarkedArticles: fetchUserBookmarks
 };
+
 
 export default connect(mapStateToProps, mapActionsToProps)(ArticlePage);

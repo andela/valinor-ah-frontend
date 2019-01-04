@@ -7,17 +7,24 @@ import mockData from '../../../../mockdata/singleArticle';
 import connectedArticlePage, {
   ArticlePage,
   SelectList,
-  mapStateToProps
+  mapStateToProps,
 } from '../../../../src/components/ArticlePage';
 import { sampleReportTypes } from '../../../../mockdata/samplebody';
 
-function setup() {
+function setup(bookmarkStatus = false, isLoggedIn = false) {
   const props = {
-    isLoggedIn: false,
+    isLoggedIn,
     postArticleComment: jest.fn(),
     fetchSingleArticle: jest.fn(),
     match: { params: { id: 1 } },
-    payload: mockData
+    payload: mockData,
+    bookmarks: {
+      bookmarkStatus,
+      bookmarkedArticles: [{ id: 1 }],
+      errors: {}
+    },
+    fetchUserBookmarkedArticles: jest.fn(),
+    bookmarkCurrentArticle: jest.fn()
   };
 
   const noQuestionProps = {
@@ -26,14 +33,7 @@ function setup() {
   };
 
   const mockStore = configureMockStore([thunk]);
-  const store = mockStore({
-    global: {
-      isLoggedIn: true
-    },
-    article: {
-      item: {}
-    },
-  });
+  const store = mockStore({ article: { item: mockData }, global: { isLoggedIn: false } });
 
   const connectedArticleWrapper = shallow(<connectedArticlePage {...props} store={store} />);
   const articlePage = shallow(<ArticlePage {...props} />);
@@ -46,8 +46,6 @@ function setup() {
     noQuestionWrapper,
   };
 }
-const { connectedArticleWrapper, articlePage, noQuestionWrapper } = setup();
-
 
 test('Report type select list test', () => {
   // report type select list snapshot test
@@ -58,20 +56,24 @@ test('Report type select list test', () => {
 
 describe('Snapshot tests', () => {
   test('connected article page snapshot', () => {
+    const { connectedArticleWrapper } = setup();
     expect(connectedArticleWrapper).toMatchSnapshot();
   });
 
   test('unconnected article page snapshot', () => {
+    const { articlePage } = setup();
     expect(articlePage).toMatchSnapshot();
   });
 
   test('noquestion article page snapshot', () => {
+    const { noQuestionWrapper } = setup();
     expect(noQuestionWrapper).toMatchSnapshot();
   });
 });
 
 
 describe('Testing articlePage', () => {
+  const { articlePage } = setup();
   const instanceOfArticlePage = articlePage.instance();
 
   test('Testing handleCommentLikeClick handler', () => {
@@ -95,28 +97,17 @@ describe('Testing articlePage', () => {
     expect(instanceOfArticlePage.state.test).toEqual(event.target.value);
   });
 
-  test('testing mapStateToProps', () => {
-    const initialState = {
-      article: {
-        item: {},
-      },
-      global: {
-        isLoggedIn: true,
-      },
-    };
-    expect(mapStateToProps(initialState).payload).toEqual({});
-  });
-
   test('find commentBox', () => {
     expect(articlePage.find('CommentBox')).toBeDefined();
   });
+
+  test('ArticlePage box snapshot test', () => {
+    expect(articlePage).toMatchSnapshot();
+    articlePage.find('.report-article-btn').simulate('click');
+  });
 });
 
-
 describe('Article Page logged in', () => {
-  const { props } = setup();
-  props.isLoggedIn = true;
-
   beforeEach(() => {
     localStorage.setItem('user', JSON.stringify({
       id: 8,
@@ -131,11 +122,21 @@ describe('Article Page logged in', () => {
   });
 
   test('post comment click test', () => {
+    const { props } = setup(false, true);
     const articlePageLoggedIn = shallow(<ArticlePage {...props} />);
     articlePageLoggedIn.find('.post-comment-btn').simulate('click');
   });
+  test('Aritcle options click tests', () => {
+    const { articlePage } = setup();
+    // book mark click
+    expect(articlePage.find('.fa-bookmark').first().hasClass('far')).toBe(true);
+    articlePage.find('.bookmark-btn').first().simulate('click');
+    expect(articlePage.find('.fa-bookmark').first().hasClass('fas')).toBe(false);
+  });
+
 
   test('Aritcle options click tests', () => {
+    const { articlePage } = setup(true, true);
     // book mark click
     expect(articlePage.find('.fa-bookmark').first().hasClass('far')).toBe(true);
     articlePage.find('.bookmark-btn').first().simulate('click');
@@ -157,4 +158,104 @@ describe('Article Page logged in', () => {
 
     articlePage.find('.report-article-btn').simulate('click');
   });
+
+  test('test lifecycle componentDidMount of article page', () => {
+    const { articlePage, props } = setup(false, true);
+    const { fetchUserBookmarkedArticles } = props;
+    const articlePageInstance = articlePage.instance();
+    articlePageInstance.componentDidMount();
+    expect(fetchUserBookmarkedArticles).toHaveBeenCalled();
+  });
+
+  test('test lifecycle componentDidUpdate of article page', () => {
+    const { articlePage } = setup(true, false);
+    const articlePageInstance = articlePage.instance();
+    const prevProps = {
+      isLoggedIn: true,
+      bookmarks: {
+        bookmarkStatus: false
+      }
+    };
+    articlePageInstance.updateBookmarkStatus = jest.fn();
+    articlePageInstance.componentDidUpdate(prevProps);
+    expect(articlePageInstance.updateBookmarkStatus).toHaveBeenCalled();
+  });
+
+  test('test lifecycle componentDidUpdate of article page', () => {
+    const { articlePage } = setup(true, true);
+    const articlePageInstance = articlePage.instance();
+    const prevProps = {
+      bookmarks: {
+        bookmarkStatus: false
+      }
+    };
+    articlePageInstance.updateBookmarkStatus = jest.fn();
+    articlePageInstance.componentDidUpdate(prevProps);
+    expect(articlePageInstance.updateBookmarkStatus).toHaveBeenCalled();
+  });
+
+  test('test lifecycle componentDidUpdate of article page', () => {
+    const { articlePage } = setup(false, true);
+    const articlePageInstance = articlePage.instance();
+    const prevProps = {
+      bookmarks: {
+        bookmarkStatus: true
+      }
+    };
+    articlePageInstance.updateBookmarkStatus = jest.fn();
+    articlePageInstance.componentDidUpdate(prevProps);
+    expect(articlePageInstance.updateBookmarkStatus).toHaveBeenCalled();
+  });
+
+  test('test lifecycle componentDidUpdate of article page', () => {
+    const { articlePage } = setup(false, true);
+    const articlePageInstance = articlePage.instance();
+    const prevProps = {
+      bookmarks: {
+        bookmarkStatus: true
+      }
+    };
+    articlePageInstance.updateBookmarkStatus = jest.fn();
+    articlePageInstance.componentDidUpdate(prevProps);
+    expect(articlePageInstance.updateBookmarkStatus).toHaveBeenCalled();
+  });
+
+
+  test('test  identifyUserBookmarks of article page', () => {
+    const { articlePage } = setup(false, true);
+    const articlePageInstance = articlePage.instance();
+    articlePageInstance.identifyUserBookmarks();
+    expect(articlePage.state('bookmarkState')).toBe(true);
+  });
+
+  test('test  identifyUserBookmarks of article page', () => {
+    const { articlePage } = setup(true, true);
+    const articlePageInstance = articlePage.instance();
+    articlePageInstance.updateBookmarkStatus();
+    expect(articlePage.state('bookmarkState')).toBe(false);
+  });
+
+  test('test handleBookmarkClicks of article page', () => {
+    const { articlePage, props } = setup(false, true);
+    const { bookmarkCurrentArticle } = props;
+    const articlePageInstance = articlePage.instance();
+    articlePageInstance.handleBookmarkClick();
+    expect(articlePage.state('bookmarkState')).toBe(true);
+    expect(bookmarkCurrentArticle).toHaveBeenCalled();
+  });
+});
+
+test('testing mapStateToProps', () => {
+  const initialState = {
+    article: {
+      item: {},
+    },
+    global: {
+      isLoggedIn: true,
+    },
+    item: {
+
+    }
+  };
+  expect(mapStateToProps(initialState).payload).toEqual({});
 });
